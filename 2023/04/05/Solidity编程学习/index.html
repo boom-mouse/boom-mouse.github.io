@@ -1,0 +1,804 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/BMlogo3.jpg">
+  <link rel="icon" href="/img/BMlogo3.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BM-BoomMouse">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="个人学习用书：陈冬林等人译Rtesh Mod著的《Solidity编程》，笔记摘抄其中。 区块链什么是区块链实质是一个去中心化、分布式的数据库或账本，具有以下特征： 去中心化：在一个或多个服务器瘫痪的情况下，应用或服务仍然能够持续的运行。没有一个服务器能绝对控制数据和程序的执行过程。 分布式：网络上的服务器或节点都互相连接，不是一对一或一对多，而是多对多的连接。 数据库：指的是储存持久化数据、用户">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Solidity编程学习">
+<meta property="og:url" content="http://example.com/2023/04/05/Solidity%E7%BC%96%E7%A8%8B%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="BM的小窝">
+<meta property="og:description" content="个人学习用书：陈冬林等人译Rtesh Mod著的《Solidity编程》，笔记摘抄其中。 区块链什么是区块链实质是一个去中心化、分布式的数据库或账本，具有以下特征： 去中心化：在一个或多个服务器瘫痪的情况下，应用或服务仍然能够持续的运行。没有一个服务器能绝对控制数据和程序的执行过程。 分布式：网络上的服务器或节点都互相连接，不是一对一或一对多，而是多对多的连接。 数据库：指的是储存持久化数据、用户">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/solidity.png">
+<meta property="article:published_time" content="2023-04-05T07:53:42.000Z">
+<meta property="article:modified_time" content="2023-05-02T15:30:35.818Z">
+<meta property="article:author" content="BM-BoomMouse">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="区块链">
+<meta property="article:tag" content="Solidity">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/solidity.png">
+  
+  
+  
+  <title>Solidity编程学习 - BM的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BM的个人空间</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>类别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/mom/">
+                <i class="iconfont icon-bilibili-fill"></i>
+                <span>测试</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>Links</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/solidity.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Solidity编程学习"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-05 15:53" pubdate>
+          April 5, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.2k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          52 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Solidity编程学习</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on 12 days ago
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>个人学习用书：陈冬林等人译Rtesh Mod著的《Solidity编程》，笔记摘抄其中。</p>
+<h1 id="区块链"><a href="#区块链" class="headerlink" title="区块链"></a>区块链</h1><h2 id="什么是区块链"><a href="#什么是区块链" class="headerlink" title="什么是区块链"></a>什么是区块链</h2><p>实质是一个去中心化、分布式的数据库或账本，具有以下特征：</p>
+<p><strong>去中心化</strong>：在一个或多个服务器瘫痪的情况下，应用或服务仍然能够持续的运行。没有一个服务器能绝对控制数据和程序的执行过程。</p>
+<p><strong>分布式</strong>：网络上的服务器或节点都互相连接，不是一对一或一对多，而是多对多的连接。</p>
+<p><strong>数据库</strong>：指的是储存持久化数据、用户能够及时从任何地点进行访问的地方。其基本功能是数据存储和检索，同时也提供一些管理功能，以高效的管理数据。</p>
+<p><strong>账本</strong>：账本是一种特殊的数据储存方式，他不允许修改历史数据，要改变账本的余额只能通过新镇和追加纪录实现。<del>比如我每天吃饭记账是记-10元而不是记余额</del> 区块链是和账本存在共同特征的数据库，新的数据只能通过追加进行存储，没有任何修改数据的可能。</p>
+<p>区块链是由区块组成的链条。它是由多个区块前后连接在一起的，交易纪录存储在每个区块的内部，以这种方式，这些交易纪录不能能在被更改。</p>
+<p><img src="/img/qvkuailian.png" srcset="/img/loading.gif" lazyload alt="区块链"></p>
+<h2 id="为什么使用区块链"><a href="#为什么使用区块链" class="headerlink" title="为什么使用区块链"></a>为什么使用区块链</h2><p><strong>信任</strong>：由于去中心化，数据由多人集体控制，其中任何一个人都没有权利去更改或删除记录。即使有人真的做到了，也不会被其他人承认。</p>
+<p><strong>自治性</strong>：对于区块链上的应用来说，没有唯一的所有者，所以也没有人能够单独操控它，但是每个人却都可以通过它的行为来参与治理过程，这就有利于建立一个不能被操控或不易诱发腐败的解决方案。<del>好耶^_^</del></p>
+<p><strong>去中介化</strong>：基于区块链的应用能够消除现有流程的中间环节，<del>没有中间商赚差价，瓜*</del>。区块链将开启新的时代，很多业务将不再需要中间的权威机构进行背书了。<del>哟西时间就是金钱，区块链大大滴好</del></p>
+<p>区块链非常依赖于加密技术</p>
+<h2 id="加密技术"><a href="#加密技术" class="headerlink" title="加密技术"></a>加密技术</h2><p>计算机领域有两种加密技术</p>
+<p><strong>对称加密和解密</strong>：在加密和解密过程中使用同一个密钥，这意味着很多人将使用同一个密钥。<del>一个泄露全都gg</del></p>
+<p><strong>非对称加密和解密</strong>：在加密和解密过程中使用两个密钥。任一密钥都能用于加密和解密。使用公钥加密的信息，可以使用私钥解密。使用私钥加密的信息，可以使用公钥解密。</p>
+<p>书上的例子：</p>
+<hr>
+<blockquote>
+<p>Tom使用Alice的公钥加密一个信息，发送给Alice，然后Alice可以使用她的私钥进行解密。简单来说，使用Alice的公钥加密的信息只能被她自己独有的私钥解密。</p>
+</blockquote>
+<hr>
+<p>非对称加密还有一个用途就是数字签名。</p>
+<h3 id="散列"><a href="#散列" class="headerlink" title="散列"></a>散列</h3><p>散列是将输入的数据转换成一个<strong>固定长度</strong>的随机字符串（散列值Hash又名哈希值）的过程，但是不能从结果反向生成或识别出原始数据，因此，散列也成为<strong>数据指纹</strong>，且哪怕原数据发生了一点点变化，也会产生完全不同的散列值，确保了没人可以在原始数据上做手脚。另一个特征：虽然输入数据的长度可能不同，但产生的散列值长度都是固定的</p>
+<p>例如：</p>
+<hr>
+<blockquote>
+<p>使用SHA256散列算法，不论输入数据的长度如何，总会产生一个256字节的散列值。</p>
+</blockquote>
+<hr>
+<p>当数据量很大时，这点就非常有用，它总能产生固定长度的散列值，这样可以保存下来作为证据。以太坊很多地方都使用了散列技术，它对每一笔交易进行散列，会对两个交易的散列值进行再次散列，最终为同一区块的每个交易产生一个根散列值。<del>不懂</del></p>
+<p>散列还有一个重要特征，不同的输入数据不会产生同一个散列值。</p>
+<p>以太坊使用Keccak256(SHA3)作为它的散列算法。</p>
+<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>非对称加密的一个重要应用是在数字签名创造和验证时使用非对称密钥。数字签名有助于是识别一个人，还有助于确保信息在传递过程中不被篡改。</p>
+<hr>
+<blockquote>
+<p>Alice准备给Tom发送一条信息，Tom如何确保信息是由Alice发的，且没有被篡改？解决方案就是不能发送原始数据内容&#x2F;交易，Alice首先需要取得发送的信息的散列值，然后用她的私钥对散列值进行加密，最后，她把这个刚产生的数字签名附加在散列值后发送给Tom。Tom收到信息后，使用Alice的公钥提取出数字签名并解密，找到原始散列值。同时，他从实际接收到的信息中提前散列值，并对两个散列值进行比较，如果两个散列值一致，那么说明信息在传递过程中没有被篡改过。</p>
+</blockquote>
+<hr>
+<p>数字签名通常用于资产或加密数字货币的所有者对交易进行签名确认</p>
+<h2 id="以太币"><a href="#以太币" class="headerlink" title="以太币"></a>以太币</h2><p>以太币是以太坊上的货币。以太坊的每次活动都需要消耗以太币作为费用，成功产生区块的矿工也会获得以太币作为奖励，以太币通过交易平台很容易兑换成法定货币。</p>
+<p>以太币采用十进制的计量体系，最小单位是wei。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/web3/web3.js/blob/0.15.0/lib/utils/utils.js#L40">更多计量单位</a></p>
+<h2 id="gas"><a href="#gas" class="headerlink" title="gas"></a>gas</h2><p>由于以太币在交易所公开买卖，所以它的价格会波动。那么由于价格不定，同个服务的成本也会忽高忽低，这样，人们会选择在价格低谷时再去交易，形成<u>峰谷效应</u>。gas(燃料)的作用就是缓解这个问题，它是以太坊当前的内部货币。使用gas进行计价，用户能够预先确定一个交易的执行成本，这就是<strong>gas成本</strong>。当以太币价格暴跌是，<strong>gas价格</strong>适当提高，反之亦然。</p>
+<blockquote>
+<hr>
+<p>峰谷效应：价格低的时候，执行量过大，平台超负荷运转</p>
+<hr>
+</blockquote>
+<h2 id="区块链和以太坊架构"><a href="#区块链和以太坊架构" class="headerlink" title="区块链和以太坊架构"></a>区块链和以太坊架构</h2><p>区块链是一种包含多个组件的体系结构，区块链独特的地方在于这些组件的功能和互相作用。重要组件包括：EVM（Ethereum Virtual Machine 以太坊虚拟机）、矿工、区块、交易、共识算法、账户、智能合约、挖矿、以太币和gas。</p>
+<p>一个区块链网络是由大量节点构成的，其中一部分属于矿工的<u>挖矿节点</u>，另一部分不挖矿但会<u>帮助执行智能合约和交易</u>。这些节点统称为<strong>EVM</strong>。网络上的各个节点互相连接，节点之间通过P2P协议进行通信，默认情况下使用30303端口。</p>
+<p>每个节点都维护着一个账本的实例（副本），包含链上的全部区块。由于网络上存在大量矿工节点，为了避免节点之间的区块数据存在差异，这些节点会<u>持续同步区块</u>，确保账本数据一致。</p>
+<p>智能合约也运行在EVM上。智能合约通过编写个性化的业务功能扩展以太坊的能力。智能合约执行的时候，是作为交易的一部分按照前面的挖矿流程尽进行的。</p>
+<p>在网络上由账户的用户可以发送信息来完成账户之间的以太币交易，或者发送消息来调用合约中的一个函数。对以太坊来说，这两种方式实质上都是交易。在交易确认和更改账户余额时，账户所有人必须用私钥对交易进行数字签名，这样才能确定发送者的身份。</p>
+<h3 id="区块如何互相连接"><a href="#区块如何互相连接" class="headerlink" title="区块如何互相连接"></a>区块如何互相连接</h3><p>在区块链和以太坊中，每个区块都连接着另一个区块。两个区块之间是一对父子关系，而且是一对一的关系，这样首尾相连就成了一个链条。</p>
+<p><img src="/img/%E5%8C%BA%E5%9D%97%E5%A6%82%E4%BD%95%E8%BF%9E%E6%8E%A5.jpg" srcset="/img/loading.gif" lazyload alt="区块如何连接"></p>
+<p>在每个区块的头部存储父区块的散列值，这样就建立了父子关系。而第一个区块则是<strong>创世区块</strong>。这个区块是在链初次发起时自动创建的。而创世区块则是通过<strong>genesis.json</strong>文件生成的。</p>
+<h3 id="交易和区块如何互相连接"><a href="#交易和区块如何互相连接" class="headerlink" title="交易和区块如何互相连接"></a>交易和区块如何互相连接</h3><p>在以太坊中，交易是存储在区块里面的，交易在执行时需要消耗一定数量的gas，由于每个区块都有一个gas上限，待执行的交易消耗的gas总数不能超过上限，这样可以避免将所有交易存储在一个区块里。当到达gas上限时，其他交易就不能再写入这个区块，此时。节点开始挖矿。</p>
+<p>一个交易在产生散列值之后，就被存储到区块中，接着，挖矿程序会选取两个交易的散列值进行再次散列，再阐述一个新的散列值。区块里面的所有交易最终会产生一个唯一的散列值，它就是<strong>Merkle根散列值</strong>，保存在区块头上。如果区块里的任何一个交易发生了变化，这个交易的散列值也会随着变化，最终会导致根交易散列值发生变化。当区块的散列值发生变化后，由于子区块保存了父区块的散列值，因此，它的子区块的散列值也需要随之变化，这样会引发连锁反应，使得整个区块链都需要变化才行，因此，区块链的不可篡改才成为可能。<del>卧槽，碉堡了，牵一发而动全身</del></p>
+<h2 id="以太坊节点"><a href="#以太坊节点" class="headerlink" title="以太坊节点"></a>以太坊节点</h2><p>节点就是计算机，它们之间通过<u>p2p协议</u>互相连接，组成了以太坊网络。</p>
+<p>以太坊有两种类型的节点：</p>
+<ul>
+<li>EVM</li>
+<li>挖矿节点</li>
+</ul>
+<p>这种分类只是为了对概念进行细分，在大多数场景下，并没有专门的EVM，相反，所有的矿工节点都承担了EVM的职能<del>所以啥是EVM</del></p>
+<h3 id="EVM"><a href="#EVM" class="headerlink" title="EVM"></a>EVM</h3><p>EVM是以太坊网络的运行环境，其主要职能是提供执行智能合约代码的环境。EVM能够访问智能合约内部和外部的账户<del>哪是内哪是外啊？</del>，以及自己存储的数据，但它只能访问当前交易的信息，不能访问全部账本。<del>无痕模式是吧</del></p>
+<p>EVMs是以太坊的执行组件，其目的是逐行地执行智能合约中的代码。但是，当交易提交时，它实际并没有被立即执行，而是被存放到交易池中，当然也就没有写入到以太坊账本中。<del>啊？</del></p>
+<h3 id="以太坊挖矿节点"><a href="#以太坊挖矿节点" class="headerlink" title="以太坊挖矿节点"></a>以太坊挖矿节点</h3><p>xxxxxxxxxx | 1    | 2    || —- | —- |&#x2F;&#x2F;下划线| 3    | 4    |C</p>
+<p>挖矿或挖矿节点有三个重要功能：</p>
+<ul>
+<li>挖矿或打包交易产生新的区块并写入到以太坊账本</li>
+<li>向其他矿工发送最新的区块，并通知他们接收</li>
+<li>接收其他矿工的区块，并更新本地账本</li>
+</ul>
+<h3 id="如何挖矿"><a href="#如何挖矿" class="headerlink" title="如何挖矿"></a>如何挖矿</h3><p>矿工一面计算程序以便挖到新区块，另一方面也在时刻侦听交易池中的新交易，接收、验证和转发其他矿工的区块。</p>
+<p>矿工先创建一个区块，然后从交易池中手机交易并添加到区块中，在添加之前，会检查交易是否已经呗其他矿工写入到了区块中，若已被写入，则去掉它。</p>
+<p>为了获得挖矿奖励，矿工需要添加自己的币基（coinbase）交易（区块中第一笔交易时挖矿的回报交易），接着，产生区块头并执行一下步骤；</p>
+<ol>
+<li>矿工抓取两个交易的散列值，进行再次散列并产生一个新的散列值，知道对所有交易完成散列后，将得到唯一的散列值，这就是根交易散列值或Merkle根交易散列值，它将被添加到区块头。</li>
+<li>矿工也需要确定上一个区块的散列值，因为它是当前区块的父区块，父区块的散列值要保存在当前区块头中。</li>
+<li>矿工计算交易的<a href="#state">state</a>和<a href="#state">recejpts</a>根散列值，然后写入区块头。</li>
+<li>Nonce和时间戳纪录到区块头。</li>
+<li>产生整个区块（包括区块头和区块体）的散列值。</li>
+<li>挖矿流程开始，矿工持续变换Nonce值，直到发现该散列值能够解决难题为止。</li>
+<li>矿工找到答案后，它将会发送给网络上的其他矿工。其他矿工会先确认该答案是否正确，若正确，将开始验证每个交易，然后接受该区块，并添加到他们的本地账本中。</li>
+</ol>
+<p>上面的整个流程，因为矿工提供了经过不断计算而获得了解题答案的证明，所以，被称之为<strong>工作量证明（PoW）</strong>。另外，还有其他一些算法，如<strong>权益证明（PoS）</strong>和<strong>权威证明（PoA）</strong>,以太坊不使用这些算法。区块头和它的组成部分如下图：</p>
+<p><img src="/img/solidity/%E5%A6%82%E4%BD%95%E6%8C%96%E7%9F%BF.jpg" srcset="/img/loading.gif" lazyload></p>
+<blockquote>
+<div id="state"><div>
+
+<p>这里的state和receipts指的是另外两个Merkled树。以太坊有三颗Merkle树：交易Merkle树、state Merkle树和收据Merkle树。</p>
+</blockquote>
+<h2 id="以太坊账户"><a href="#以太坊账户" class="headerlink" title="以太坊账户"></a>以太坊账户</h2><p>以太坊将交易保存到账本上的过程，其实就是账户之间进行交互的过程。以太坊有两种账户：外部账户和合约账户。每个账户默认有个余额属性，可以查看当前账户以太币的余额</p>
+<h3 id="外部账户"><a href="#外部账户" class="headerlink" title="外部账户"></a>外部账户</h3><p>以太坊上的用户所拥有的账户。在以太坊中，账户不能使用名称来叼调用。当在以太坊上创建一个外部账户时，会产生一对公钥和私钥。私钥需要你保存到安全的地方，公钥就是你对账户持有所有权的证明。公钥一般时256个字符，但时以太坊只使用前面160个字符来标识身份。</p>
+<p>外部或者你过户 能持有以太币，但不能执行任何代码。它能于其他外部账户交易，也可以借助智能合约中的函数执行交易。</p>
+<h3 id="合约账户"><a href="#合约账户" class="headerlink" title="合约账户"></a>合约账户</h3><p>于外部账户很相似，可以从公开的地址来识别他们。合约账户没有私钥，但可以像外部账户一样持有以太币，不同的是，合约账户可以包含代码，它的代码时有函数和状态变量组成的。</p>
+<h2 id="交易"><a href="#交易" class="headerlink" title="交易"></a>交易</h2><p>交易是买方和卖方、供应商和消费者、提供方和消费方之间使用货币、加密数字货币或其他资产换取对方的资产、产品或服务的协议。一台非常为了交易能够顺利执行提供了保障。以太坊支持以下三种交易类型</p>
+<ol>
+<li><p><strong>从一个账户向另一个账户发送以太币</strong></p>
+<ul>
+<li>在交易中，一个外部账户向另一个外部账户发送以太币</li>
+<li>在交易中，一个外部账户向一个合约账户发送以太币</li>
+<li>在交易中，一个合约账户向另一个合约账户发送以太币</li>
+<li>在交易中，一个合约账户向一个外部账户发送以太币</li>
+</ul>
+</li>
+<li><p><strong>智能合约部署</strong></p>
+<p> 外部账户在EVM上部署合约是通过交易的方式实现的。</p>
+<p> 使用或借助合约内的函数：如果需要执行合约内的函数去改变一个状态，就需要一个交易，如果执行函数没有改变任何一个状态，就不需要交易。</p>
+<p> 有关交易的一些重要属性：</p>
+<p> <strong>From账户属性</strong>：说明这个账户时交易的发起方，发送gas或以太币。From账户可以是外部账户也可以是合约账户。</p>
+<p> <strong>To账户属性</strong>：指的是接受以太币或其他收益的账户，可以是外部账户也可以是合约账户。如果是部署合约的交易，则To字段为空。</p>
+<p> <strong>Value账户属性</strong>：指的是账户之间转移的以太币数量。</p>
+<p> <strong>Input账户属性</strong>：指的是合约编译后被部署在EVM上的字节码。input也用于保存有关著能合约函数带参调用的信息。</p>
+<p> <strong>BlockHash账户属性</strong>：指的是该交易所属的区块的散列值。</p>
+<p> <strong>BlockNumber账户属性</strong>：指的是交易所属的区块序号。</p>
+<p> <strong>Gas账户属性</strong>：指的是交易的发送方支付的gas数量。</p>
+<p> <strong>GasPrice账户属性</strong>：指的是发送方支付的gas价格，以wei为单位，总gas消耗&#x3D;gas数量*gas价格。</p>
+<p> <strong>Hash账户属性</strong>：指的是交易的散列值。</p>
+<p> <strong>Nonce账户属性</strong>：指的是交易的编号，它由发送方在当前交易之前产生。</p>
+<p> <strong>TransactionIndex账户属性</strong>：指的是区块中当前交易的水流号。</p>
+<p> <strong>Value账户属性</strong>：指的是用wei计算的传递的以太的数量。</p>
+<p> <strong>V、R和S属性</strong>：指的是数字签名和交易的签名</p>
+</li>
+</ol>
+<h2 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h2><p>区块是交易的容器，它是由多个交易组成。因为受区块的gas上限和区块大小限制，每个区块包含的交易数量并不相同，区块连接在一起形成了区块链，除了第一个区块（创世区块）没有父区块，其他区块都有一个父区块，父区块的散列值存储在区块头上。</p>
+<p>区块的重要属性</p>
+<ul>
+<li><strong>Difficulty属性</strong>：指的是矿工为了挖到这个区块而需要面对的计算难度。</li>
+<li><strong>GasLimit属性</strong>：指的是区块允许的gas总量上限。它决定了区块中能包含多少个交易</li>
+<li><strong>GasUsed属性</strong>：指的是区块中的交易实际消耗的gas数量。</li>
+<li><strong>Hash属性</strong>：区块的散列值。</li>
+<li><strong>Nonce属性</strong>：指的是一个数字，是解决难题的答案。</li>
+<li><strong>Miner属性</strong>：指的是矿工的账户，可以用coinbase或etherbase的地址。</li>
+<li><strong>Number属性</strong>：指的是该区块在区块链上的序号。</li>
+<li><strong>ParentHash属性</strong>：指的是父区块的散列值。</li>
+<li><strong>ReceiptsRoot、stateRoot、TransactionsRoot属性</strong>：指的是前面挖矿流程中提到的merkle树。</li>
+<li><strong>Transaction属性</strong>：指的是区块中的交易组成的一个数组。</li>
+<li><strong>TotalDifficulty属性</strong>：指的是区块链的整体难度。</li>
+</ul>
+<h2 id="端到端的交易"><a href="#端到端的交易" class="headerlink" title="端到端的交易"></a>端到端的交易</h2><blockquote>
+<hr>
+<p>Sam打算发一个数字资产(如美元)给Mark。首先Sam新建了一个交易，里面包括了from、to、value等字段数据，然后发送到以太网络上，该交易并没有立即写入账本中，而是暂存到交易池中。</p>
+<p>挖矿节点新建了一个区块，然后按照gas上限标准，从交易池中提取交易，并添加到区块中，网络上的全体矿工都执行相同的任务。</p>
+<p>接下来，矿工开始争先恐后的去计算难题，在一段时间内(或几秒后)，获胜者会发出通知，声称他找到了答案，需要向区块链写入区块，与此同时，获胜者把答案添加到区块上并发送给其他矿工，其他矿工收到后，首先验证这个答案，一旦认定这个答案有效，就会停止自己的计算，接收这个包含了Sam交易的区块，然后添加到他们的本地账本中。这样下去，就在区块链上产生了一个新区块，它将一直跨越时空而永久的存在下去。在这期间，双方余额都会得到更新，最后，这个块呗分发复制到网络的全部节点</p>
+<hr>
+</blockquote>
+<h2 id="什么是合约"><a href="#什么是合约" class="headerlink" title="什么是合约"></a>什么是合约</h2><p>合约是经过双方或多方同意，约定立即执行或在将来执行一项交易的法律文件，因为合约是法律文件，所以它具有强制性和可执行性。合约应用的场景很多，如:一个人和保险公司签订合同购买保险</p>
+<h2 id="什么是智能合约"><a href="#什么是智能合约" class="headerlink" title="什么是智能合约"></a>什么是智能合约</h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">#学习笔记</a>
+      
+        <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">#区块链</a>
+      
+        <a href="/tags/Solidity/">#Solidity</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Solidity编程学习</div>
+      <div>http://example.com/2023/04/05/Solidity编程学习/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>BM-BoomMouse</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>April 5, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a><p> <i class="iconfont icon-love"></i>
+
+
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
