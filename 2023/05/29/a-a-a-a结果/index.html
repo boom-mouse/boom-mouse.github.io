@@ -16,24 +16,22 @@
   <meta name="author" content="BM-BoomMouse">
   <meta name="keywords" content="">
   
-    <meta name="description" content="嗨嗨嗨">
+    <meta name="description" content="卧槽真是有趣哇，这玩意在Java和C的结果居然不同 12int a&#x3D;12;a+&#x3D;a-&#x3D;a*&#x3D;a;  结果是C结果为0，java结果为-120  结论：java在执行过程中，a的值不会自动更新，a的值一直都是12，直到完成运算后，才更新a的值，而C是自动更新的  毕竟咱先学的C，咱按C的想法肯定是  先算a*&#x3D;a	返回值144，a&#x3D;144; 而后a-&#x3D;（a*&#x3D;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CSS">
-<meta property="og:url" content="http://example.com/2023/04/17/CSS/index.html">
+<meta property="og:title" content="a+&#x3D;a-&#x3D;a*&#x3D;a结果">
+<meta property="og:url" content="http://example.com/2023/05/29/a-a-a-a%E7%BB%93%E6%9E%9C/index.html">
 <meta property="og:site_name" content="BM的小窝">
-<meta property="og:description" content="嗨嗨嗨">
+<meta property="og:description" content="卧槽真是有趣哇，这玩意在Java和C的结果居然不同 12int a&#x3D;12;a+&#x3D;a-&#x3D;a*&#x3D;a;  结果是C结果为0，java结果为-120  结论：java在执行过程中，a的值不会自动更新，a的值一直都是12，直到完成运算后，才更新a的值，而C是自动更新的  毕竟咱先学的C，咱按C的想法肯定是  先算a*&#x3D;a	返回值144，a&#x3D;144; 而后a-&#x3D;（a*&#x3D;">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-04-17T01:05:49.000Z">
-<meta property="article:modified_time" content="2023-05-02T15:35:38.934Z">
+<meta property="article:published_time" content="2023-05-29T13:22:24.000Z">
+<meta property="article:modified_time" content="2023-05-29T14:13:28.730Z">
 <meta property="article:author" content="BM-BoomMouse">
-<meta property="article:tag" content="学习笔记">
-<meta property="article:tag" content="CSS">
-<meta property="article:tag" content="前端">
+<meta property="article:tag" content="题目">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>CSS - BM的小窝</title>
+  <title>a+=a-=a*=a结果 - BM的小窝</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -223,7 +221,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CSS"></span>
+            <span id="subtitle" data-typed-text="a+=a-=a*=a结果"></span>
           
         </div>
 
@@ -234,8 +232,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-17 09:05" pubdate>
-          April 17, 2023 am
+        <time datetime="2023-05-29 21:22" pubdate>
+          May 29, 2023 pm
         </time>
       </span>
     
@@ -246,7 +244,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3 words
+          783 words
         
       </span>
     
@@ -257,7 +255,7 @@
         
         
         
-          1 mins
+          7 mins
         
       </span>
     
@@ -295,12 +293,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">CSS</h1>
+            <h1 style="display: none">a+=a-=a*=a结果</h1>
             
               <p class="note note-info">
                 
                   
-                    Last updated on a month ago
+                    Last updated on 15 hours ago
                   
                 
               </p>
@@ -308,11 +306,27 @@
             
               <div class="markdown-body">
                 
-                <blockquote>
-<hr>
-<p>嗨嗨嗨</p>
-<hr>
+                <p>卧槽真是有趣哇，这玩意在Java和C的结果居然不同</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> a=<span class="hljs-number">12</span>;<br>a+=a-=a*=a;<br></code></pre></td></tr></table></figure>
+
+<p>结果是C结果为0，java结果为-120</p>
+
+<p><b>结论：</b>java在执行过程中，a的值不会自动更新，a的值一直都是12，直到完成运算后，才更新a的值，而C是自动更新的</p>
+
+<p>毕竟咱先学的C，咱按C的想法肯定是</p>
+<blockquote>
+<p>先算a*&#x3D;a	返回值144，a&#x3D;144;</p>
+<p>而后a-&#x3D;（a*&#x3D;a),等效于a-&#x3D;144	返回值（144-144）&#x3D;0，此时a&#x3D;0;</p>
+<p>最后a+&#x3D;(a-&#x3D;(a+&#x3D;a)),等效于a+&#x3D;0	返回值（0+0）&#x3D;0，此时a&#x3D;0;</p>
 </blockquote>
+<p>理也确实是这个理，结果也确实是这样（不过有大佬和编译器有关，据说Cfree和devC结果不同），但放到了Java里却得出了-120的结果，这是为什么呢？java和C的基础语法是差不多的，看了许久不知道Java是怎么算出来的，于是我跑去问openai，也说不明白，查了优先级，java也是和C一样的，最后在朋友的帮助下查到了原因，原来Java在这种运算中，a的值是不会自动更新的，也就是说，从头到尾，a的值都是12</p>
+<blockquote>
+<p>首先。运算顺序和C是一样的，先算</p>
+<p>a*&#x3D;a	返回值也是144，但是！！重点来了，<strong>此时a的值依然为12！！</strong></p>
+<p>接着a-&#x3D;(a*&#x3D;a)	等效于a-&#x3D;144,因为a&#x3D;12，所以	返回值（12-144）&#x3D;-132	a&#x3D;12;</p>
+<p>最后a+&#x3D;(a-&#x3D;(a*&#x3D;a))	等效于a+&#x3D;-132,因为a&#x3D;12，所以	返回值（12-132）&#x3D;-120，<strong>a&#x3D;-120</strong></p>
+</blockquote>
+<p>所以说，在Java执行过程中，<strong>a的值是不会自动更新的，而是在最后时，才进行更新！</strong></p>
 
                 
               </div>
@@ -321,36 +335,11 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">#学习笔记</a>
-      
-        <a href="/tags/CSS/">#CSS</a>
-      
-        <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+        <a href="/tags/%E9%A2%98%E7%9B%AE/">#题目</a>
       
     </div>
   
@@ -362,8 +351,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CSS</div>
-      <div>http://example.com/2023/04/17/CSS/</div>
+      <div>a+=a-=a*=a结果</div>
+      <div>http://example.com/2023/05/29/a-a-a-a结果/</div>
     </div>
     <div class="license-meta">
       
@@ -375,7 +364,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>April 17, 2023</div>
+          <div>May 29, 2023</div>
         </div>
       
       
