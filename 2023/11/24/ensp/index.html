@@ -1,0 +1,766 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/BMlogo3.jpg">
+  <link rel="icon" href="/img/BMlogo3.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BM-BoomMouse">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="描述vlandescription用来给vlan加定义信息 1description Technical&#x2F;&#x2F;技术部vlan  ip绑定mac1234int e0&#x2F;0&#x2F;3port-sercurity enableport-sercur mac-address strickport-sercur mac-address strick 1234-4567-ABCD vlan 10 &#x2F;&#x2F;在valn10上启">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ensp常用基础指令">
+<meta property="og:url" content="http://example.com/2023/11/24/ensp/index.html">
+<meta property="og:site_name" content="BM的小窝">
+<meta property="og:description" content="描述vlandescription用来给vlan加定义信息 1description Technical&#x2F;&#x2F;技术部vlan  ip绑定mac1234int e0&#x2F;0&#x2F;3port-sercurity enableport-sercur mac-address strickport-sercur mac-address strick 1234-4567-ABCD vlan 10 &#x2F;&#x2F;在valn10上启">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image.png">
+<meta property="og:image" content="http://example.com/image-1.png">
+<meta property="og:image" content="http://example.com/image-2.png">
+<meta property="og:image" content="http://example.com/image-3.png">
+<meta property="og:image" content="http://example.com/image-4.png">
+<meta property="og:image" content="http://example.com/image-5.png">
+<meta property="og:image" content="http://example.com/image-6.png">
+<meta property="og:image" content="http://example.com/image-7.png">
+<meta property="og:image" content="http://example.com/image-8.png">
+<meta property="article:published_time" content="2023-11-24T13:06:16.000Z">
+<meta property="article:modified_time" content="2024-12-28T12:45:02.128Z">
+<meta property="article:author" content="BM-BoomMouse">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/image.png">
+  
+  
+  
+  <title>ensp常用基础指令 - BM的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BM的个人空间</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>类别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/%E5%B0%8F%E7%8E%A9%E6%84%8F">
+                <i class="iconfont icon-pen"></i>
+                <span>小玩意</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ensp常用基础指令"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-11-24 21:06" pubdate>
+          November 24, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          93 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ensp常用基础指令</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on 21 hours ago
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="描述vlan"><a href="#描述vlan" class="headerlink" title="描述vlan"></a>描述vlan</h1><p>description用来给vlan加定义信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ensp">description Technical//技术部vlan<br></code></pre></td></tr></table></figure>
+
+<h1 id="ip绑定mac"><a href="#ip绑定mac" class="headerlink" title="ip绑定mac"></a>ip绑定mac</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ensp">int e0/0/3<br>port-sercurity enable<br>port-sercur mac-address strick<br>port-sercur mac-address strick 1234-4567-ABCD vlan 10 //在valn10上启用<br></code></pre></td></tr></table></figure>
+
+<h1 id="STP"><a href="#STP" class="headerlink" title="STP"></a>STP</h1><p>①使冗余端口置于“阻塞状态”<br>②网络中的计算机在通信时，只有一条链路生效<br>③当这个链路出现故障时，将处于“阻塞状态”的端口重新打开，从而确保网络连接稳定可靠<br><strong>STP</strong>的优先级越小，优先级越高，最小0，最大4096</p>
+<h2 id="开启STP"><a href="#开启STP" class="headerlink" title="开启STP"></a>开启STP</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">stp <span class="hljs-built_in">enable</span><br>stp mode stp<br></code></pre></td></tr></table></figure>
+
+<h2 id="配置STP优先级"><a href="#配置STP优先级" class="headerlink" title="配置STP优先级"></a>配置STP优先级</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">stp priority <span class="hljs-number">0</span>  <span class="hljs-regexp">//</span>配置成为主根交换机<br>stp priority <span class="hljs-number">4096</span>  <span class="hljs-regexp">//</span>配置成为备份根交换机<br></code></pre></td></tr></table></figure>
+<p>还有另一种方法</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">stp root primary    <span class="hljs-regexp">//</span>主根交换机<br>stp root secondary  <span class="hljs-regexp">//</span>备份根交换机<br></code></pre></td></tr></table></figure>
+<h2 id="配置边缘端口"><a href="#配置边缘端口" class="headerlink" title="配置边缘端口"></a>配置边缘端口</h2><p>配置为边缘端口，以加速网络的收敛,缩短收敛的时间，减少了对网络通信的影响</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">int</span> e0<span class="hljs-regexp">/0/</span><span class="hljs-number">10</span><br>stp edged-port enable<br></code></pre></td></tr></table></figure>
+
+<h1 id="RSTP"><a href="#RSTP" class="headerlink" title="RSTP"></a>RSTP</h1><h2 id="开启rstp"><a href="#开启rstp" class="headerlink" title="开启rstp"></a>开启rstp</h2><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dos">stp <span class="hljs-built_in">mode</span> rstp <br></code></pre></td></tr></table></figure>
+<h2 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">stp priority <span class="hljs-number">0</span>  <span class="hljs-regexp">//</span>配置成为主根交换机<br>stp priority <span class="hljs-number">4096</span>  <span class="hljs-regexp">//</span>配置成为备份根交换机<br></code></pre></td></tr></table></figure>
+<p>还有另一种方法</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">stp root primary    <span class="hljs-regexp">//</span>主根交换机<br>stp root secondary  <span class="hljs-regexp">//</span>备份根交换机<br></code></pre></td></tr></table></figure>
+<h2 id="配置边缘端口-1"><a href="#配置边缘端口-1" class="headerlink" title="配置边缘端口"></a>配置边缘端口</h2><p>配置为边缘端口，以加速网络的收敛,缩短收敛的时间，减少了对网络通信的影响</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-keyword">int</span> e0<span class="hljs-regexp">/0/</span><span class="hljs-number">10</span><br>stp edged-port enable<br></code></pre></td></tr></table></figure>
+
+<h1 id="静态路由"><a href="#静态路由" class="headerlink" title="静态路由"></a>静态路由</h1><h2 id="配置静态路由"><a href="#配置静态路由" class="headerlink" title="配置静态路由"></a>配置静态路由</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">ip</span> route-static 目标网段 子网掩码 下一跳地址<br><span class="hljs-attribute">ip</span> route-static <span class="hljs-number">172.16.1.0</span> <span class="hljs-number">24</span> <span class="hljs-number">20.20.20.10</span><br></code></pre></td></tr></table></figure>
+<p>在 R1 上配置目的网段为主机 PC2 所在网段的静态路由，即目的 IP 地址为 172.16.1.0，<br>掩码 255.255.255.0 即 24 位。对于 R1 而言，要发送数据到主机 PC2，则必须先发送给 R2，<br>所以 R2 即为 R1 的下一跳路由，R2 与 R1 所在的直连链路上的物理接口的 IP 地址即为下一<br>跳 IP 地址，即 20.20.20.10。<br><img src="/image.png" srcset="/img/loading.gif" lazyload alt="route-static"></p>
+<h2 id="查看路由表"><a href="#查看路由表" class="headerlink" title="查看路由表"></a>查看路由表</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">display</span> ip routing-<span class="hljs-selector-tag">table</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="浮动路由"><a href="#浮动路由" class="headerlink" title="浮动路由"></a>浮动路由</h1><p>定义：指<strong>配置两条静态路由</strong>，默认选取链路质量优（<strong>带宽大的）作为主路径</strong>，当主路径出现故障时，由带宽较小的备份路径顶替主路经，浮动路由站在同一时刻，数据<strong>只会由一条链路代为转发。</strong>。 <strong>优先级越小越优先</strong><br><strong>静态路由的默认优先级是60</strong></p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dns">[R1]ip route-static <span class="hljs-number">0.0.0.0</span> <span class="hljs-number">0.0.0.0</span> <span class="hljs-number">10.10.10.10</span><br>[R2]ip route-static <span class="hljs-number">0.0.0.0</span> <span class="hljs-number">0.0.0.0</span> <span class="hljs-number">10.10.10.1</span><br></code></pre></td></tr></table></figure>
+<p>浮动路由，优先级设为100，做备用。</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dns">[R1]ip route-static <span class="hljs-number">0.0.0.0</span> <span class="hljs-number">0.0.0.0</span> <span class="hljs-number">20.20.20.10</span> preference <span class="hljs-number">100</span><br>[R2]ip route-static <span class="hljs-number">0.0.0.0</span> <span class="hljs-number">0.0.0.0</span> <span class="hljs-number">20.20.20.1</span> preference <span class="hljs-number">100</span><br></code></pre></td></tr></table></figure>
+<p><img src="/image-1.png" srcset="/img/loading.gif" lazyload alt="Alt text"></p>
+<h1 id="OSPF动态路由协议"><a href="#OSPF动态路由协议" class="headerlink" title="OSPF动态路由协议"></a>OSPF动态路由协议</h1><p>Area 0 是骨干区域、核心区域，Area 1、2 等是常规区域，其他常规区域都必须与此相连。</p>
+<h2 id="创建并运行"><a href="#创建并运行" class="headerlink" title="创建并运行"></a>创建并运行</h2><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs armasm">配置<br>[<span class="hljs-built_in">R1</span>]ospf <span class="hljs-number">1</span><br>[<span class="hljs-built_in">R1</span>-ospf-<span class="hljs-number">1</span>]<span class="hljs-meta">area</span> <span class="hljs-number">0</span><br>[<span class="hljs-built_in">R1</span>-ospf-<span class="hljs-number">1</span>-<span class="hljs-meta">area</span>-<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>]network <span class="hljs-number">192</span>.<span class="hljs-number">168</span>.<span class="hljs-number">1</span>.<span class="hljs-number">0</span> <span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>.<span class="hljs-number">255</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">network</span> 直连网段 反掩码<br></code></pre></td></tr></table></figure>
+
+<h1 id="单臂路由"><a href="#单臂路由" class="headerlink" title="单臂路由"></a>单臂路由</h1><p>单臂路由（router-on-a-stick）是指在路由器的一个接口上通过配置子接口（或“逻辑接口”，并不存在真正物理接口）的方式，实现原来相互隔离的不同VLAN（虚拟局域网）之间的互联互通。<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45551608/article/details/114764211">单臂详解</a></p>
+<blockquote>
+<p>易错点<br>1 交换机和路由器相连的端口属性要设置为Trunk且运行所有vlan通过；<br>2 和路由器直接相连的接口（不是子接口）不能设置IP；<br>3 路由器的子接口要记得开启arp广播请求；<br>4 主机ip和子接口ip地址（所对应的网关地址）不能重复。</p>
+</blockquote>
+<p><img src="/image-2.png" srcset="/img/loading.gif" lazyload alt="Alt text"></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs gradle">[Huawei]system-view<br>[Huawei]sysname SW1<br>[SW1]vlan batch <span class="hljs-number">10</span> <span class="hljs-number">20</span><br>[SW1] port-<span class="hljs-keyword">group</span> <span class="hljs-keyword">group</span>-member Ethernet <span class="hljs-number">0</span><span class="hljs-regexp">/0/</span><span class="hljs-number">2</span> to Ethernet <span class="hljs-number">0</span><span class="hljs-regexp">/0/</span><span class="hljs-number">10</span><br>[SW1-port-<span class="hljs-keyword">group</span>]port link-type access<br>[SW1-port-<span class="hljs-keyword">group</span>]port <span class="hljs-keyword">default</span> vlan <span class="hljs-number">10</span><br>[SW1-port-<span class="hljs-keyword">group</span>]quit<br>[SW1] port-<span class="hljs-keyword">group</span> <span class="hljs-keyword">group</span>-member Ethernet <span class="hljs-number">0</span><span class="hljs-regexp">/0/</span><span class="hljs-number">11</span> to Ethernet <span class="hljs-number">0</span><span class="hljs-regexp">/0/</span><span class="hljs-number">20</span> <br>[SW1-port-<span class="hljs-keyword">group</span>]port link-type access<br>[SW1-port-<span class="hljs-keyword">group</span>]port <span class="hljs-keyword">default</span> vlan <span class="hljs-number">20</span><br>[SW1-port-<span class="hljs-keyword">group</span>]quit<br>[SW1]<span class="hljs-keyword">interface</span> Ethernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">1</span><br>[SW1-Ethernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">1</span>]port link-type trunk<br>[SW1]<span class="hljs-keyword">interface</span> Ethernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">1</span><br>[SW1-Ethernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">1</span>]port trunk allow-pass vlan <span class="hljs-number">10</span> <span class="hljs-number">20</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs gradle">&lt;Huawei&gt;system-view<br>[Huawei]sysname R1<br>[R1]<span class="hljs-keyword">interface</span> GigabitEthernet <span class="hljs-number">0</span><span class="hljs-regexp">/0/</span><span class="hljs-number">0.1</span><br>[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0.1</span>]dot1q termination vid <span class="hljs-number">10</span><br>[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0.1</span>]ip address <span class="hljs-number">192.168</span>.<span class="hljs-number">1.254</span> <span class="hljs-number">24</span><br>[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0.1</span>]arp broadcast enable<br>[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0.1</span>]quit<br>[R1]<span class="hljs-keyword">interface</span> GigabitEthernet <span class="hljs-number">0</span><span class="hljs-regexp">/0/</span><span class="hljs-number">0.2</span><br>[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0.2</span>]dot1q termination vid <span class="hljs-number">20</span><br>[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0.2</span>]ip address <span class="hljs-number">192.168</span>.<span class="hljs-number">2.254</span> <span class="hljs-number">24</span><br>[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0.2</span>]arp broadcast enable<br></code></pre></td></tr></table></figure>
+<p>dot1q终结模式是指在网络设备（如交换机、路由器）上配置一个接口，用于接收和处理使用IEEE 802.1Q协议进行标记的VLAN数据帧。</p>
+<p>IEEE 802.1Q是一种VLAN标记协议，通过在以太网帧的头部添加额外的标记字段来标识不同的VLAN。当网络中的数据帧经过支持802.1Q的交换机时，交换机会根据帧头部的标记字段将数据帧发送到相应的VLAN。</p>
+<p>而dot1q终结模式则是在网络设备上配置特定的接口，使其能够接收并解析带有VLAN标记的数据帧，并按照相应的VLAN进行处理。这样，设备就能够将不同VLAN之间的数据进行隔离和转发。</p>
+<p>通过配置dot1q终结模式，网络设备可以实现多个虚拟局域网（VLAN）之间的隔离和通信，提供更灵活和可靠的网络架构。</p>
+<p>ARP（Address Resolution Protocol）是一种用于将IP地址解析为MAC地址的协议。当主机需要与目标主机通信时，首先需要知道目标主机的MAC地址。主机会通过发送ARP请求广播来获取目标主机的MAC地址，然后将该MAC地址添加到自己的ARP缓存中，以便后续通信。</p>
+<p>在命令中，<code>[R1-GigabitEthernet0/0/0.10]</code> 表示进入到接口 GigabitEthernet0&#x2F;0&#x2F;0 的子接口 VLAN 10 的配置模式。”arp broadcast enable” 则是启用该接口上的 ARP 广播功能，允许该接口发送 ARP 请求广播。</p>
+<h1 id="vlanif"><a href="#vlanif" class="headerlink" title="vlanif"></a>vlanif</h1><p>分VLAN后，同一VLAN内的用户可以互相通信，但是属于不同VLAN的用户不能直接通信。为了实现VLAN间通信，可通过配置逻辑的三层接口（VLANIF接口）来实现。当交换机需要与网络层的设备通信时，可以在交换机上创建基于VLAN的逻辑接口，即VLANIF接口。VLANIF接口属于逻辑接口，逻辑接口是指物理上不存在且需要通过配置建立的接口。<br>VLANIF接口是网络层接口，创建VLANIF接口前要先创建了对应的VLAN，才可以配置IP地址。借助VLANIF接口，交换机就能与其它网络层的设备互相通信。</p>
+<h1 id="vrrp"><a href="#vrrp" class="headerlink" title="vrrp"></a>vrrp</h1><p>虚拟路由冗余协议VRRP（Virtual Router Redundancy Protocol）通过把几台路由设备联合组成一台虚拟的路由设备，将虚拟路由设备的IP地址作为用户的默认网关实现与外部网络通信。当网关设备发生故障时，VRRP机制能够选举新的网关设备承担数据流量，从而保障网络的可靠通信。</p>
+<h2 id="配置VRRP协议"><a href="#配置VRRP协议" class="headerlink" title="配置VRRP协议"></a>配置VRRP协议</h2><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">vrrp</span> vrid 备份组号 virtual-<span class="hljs-built_in">ip</span> 虚拟<span class="hljs-built_in">ip</span><br></code></pre></td></tr></table></figure>
+<p><img src="/image-3.png" srcset="/img/loading.gif" lazyload alt="Alt text"></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs gradle">[R1]<span class="hljs-keyword">interface</span> G0<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span><br>[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>]vrrp vrid <span class="hljs-number">1</span> virtual-ip <span class="hljs-number">192.168</span>.<span class="hljs-number">1.254</span><br><br>[R2]<span class="hljs-keyword">interface</span> GigabitEthernet <span class="hljs-number">0</span><span class="hljs-regexp">/0/</span><span class="hljs-number">0</span><br>[R2-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>]vrrp vrid <span class="hljs-number">1</span> virtual-ip <span class="hljs-number">192.168</span>.<span class="hljs-number">1.254</span><br></code></pre></td></tr></table></figure>
+<p><strong>设置优先级</strong><br>vrrp的优先级越大越优先，默认是100。使R1 成为 Master， R2 为 Backup</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>]vrrp vrid <span class="hljs-number">1</span> priority <span class="hljs-number">110</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="配置上行接口监视"><a href="#配置上行接口监视" class="headerlink" title="配置上行接口监视"></a>配置上行接口监视</h2><p>在 R1 上配置上行接口监视，监视上行接口 G0&#x2F;0&#x2F;1，当此接口断掉时，裁剪优先级 60，<br>使优先级变为 50，小于 R2 的优先级 100。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-string">[R1-GigabitEthernet0/0/0]</span>vrrp vrid <span class="hljs-number">1</span> track <span class="hljs-keyword">interface</span> <span class="hljs-symbol">GigabitEthernet</span> <span class="hljs-symbol">0</span>/<span class="hljs-symbol">0</span>/<span class="hljs-symbol">1</span> <span class="hljs-symbol">reduced</span> <span class="hljs-symbol">60</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="基于VRRP的双出口负载均衡"><a href="#基于VRRP的双出口负载均衡" class="headerlink" title="基于VRRP的双出口负载均衡"></a>基于VRRP的双出口负载均衡</h1><p>为内部计算机指定两个网关，使内部流量通过不同的路由器转发。网关可以使用<strong>多个VRRP组来实现</strong></p>
+<h2 id="配置VRRP路由协议"><a href="#配置VRRP路由协议" class="headerlink" title="配置VRRP路由协议"></a>配置VRRP路由协议</h2><p><img src="/image-4.png" srcset="/img/loading.gif" lazyload alt="Alt text"></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-comment">//R1配置</span><br>[R1]<span class="hljs-keyword">interface</span> G0<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span><br>[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>]vrrp vrid <span class="hljs-number">1</span> virtual-ip <span class="hljs-number">192.168</span>.<span class="hljs-number">1.253</span><br>[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>] vrrp vrid <span class="hljs-number">2</span> virtual-ip <span class="hljs-number">192.168</span>.<span class="hljs-number">1.254</span><br><br>R2配置<br>[R2]<span class="hljs-keyword">interface</span> GigabitEthernet <span class="hljs-number">0</span><span class="hljs-regexp">/0/</span><span class="hljs-number">0</span><br>[R2-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>]vrrp vrid <span class="hljs-number">1</span> virtual-ip <span class="hljs-number">192.168</span>.<span class="hljs-number">1.253</span><br>[R2-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>]vrrp vrid <span class="hljs-number">2</span> virtual-ip <span class="hljs-number">192.168</span>.<span class="hljs-number">1.254</span><br></code></pre></td></tr></table></figure>
+<p><strong>设置优先级</strong><br>优先级默认100，配置优先级使R1成为组1的master路由，R2成为组2的master路由</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>]vrrp vrid <span class="hljs-number">1</span> priority <span class="hljs-number">110</span><br>[R2-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>] vrrp vrid <span class="hljs-number">2</span> priority <span class="hljs-number">110</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="监视上行端口"><a href="#监视上行端口" class="headerlink" title="监视上行端口"></a>监视上行端口</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gradle">[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>]vrrp vrid <span class="hljs-number">1</span> track <span class="hljs-keyword">interface</span> GigabitEthernet <span class="hljs-number">0</span><span class="hljs-regexp">/0/</span><span class="hljs-number">1</span> reduced <span class="hljs-number">60</span><br><br>[R2-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>]vrrp vrid <span class="hljs-number">1</span> track <span class="hljs-keyword">interface</span> GigabitEthernet <span class="hljs-number">0</span><span class="hljs-regexp">/0/</span><span class="hljs-number">2</span> reduced <span class="hljs-number">60</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="链路聚合"><a href="#链路聚合" class="headerlink" title="链路聚合"></a>链路聚合</h1><p><strong>两台交换机间的链路进行汇聚，提高网络传输质量</strong></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>创建Eth-Trunk 1 接口，指定为手工负载分担模式</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-attr">[SW1]</span>interface Eth-Trunk <span class="hljs-number">1</span><br><span class="hljs-selector-attr">[SW1-Eth-Trunk1]</span>mode manual load-balance<br><span class="hljs-selector-attr">[SW1]</span>quit<br></code></pre></td></tr></table></figure>
+<p><strong>将端口加入接口</strong></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">[SW1]<span class="hljs-keyword">interface</span> GigabitEthernet <span class="hljs-number">0</span><span class="hljs-regexp">/0/</span><span class="hljs-number">1</span><br>[SW1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">1</span>] eth-trunk <span class="hljs-number">1</span><br>[SW1]<span class="hljs-keyword">interface</span> GigabitEthernet <span class="hljs-number">0</span><span class="hljs-regexp">/0/</span><span class="hljs-number">2</span><br>[SW1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">2</span>] eth-trunk <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<p><strong>批量加入</strong></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle">[SW1]<span class="hljs-keyword">interface</span> Eth-Trunk <span class="hljs-number">1</span><br>[SW1]trunkport g0<span class="hljs-regexp">/0/</span><span class="hljs-number">1</span> g0<span class="hljs-regexp">/0/</span><span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="PAP认证"><a href="#PAP认证" class="headerlink" title="PAP认证"></a>PAP认证</h1><h2 id="配置ppp的pap认证"><a href="#配置ppp的pap认证" class="headerlink" title="配置ppp的pap认证"></a>配置ppp的pap认证</h2><p><strong>认证端配置</strong><br>R1 路由器作为认证端，需要配置本端 PPP 协议的认证方式为 PAP。执行 aaa 命令，进入<br>AAA 视图，配置 PAP 认证所使用的用户名密码。</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs x86asm">[<span class="hljs-built_in">R1</span>]<span class="hljs-keyword">aaa</span><br>[<span class="hljs-built_in">R1</span>-<span class="hljs-keyword">aaa</span>]local-user jan16 password cipher <span class="hljs-number">123456</span><br>[<span class="hljs-built_in">R1</span>-<span class="hljs-keyword">aaa</span>]local-user jan16 service-type ppp<br>[<span class="hljs-built_in">R1</span>-<span class="hljs-keyword">aaa</span>]<span class="hljs-keyword">int</span> s4/<span class="hljs-number">0</span>/<span class="hljs-number">0</span><br>[<span class="hljs-built_in">R1</span>-Serial4/<span class="hljs-number">0</span>/<span class="hljs-number">0</span>]link-protocol ppp<br>[<span class="hljs-built_in">R1</span>-Serial4/<span class="hljs-number">0</span>/<span class="hljs-number">0</span>]ppp authentication-mode pap<br></code></pre></td></tr></table></figure>
+
+<p><strong>对端配置pap认证</strong></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gradle">[R2]<span class="hljs-keyword">int</span> s4<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span><br>[R2-Serial4<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>]link-protocol ppp<br>[R2-Serial4<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>]ppp pap local-user Jan16 password cipher <span class="hljs-number">123456</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="CHAP认证"><a href="#CHAP认证" class="headerlink" title="CHAP认证"></a>CHAP认证</h1><h2 id="配置ppp的CHAP认证"><a href="#配置ppp的CHAP认证" class="headerlink" title="配置ppp的CHAP认证"></a>配置ppp的CHAP认证</h2><p><strong>认证方</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">[R1]aaa<br>[R1-aaa]<span class="hljs-keyword">local</span>-<span class="hljs-keyword">user</span> Jan16 <span class="hljs-keyword">password</span> cipher <span class="hljs-number">123456</span><br>[R1-aaa]<span class="hljs-keyword">local</span>-<span class="hljs-keyword">user</span> Jan16 service-<span class="hljs-keyword">type</span> ppp<br>[R1]interface <span class="hljs-type">Serial</span> <span class="hljs-number">4</span>/<span class="hljs-number">0</span>/<span class="hljs-number">0</span><br>[R1-<span class="hljs-type">Serial4</span>/<span class="hljs-number">0</span>/<span class="hljs-number">0</span>]link-protocol ppp<br>[R1-<span class="hljs-type">Serial4</span>/<span class="hljs-number">0</span>/<span class="hljs-number">0</span>]ppp authentication-mode chap<br></code></pre></td></tr></table></figure>
+<p><strong>被认证方</strong></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">[R2]<span class="hljs-keyword">int</span> s4<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span><br>[R2-Serial4<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>]link-protocol ppp<br>[R2-Serial4<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>]ppp chap user Jan16<br>[R2-Serial4<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>]ppp chap password <span class="hljs-number">123456</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="PPPoE认证"><a href="#PPPoE认证" class="headerlink" title="PPPoE认证"></a>PPPoE认证</h1><p>拨号上网</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs css">①修改 ISP 路由器的设备名，并配置 Loopback1 接口的 IP；<br><span class="hljs-selector-attr">[Huawei]</span>system-view<br><span class="hljs-selector-attr">[Huawei]</span>sysname ISP<br><span class="hljs-selector-attr">[ISP]</span> interface LoopBack1<br><span class="hljs-selector-attr">[ISP-LoopBack1]</span> ip <span class="hljs-selector-tag">address</span> <span class="hljs-number">10.10</span>.<span class="hljs-number">10.1</span> <span class="hljs-number">255.255</span>.<span class="hljs-number">255.0</span><br>②配置 PPPoE 地址池，通过使用全局地址池给对端分配地址，实现 PPPoE Server 为<br>PPPoE Client 动态分配 IP 地址。<br><span class="hljs-selector-attr">[ISP]</span>ip pool pppoe<br><span class="hljs-selector-attr">[ISP-ip-pool-pppoe]</span>gateway-list <span class="hljs-number">20.20</span>.<span class="hljs-number">20.1</span><br><span class="hljs-selector-attr">[ISP-ip-pool-pppoe]</span>network <span class="hljs-number">20.20</span>.<span class="hljs-number">20.0</span> <span class="hljs-attribute">mask</span> <span class="hljs-number">255.255</span>.<span class="hljs-number">255.0</span><br>③配置 PPPoE 认证用户，实现 PPPoE Server 对用户主机的认证。<br><span class="hljs-selector-attr">[ISP]</span>aaa<br><span class="hljs-selector-attr">[ISP-aaa]</span>local-user r1 password cipher <span class="hljs-number">123456</span><br><span class="hljs-selector-attr">[ISP-aaa]</span>local-user r1 privilege level <span class="hljs-number">0</span><br><span class="hljs-selector-attr">[ISP-aaa]</span>local-user r1 service-type ppp<br>④配置虚拟接口模板 VT，本端 PPPoE 协议对对端设备的认证方式为 CHAP。<br><span class="hljs-selector-attr">[ISP]</span>interface Virtual-Template <span class="hljs-number">1</span><br><span class="hljs-selector-attr">[ISP-Virtual-Template1]</span>ppp authentication-mode chap<br><span class="hljs-selector-attr">[ISP-Virtual-Template1]</span>remote <span class="hljs-selector-tag">address</span> pool pppoe<br><span class="hljs-selector-attr">[ISP-Virtual-Template1]</span>ip <span class="hljs-selector-tag">address</span> <span class="hljs-number">20.20</span>.<span class="hljs-number">20.1</span> <span class="hljs-number">255.255</span>.<span class="hljs-number">255.0</span><br>⑤启用 PPPoE Server 功能，在以太网接口 G0/<span class="hljs-number">0</span>/<span class="hljs-number">0</span> 上启用 PPPoE Server 功能。<br><span class="hljs-selector-attr">[ISP]</span>interface GigabitEthernet <span class="hljs-number">0</span>/<span class="hljs-number">0</span>/<span class="hljs-number">0</span><br><span class="hljs-selector-attr">[ISP-GigabitEthernet0/0/0]</span>pppoe-server bind Virtual-Template <span class="hljs-number">1</span><br>（<span class="hljs-number">2</span>）配置 PPPoE 客户端<br>①修改 R1 路由器的设备名，并配置 G0/<span class="hljs-number">0</span>/<span class="hljs-number">1</span> 接口的 IP 作为内网用户的网关；<br><span class="hljs-selector-attr">[Huawei]</span>system-view<br><span class="hljs-selector-attr">[Huawei]</span>sysname R1<br><span class="hljs-selector-attr">[R1]</span>int G0/<span class="hljs-number">0</span>/<span class="hljs-number">1</span><br><span class="hljs-selector-attr">[R1-GigabitEthernet0/0/1]</span> ip <span class="hljs-selector-tag">address</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">10.254</span> <span class="hljs-number">255.255</span>.<span class="hljs-number">255.0</span><br>②配置 Dialer 接口。<br><span class="hljs-selector-attr">[R1]</span>interface Dialer0<br><span class="hljs-selector-attr">[R1-Dialer0]</span>ppp chap user r1<br><span class="hljs-selector-attr">[R1-Dialer0]</span>ppp chap password cipher <span class="hljs-number">123456</span><br><span class="hljs-selector-attr">[R1-Dialer0]</span>tcp adjust-mss <span class="hljs-number">1200</span><br><span class="hljs-selector-attr">[R1-Dialer0]</span>ip <span class="hljs-selector-tag">address</span> ppp-negotiate<br><span class="hljs-selector-attr">[R1-Dialer0]</span>dialer user isp<br><span class="hljs-selector-attr">[R1-Dialer0]</span>dialer bundle <span class="hljs-number">1</span><br><span class="hljs-selector-attr">[R1-Dialer0]</span>dialer-group <span class="hljs-number">1</span><br>③建立 PPPoE 会话<br><span class="hljs-selector-attr">[R1]</span>interface GigabitEthernet0/<span class="hljs-number">0</span>/<span class="hljs-number">0</span><br><span class="hljs-selector-attr">[R1-GigabitEthernet0/0/0]</span> pppoe-client dial-bundle-number <span class="hljs-number">1</span><br>④配置 NAT 转换，配置局域网用户通过 NAT 转换将私网地址转换为公网地址，进行拨<br>号上网。<br><span class="hljs-selector-attr">[R1]</span>acl number <span class="hljs-number">3000</span><br><span class="hljs-selector-attr">[R1-acl-adv-3000]</span> rule <span class="hljs-number">5</span> permit ip source <span class="hljs-number">192.168</span>.<span class="hljs-number">10.0</span> <span class="hljs-number">0.0</span>.<span class="hljs-number">0.255</span><br><span class="hljs-selector-attr">[R1-acl-adv-3000]</span>quit<br><span class="hljs-selector-attr">[R1]</span>interface Dialer0<br><span class="hljs-selector-attr">[R1-Dialer0]</span>nat outbound <span class="hljs-number">3000</span><br>⑤配置到 PPPoE Server 的静态路由<br><span class="hljs-selector-attr">[R1]</span> ip route-static <span class="hljs-number">0.0</span>.<span class="hljs-number">0.0</span> <span class="hljs-number">0</span> dialer <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="ACL访问控制列表"><a href="#ACL访问控制列表" class="headerlink" title="ACL访问控制列表"></a>ACL访问控制列表</h1><p>ACL用来过滤数据包</p>
+<h2 id="配置ACL"><a href="#配置ACL" class="headerlink" title="配置ACL"></a>配置ACL</h2><p>创建ACL允许，源为192.168.30.0的报文通过，应用到G0&#x2F;0&#x2F;2上。<br>华为默认全部允许</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs inform7"><span class="hljs-comment">[SW1]</span>acl 2000<br><span class="hljs-comment">[SW1-acl-basic-2000]</span><span class="hljs-keyword">rule</span> permit source 192.168.30.0 0.0.0.255<br><span class="hljs-comment">[SW1-acl-basic-2000]</span><span class="hljs-keyword">rule</span> deny <br><span class="hljs-comment">[SW1]</span>int G0/0/2<br><span class="hljs-comment">[SW1-GigabitEthernet0/0/2]</span>traffic-filter outbound acl 2000<br></code></pre></td></tr></table></figure>
+
+<p>拒绝包源网段为192.168.40.0的报文通过，规则应用到g0&#x2F;0&#x2F;1上</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">[SW1]acl <span class="hljs-number">2001</span><br>[SW1-acl-basic-<span class="hljs-number">2001</span>]rule deny <span class="hljs-keyword">source</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">40.0</span> <span class="hljs-number">0.0</span>.<span class="hljs-number">0.255</span><br>[SW1]<span class="hljs-keyword">int</span> G0<span class="hljs-regexp">/0/</span><span class="hljs-number">1</span><br>[SW1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">1</span>]traffic-filter outbound acl <span class="hljs-number">2001</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="扩展ACL"><a href="#扩展ACL" class="headerlink" title="扩展ACL"></a>扩展ACL</h1><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs x86asm">[<span class="hljs-built_in">R1</span>]acl <span class="hljs-number">3000</span><br><br>//配置了ACL的第<span class="hljs-number">5</span>条规则，允许源<span class="hljs-built_in">IP</span>地址为<span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.1</span>的TCP流量通过，目的端口为<span class="hljs-number">80</span>（HTTP）。<br>[<span class="hljs-built_in">R1</span>-acl-adv-<span class="hljs-number">3000</span>]rule <span class="hljs-number">5</span> permit tcp source <span class="hljs-number">192.168</span><span class="hljs-number">.10</span><span class="hljs-number">.1</span> <span class="hljs-number">0</span> destination-port eq www<br><br>[<span class="hljs-built_in">R1</span>-acl-adv-<span class="hljs-number">3000</span>]rule <span class="hljs-number">10</span> deny <span class="hljs-built_in">ip</span><br>[<span class="hljs-built_in">R1</span>]<span class="hljs-keyword">int</span> G0/<span class="hljs-number">0</span>/<span class="hljs-number">1</span><br>[<span class="hljs-built_in">R1</span>-GigabitEthernet0/<span class="hljs-number">0</span>/<span class="hljs-number">1</span>]traffic-filter outbound acl <span class="hljs-number">3000</span><br></code></pre></td></tr></table></figure>
+<p>这组命令的作用是配置了一个ACL，允许源IP地址为192.168.10.1的HTTP流量通过，而拒绝其他所有IP流量通过。然后，将该ACL应用到了GigabitEthernet0&#x2F;0&#x2F;1接口的出流量中。这样，从该接口发送出去的数据包都会被ACL过滤，只有符合规则的HTTP流量才能通过。<br>在这个语句中，</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">rule</span>表示ACL规则的关键字，<span class="hljs-number">5</span>表示规则的编号。permit表示该规则允许匹配的流量通过，tcp表示该规则适用于TCP协议。source <span class="hljs-number">192.168.10.1</span> <span class="hljs-number">0</span>表示源IP地址为<span class="hljs-number">192.168.10.1</span>，destination-port eq www表示目的端口为<span class="hljs-number">80</span>（HTTP）。<br></code></pre></td></tr></table></figure>
+
+<h1 id="静态nat发布官网"><a href="#静态nat发布官网" class="headerlink" title="静态nat发布官网"></a>静态nat发布官网</h1><p>网络地址转换，主要将私有地址转换成公网地址。形成映射关系</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle">[R1]<span class="hljs-keyword">interface</span> GigabitEthernet <span class="hljs-number">0</span><span class="hljs-regexp">/0/</span><span class="hljs-number">1</span><br>[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">1</span>]nat <span class="hljs-keyword">static</span> global <span class="hljs-number">16.16</span>.<span class="hljs-number">16.1</span> inside <span class="hljs-number">192.168</span>.<span class="hljs-number">1.1</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">nat</span> static <span class="hljs-meta">global</span> 公网<span class="hljs-built_in">ip</span> inside 内部<span class="hljs-built_in">ip</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/image-5.png" srcset="/img/loading.gif" lazyload alt="NAT-static"></p>
+<h1 id="动态nat访问互联网"><a href="#动态nat访问互联网" class="headerlink" title="动态nat访问互联网"></a>动态nat访问互联网</h1><p>动态 NAT 转换需要有多个公网 IP 地址，在路由器中将公网 IP 地址配置为 NAT 地址池，并建立 ACL 列表匹配内部地址。在出口<br>路由器的 G0&#x2F;0&#x2F;1 上应用 NAT 转换即可。<br>动态NAT基于地址池来实现私有地址和公有地址的转换，转换是随机的<br><strong>配置地址池</strong></p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[R1]nat address-<span class="hljs-keyword">group</span> <span class="hljs-title">1</span> <span class="hljs-number">16.16</span>.<span class="hljs-number">16.1</span> <span class="hljs-number">16.16</span>.<span class="hljs-number">16.5</span><br></code></pre></td></tr></table></figure>
+<p><strong>创建ACL</strong></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs inform7"><span class="hljs-comment">[R1]</span>acl 2000<br><span class="hljs-comment">[R1-acl-basic-2000]</span><span class="hljs-keyword">rule</span> permit source 192.168.10.0 0.0.0.255<br></code></pre></td></tr></table></figure>
+<p><strong>nat绑定acl</strong><br>在 G0&#x2F;0&#x2F;1 接口下使用 nat outbound 命令将 ACL2000 与地址池相关联，使得 ACL 中规<br>定的地址可以使用地址池进行地址转换。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle">[R1-acl-basic-<span class="hljs-number">2000</span>]<span class="hljs-keyword">int</span> G0<span class="hljs-regexp">/0/</span><span class="hljs-number">1</span><br>[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">1</span>]nat outbound <span class="hljs-number">2000</span> address-<span class="hljs-keyword">group</span> <span class="hljs-number">1</span> no-pat   <span class="hljs-comment">//不使用pat模式</span><br></code></pre></td></tr></table></figure>
+<p>端口多路复用（Port address Translation,PAT）是指改变外出数据包的源端口并进行端口转换，即端口地址转换（PAT，Port Address Translation）.采用端口多路复用方式。内部网络的所有主机均可共享一个合法外部IP地址实现对Internet的访问，从而可以最大限度地节约IP地址资源。同时，又可隐藏网络内部的所有主机，有效避免来自internet的攻击。因此，目前网络中应用最多的就是端口多路复用方式。</p>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>向外网发送包后，使用<code>disaplay nat session all</code>查看</p>
+<h1 id="使用静态NAPT发布官网"><a href="#使用静态NAPT发布官网" class="headerlink" title="使用静态NAPT发布官网"></a>使用静态NAPT发布官网</h1><p>（通俗的讲）它们都是地址转换，NAPT与NAT的区别在于 NAT是一对一转换，NAPT是多对一转换。通俗来说NAT是一个内部地址转换成一个外部地址进行通信的，而NAPT是多个内部地址使用同一地址不同端口转换成外部地址进行通信的。<br>NAPT允许多个私网地址转换到同一个公有地址的不同端口，私网利用端口号来区分。<br>简单来说：NAPT发送数据的时候会在源地址和目标地址上加上端口号（比如源地址：192.168.1.2:1010，目标地址：200.1.1.2:1020），回来的数据也是一样。<br><img src="/image-6.png" srcset="/img/loading.gif" lazyload alt="Alt text"></p>
+<h2 id="配置静态NAPT"><a href="#配置静态NAPT" class="headerlink" title="配置静态NAPT"></a>配置静态NAPT</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle">[R1]<span class="hljs-keyword">interface</span> GigabitEthernet <span class="hljs-number">0</span><span class="hljs-regexp">/0/</span><span class="hljs-number">1</span><br>[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">1</span>]nat server protocol tcp global <span class="hljs-number">16.16</span>.<span class="hljs-number">16.1</span> <span class="hljs-number">80</span> inside <span class="hljs-number">192.168</span>.<span class="hljs-number">1.1</span> <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="easyIP"><a href="#easyIP" class="headerlink" title="easyIP"></a>easyIP</h1><p>利用端口号来识别不用的私网地址，NAPT的特例。直接将内网私有地址转换为出接口的公网IP地址。<br>Easy IP 是 NAT 的其中一种方式，主要用于内部计算机共享公网 IP 地址访问互联网。<br><img src="/image-7.png" srcset="/img/loading.gif" lazyload alt="Alt text"></p>
+<h2 id="配置动态NAT"><a href="#配置动态NAT" class="headerlink" title="配置动态NAT"></a>配置动态NAT</h2><p><strong>创建ACL</strong></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs inform7"><span class="hljs-comment">[R1]</span>acl 2000<br><span class="hljs-comment">[R1-acl-basic-2000]</span><span class="hljs-keyword">rule</span> permit source 192.168.10.0 0.0.0.255<br></code></pre></td></tr></table></figure>
+<p><strong>在 G0&#x2F;0&#x2F;1 接口下使用 nat outbound 命令配置 Easy-IP 特性，直接使用接口 IP 地址作为 NAT 转换后的地址</strong></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle">[R1-acl-basic-<span class="hljs-number">2000</span>]<span class="hljs-keyword">int</span> G0<span class="hljs-regexp">/0/</span><span class="hljs-number">1</span><br>[R1-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">1</span>]nat outbound <span class="hljs-number">2000</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="ipv6"><a href="#ipv6" class="headerlink" title="ipv6"></a>ipv6</h1><h2 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h2><p>IPv6地址总长度为128比特，分为8组，每组为4个十六进制数的形式，每组十六进制数间用冒号分隔。<br>例如：FC00:0000:130F:0000:0000:09C0:876A:130B</p>
+<h2 id="掩码"><a href="#掩码" class="headerlink" title="掩码"></a>掩码</h2><p>IPv6的掩码使用“前缀长度”来表示，如：<br>FC00:0:130F::9C0:876A:130B&#x2F;64<br>代表这个地址的前缀长度是64，也就是掩码长度为64位</p>
+<h2 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a>缩写</h2><p>每组中的前导“0”都可以省略，上述地址可以写为：FC00:0:130F:0:0:9C0:876A:130B。<br>地址中包含的连续两个或多个均为0的组，可以用双冒号“::”来代替：FC00:0:130F::9C0:876A:130B<br>需要注意的是，在一个IPv6地址中只能使用一次双冒号“::”</p>
+<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p><strong>全球单播地址</strong><br>全球唯一的单播地址，类似于IPv4的公网IP<br>地址范围是2000::&#x2F;3<br><strong>唯一本地地址</strong><br>相当于IPv4的私网ip，在Internet不可路由。<br>IPv4的私网ip是为了节省地址，而IPv6主要为了安全（和Internet隔离），或者暂时没申请到地址临时使用。<br>地址范围是FC00::&#x2F;7<br><strong>链路本地地址</strong><br>当一个节点启动IPv6协议栈时，启动时节点的每个接口会自动配置一个链路本地地址。<br>这种机制使得两个连接到同一链路的IPv6节点不需要做任何配置就可以通信。<br>地址范围是FE80::&#x2F;10<br>链路本地地址可以使用EUI64自动生成<br><strong>特殊地址</strong><br>0:0:0:0:0:0:0:1&#x2F;128 或者::1&#x2F;128。<br>与IPv4中的127.0.0.1作用相同，用于本地回环，发往::&#x2F;1的数据包实际上就是发给本地，可用于本地协议栈回环测试。<br>0:0:0:0:0:0:0:0&#x2F;128 或者::&#x2F;128。<br>该地址作为某些报文的源地址，比如作为重复地址检测时发送的邻居请求报文（NS）的源地址，或者DHCPv6初始化过程中客户端所发送的请求报文的源地址。</p>
+<h1 id="ipv6配置静态路由"><a href="#ipv6配置静态路由" class="headerlink" title="ipv6配置静态路由"></a>ipv6配置静态路由</h1><p><strong>启用ipv6</strong></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle">[R2]<span class="hljs-keyword">interface</span> GigabitEthernet <span class="hljs-number">0</span><span class="hljs-regexp">/0/</span><span class="hljs-number">0</span><br>[R2-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>]ipv6 enable<br></code></pre></td></tr></table></figure>
+<p><strong>添加ip地址</strong><br>地址2020:0:0:0:0:0:1，缩写为2020::1，掩码长度64位，4*16&#x3D;64，所以掩码是2020</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">[R2-GigabitEthernet0<span class="hljs-regexp">/0/</span><span class="hljs-number">0</span>]ipv6 address <span class="hljs-number">2020</span>::<span class="hljs-number">1</span>/<span class="hljs-number">64</span><br></code></pre></td></tr></table></figure>
+<p><strong>配置静态路由</strong><br><img src="/image-8.png" srcset="/img/loading.gif" lazyload alt="Alt text"><br>在R1上配置静态路由到PC2所在网段，目标网段为<code>2020::0</code>，掩码为<code>64</code>，下一跳地址为<code>2001::2</code></p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir">[<span class="hljs-title class_">R1</span>]ipv6 route-static <span class="hljs-number">2020</span>:: <span class="hljs-number">64</span> <span class="hljs-number">2001</span>::<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="DHCP"><a href="#DHCP" class="headerlink" title="DHCP"></a>DHCP</h1>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/10/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0/" title="微信小程序学习">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">微信小程序学习</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/11/01/js%E7%AC%94%E8%AE%B0/" title="js笔记">
+                        <span class="hidden-mobile">js笔记</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a><p>
+
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>

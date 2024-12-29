@@ -1,0 +1,699 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/BMlogo3.jpg">
+  <link rel="icon" href="/img/BMlogo3.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BM-BoomMouse">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="事件（消息）循环浏览器进程模型何为进程程序运行需要自己的专属内存空间，可以把这块内存空间简单的理解为进程。每个应用至少有一个进程，进程之间相互独立，即使要通信，也需要双方同意。 何为线程有了进程后，就可以运行程序的代码，运行代码的【人】成为【线程】，一个进程至少有一个线程，随进程开启自动创建，称为主线程，如果需要同时执行多块代码，主线程就会启动更多线程，所以一个进程可以有多个线程。 举个例子做饭，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端大师课">
+<meta property="og:url" content="http://example.com/2024/01/16/%E5%89%8D%E7%AB%AF%E5%A4%A7%E5%B8%88%E8%AF%BE/index.html">
+<meta property="og:site_name" content="BM的小窝">
+<meta property="og:description" content="事件（消息）循环浏览器进程模型何为进程程序运行需要自己的专属内存空间，可以把这块内存空间简单的理解为进程。每个应用至少有一个进程，进程之间相互独立，即使要通信，也需要双方同意。 何为线程有了进程后，就可以运行程序的代码，运行代码的【人】成为【线程】，一个进程至少有一个线程，随进程开启自动创建，称为主线程，如果需要同时执行多块代码，主线程就会启动更多线程，所以一个进程可以有多个线程。 举个例子做饭，">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-01-16T08:47:42.000Z">
+<meta property="article:modified_time" content="2024-01-17T12:09:03.899Z">
+<meta property="article:author" content="BM-BoomMouse">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="html">
+<meta property="article:tag" content="js">
+<meta property="article:tag" content="csss">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>前端大师课 - BM的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BM的个人空间</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>类别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/%E5%B0%8F%E7%8E%A9%E6%84%8F">
+                <i class="iconfont icon-pen"></i>
+                <span>小玩意</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="前端大师课"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-16 16:47" pubdate>
+          January 16, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">前端大师课</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on a year ago
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="事件（消息）循环"><a href="#事件（消息）循环" class="headerlink" title="事件（消息）循环"></a>事件（消息）循环</h1><h2 id="浏览器进程模型"><a href="#浏览器进程模型" class="headerlink" title="浏览器进程模型"></a>浏览器进程模型</h2><h3 id="何为进程"><a href="#何为进程" class="headerlink" title="何为进程"></a>何为进程</h3><p>程序运行需要自己的专属内存空间，可以把这块内存空间简单的理解为进程。每个应用至少有一个进程，<strong>进程之间相互独立</strong>，即使要通信，也需要双方同意。</p>
+<h3 id="何为线程"><a href="#何为线程" class="headerlink" title="何为线程"></a>何为线程</h3><p>有了进程后，就可以运行程序的代码，运行代码的【人】成为【线程】，<strong>一个进程至少有一个线程，随进程开启自动创建，称为主线程</strong>，如果需要同时执行多块代码，<strong>主线程就会启动更多线程</strong>，所以一个进程可以有多个线程。</p>
+<p>举个例子做饭，我去买菜，我妈去买肉，我爸去买调味品，就是同时进行的三个线程。</p>
+<p>线程之间可以相互通信。</p>
+<h3 id="浏览器有哪些进程的线程"><a href="#浏览器有哪些进程的线程" class="headerlink" title="浏览器有哪些进程的线程"></a>浏览器有哪些进程的线程</h3><p>主要进程有：</p>
+<ol>
+<li><p>浏览器进程：</p>
+<p>主要负责界面显示（不是网页的展示，是标题栏、返回按钮、刷新按钮、导航栏等）、用户交互、子进程管理。浏览器内部会启动多个线程处理不同的任务。</p>
+</li>
+<li><p>网络进程：</p>
+<p>网络通信，网络进程内部会启动多个线程处理不同的网络任务。</p>
+</li>
+<li><p>渲染进程：</p>
+<p>负责执行HTML、CSS、JS代码，默认情况下，每开启一个标签页都会开启一个新的渲染进程，以保证网页互不影响。</p>
+</li>
+</ol>
+<h2 id="渲染主线程是如何工作的？"><a href="#渲染主线程是如何工作的？" class="headerlink" title="渲染主线程是如何工作的？"></a>渲染主线程是如何工作的？</h2><ul>
+<li>解析HTML</li>
+<li>解析CSS</li>
+<li>计算样式</li>
+<li>布局</li>
+<li>处理图层</li>
+<li>每秒把页面画60次</li>
+<li>执行全局JS代码</li>
+<li>执行事件处理函数</li>
+<li>执行计时器的回调函数</li>
+<li>…</li>
+</ul>
+<blockquote>
+<p>思考：主线程要处理这么多任务，要怎么调度任务？渲染进程为什么不适用多个线程来处理？</p>
+</blockquote>
+<p>比如：</p>
+<ul>
+<li>执行js函数的时候，用户点击了按钮，应该立即执行点击事件的处理函数吗？</li>
+<li>执行js函数的时候，某个计时器到时间了，应该立即去执行它的回调吗？</li>
+<li>用户按下按钮同时计时器也到达了时间，应该处理哪一个？</li>
+</ul>
+<p>主线程用<strong>排队</strong>解决这些问题。</p>
+<p>将任务放在<strong>消息队列（message queue）</strong>中排队，一次只处理一个任务，而处理任务的过程中可能又会出现新的任务，新的任务依然放如消息队列中排队，且任务来源可以是其他线程。</p>
+<p>具体工作步骤如下：</p>
+<ol>
+<li>在最开始的时渲染主进程进入无限循环</li>
+<li>每一次循环检查消息队列中有无任务，有则取出第一个任务，执行玩后进入下一次循环；如果没有，则进入休眠状态</li>
+<li>其他所有线程（包括其他进程的线程）可以随时向消息队列添加任务。新任务会添加到尾部，添加新任务时，如果主线程是休眠状态，则会将其唤醒以循环拿去任务</li>
+</ol>
+<p>整个过程就是事件（消息）循环</p>
+<h2 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h2><p>在代码执行中，会遇到无法立即执行的任务，比如:</p>
+<ul>
+<li>记时完成后执行的任务：<code>setTimeout</code>、<code>setInterval</code></li>
+<li>网络通信完成后执行的任务：<code>XHR</code>、<code>Fetch</code></li>
+<li>用户操作后需要执行的任务：<code>addEventListener</code></li>
+</ul>
+<p>如果让渲染主线程等待，就会导致主线程长期处于<strong>阻塞</strong>状态，导致卡死。所以浏览器选择<strong>异步</strong>处理</p>
+<p>当渲染主线程收到计时任务时，会发给<strong>操作线程</strong>进行计时，操作线程计时完成后回调到渲染主线程；如果计时这段时间渲染主线程跟着等待（阻塞），则称为<strong>同步</strong>；而<strong>异步</strong>则是不等待，在渲染主线程发送计时任务后，继续从<strong>消息队列</strong>获取新任务，而当操作线程计时结束后，操作线程也不会把回调放入渲染主线程中，而是放入消息队列中。</p>
+<blockquote>
+<p>如何理解js中的异步?</p>
+<p>参考答案:<br>JS是一门<strong>单线程的语言</strong>，这是因为它运行在浏览器的渲染主线程中，而<strong>渲染主线程只有一个</strong>。而渲染主线程承担着诸多的工作，渲染页面、执行 JS 都在其中运行。如果使用同步的方式，就极有可能导致主线程产生<strong>阻塞</strong>，从而导致消息队列中的很多其他任务无法得到执行。这样一来，一方面会导致繁忙的主线程白白的消耗时间，另一方面导致页面无法及时更新，给用户造成卡死现象。<br>所以浏览器采用异步的方式来避免。具体做法是当某些任务发生时，比如计时器、网络、事件监听，主线程<strong>将任务交给其他线程去处理</strong>，自身立即结束任务的执行，转而执行后续代码。当其他线程完成时，<strong>将事先传递的回调函数包装成任务，加入到消息队列的未尾排队</strong>，等待主线程<strong>调度</strong>执行。在这种异步模式下，浏览器永不阻塞，从而最大限度的保证了单线程的流畅运行。</p>
+</blockquote>
+<p>小例子:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Mr,Yuan is awesome !<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>change<span class="hljs-tag">&lt;/<span class="hljs-name">buttons</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">    <span class="hljs-keyword">var</span> h1 = <span class="hljs-variable language_">document</span> .<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;h1&#x27;</span>);</span><br><span class="language-javascript">    <span class="hljs-keyword">var</span> btn = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&#x27;button&#x27;</span>)</span><br><span class="language-javascript">    <span class="hljs-comment">// 死循环指定的时间</span></span><br><span class="language-javascript">    <span class="hljs-keyword">function</span> <span class="hljs-title function_">delay</span>(<span class="hljs-params">duration</span>) &#123;</span><br><span class="language-javascript">        <span class="hljs-keyword">var</span> start = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>() ;</span><br><span class="language-javascript">        <span class="hljs-keyword">while</span> (<span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>() - start &lt; duration)&#123;&#125; </span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript">    btn.<span class="hljs-property">onclick</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">        h1.<span class="hljs-property">textContent</span> = <span class="hljs-string">&quot;衰老师很帅!&quot;</span>;</span><br><span class="language-javascript">        <span class="hljs-title function_">delay</span>(<span class="hljs-number">3000</span>);    </span><br><span class="language-javascript">    &#125;</span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>按照字面理解应该是点击按钮,h1文本立刻被替换,然后再执行3000ms的计时,但是在实际情况中点击按钮后，文本不会立即被改变，而是在等待3秒后，文本才改变。</p>
+<p>实际呢？代码上也确实是先执行替换文本，然后再进入计时。替换文本后，为什么页面不会改变呢？这是因为页面还没有渲染。而渲染也是一个任务，所以在完成文本替换之后，会在消息队列里添加渲染任务。然后继续执行死循环计时任务。等到计时任务完成之后再去执行渲染任务。</p>
+<h2 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h2><p>任务有优先级吗？没有，但是队列有优先级，在以前，消息队列可分为<strong>宏队列</strong>和<strong>微队列</strong>，微队列的优先级更高。而在最新的W3C中，没有了宏队列，而是加入了更多的队列分类，常用的有：</p>
+<ul>
+<li>延时队列：用于存放计时器到达后的回调任务，优先级【中】</li>
+<li>交互队列：用于存放用户操作后产生的事件处理任务，优先级【高】</li>
+<li>微队列：用户存放需要最快执行的任务，优先级【最高】</li>
+</ul>
+<p><strong>同类型的任务必须放在同一个队列</strong></p>
+<p>添加任务到微队列的方式主要是使用promise,MutationObserver。如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//立即把一个函数添加到微队列</span><br><span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>().<span class="hljs-title function_">then</span>(函数)<br></code></pre></td></tr></table></figure>
+
+<p>例子</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//死循环指定时间</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">delay</span>(<span class="hljs-params">duration</span>) &#123;<br>  <span class="hljs-keyword">var</span> start = <span class="hljs-title class_">Data</span>.<span class="hljs-title function_">now</span>();<br>  <span class="hljs-keyword">while</span> (<span class="hljs-title class_">Data</span>.<span class="hljs-title function_">now</span>() - start &lt; duration) &#123;&#125;<br>&#125;<br><span class="hljs-comment">//设置0s的计时器</span><br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">1</span>);<br>&#125;,<span class="hljs-number">0</span>)<br><br><span class="hljs-title function_">delay</span>(<span class="hljs-number">1000</span>);<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">2</span>);<br></code></pre></td></tr></table></figure>
+
+<p>执行结果是：一秒后输出2，1，渲染主线程会先执行全局的js，这个js的执行步骤如下：</p>
+<ol>
+<li>执行settimout，向<strong>操作线程</strong>发送一个计时任务，由于是0秒计时，所以操作线程立即返回任务到<strong>延时队列</strong>中</li>
+<li>执行delay（1000），等待1s</li>
+<li>执行console.log(2)，控制台输出2，到此，全局js执行完毕，进入事件循环</li>
+<li>进入事件循环，先从<strong>微队列</strong>寻找任务，没有；再从<strong>交互队列</strong>寻找，没有；然后从<strong>延时队列</strong>寻找，找到了计时器回调函数任务，执行它，控制台输出1</li>
+<li>结果： 等待1秒后，控制台输出2 1</li>
+</ol>
+<h1 id="浏览器渲染原理"><a href="#浏览器渲染原理" class="headerlink" title="浏览器渲染原理"></a>浏览器渲染原理</h1><h2 id="浏览器是如何渲染页面的？"><a href="#浏览器是如何渲染页面的？" class="headerlink" title="浏览器是如何渲染页面的？"></a>浏览器是如何渲染页面的？</h2><p>当浏览器的<strong>网络线程</strong>收到HTML文档后，会产生一个<strong>渲染任务</strong>，并传递给<strong>渲染主线程</strong>的<strong>消息队列</strong>，事件循环机制的作用下，渲染主线程取出队列中的渲染任务，开启渲染流程</p>
+<p>整个渲染流程分为多个阶段：<strong>HTML解析、样式计算、布局、分层、绘制、分块、光栅化、画</strong></p>
+<h3 id="解析HTML"><a href="#解析HTML" class="headerlink" title="解析HTML"></a>解析HTML</h3><p>将HTML字符串解析之后会得到两颗树：<strong>DOM树</strong>和<strong>CSSOM树</strong></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%89%8D%E7%AB%AF/">#前端</a>
+      
+        <a href="/tags/html/">#html</a>
+      
+        <a href="/tags/js/">#js</a>
+      
+        <a href="/tags/csss/">#csss</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/04/07/%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E6%95%B0%E5%9C%A8%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8D%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%A4%BA/" title="0x01和0x1有何不同">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">0x01和0x1有何不同</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/15/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0/" title="MySQL数据库学习">
+                        <span class="hidden-mobile">MySQL数据库学习</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a><p>
+
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>

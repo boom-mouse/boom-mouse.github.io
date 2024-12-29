@@ -1,0 +1,730 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/BMlogo3.jpg">
+  <link rel="icon" href="/img/BMlogo3.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BM-BoomMouse">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="什么是 WebSocketWebSocket 是一种网络传输协议。在传统模式中，客户端实现实时推送需要通过轮询（每个一段时间发起一次请求），而 WebSocket 就是为了解决这个问题而诞生，WebSocket 的最大特点就是，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话 node.js 搭建 WebSocket 服务端 创建项目  1npm init -">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js快速搭建WebSocket前后端及语法基础">
+<meta property="og:url" content="http://example.com/2024/04/28/js%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BAWebSocket%E5%89%8D%E5%90%8E%E7%AB%AF%E5%8F%8A%E8%AF%AD%E6%B3%95%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="BM的小窝">
+<meta property="og:description" content="什么是 WebSocketWebSocket 是一种网络传输协议。在传统模式中，客户端实现实时推送需要通过轮询（每个一段时间发起一次请求），而 WebSocket 就是为了解决这个问题而诞生，WebSocket 的最大特点就是，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话 node.js 搭建 WebSocket 服务端 创建项目  1npm init -">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-04-28T01:14:40.000Z">
+<meta property="article:modified_time" content="2024-04-28T01:24:39.753Z">
+<meta property="article:author" content="BM-BoomMouse">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="WebSocket">
+<meta property="article:tag" content="node">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>js快速搭建WebSocket前后端及语法基础 - BM的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BM的个人空间</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>类别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/%E5%B0%8F%E7%8E%A9%E6%84%8F">
+                <i class="iconfont icon-pen"></i>
+                <span>小玩意</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="js快速搭建WebSocket前后端及语法基础"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-28 09:14" pubdate>
+          April 28, 2024 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          50 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">js快速搭建WebSocket前后端及语法基础</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on 8 months ago
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="什么是-WebSocket"><a href="#什么是-WebSocket" class="headerlink" title="什么是 WebSocket"></a>什么是 WebSocket</h1><p>WebSocket 是一种网络传输协议。在传统模式中，客户端实现实时推送需要通过<strong>轮询</strong>（每个一段时间发起一次请求），而 WebSocket 就是为了解决这个问题而诞生，WebSocket 的最大特点就是，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话</p>
+<h1 id="node-js-搭建-WebSocket-服务端"><a href="#node-js-搭建-WebSocket-服务端" class="headerlink" title="node.js 搭建 WebSocket 服务端"></a>node.js 搭建 WebSocket 服务端</h1><ul>
+<li>创建项目</li>
+</ul>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> init -y<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>安装 ws</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> ws<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>新建 index.js 并导入库</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-title class_">WebSocket</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;ws&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>下面是个简单的例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-title class_">WebSocket</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;ws&quot;</span>);<br><br><span class="hljs-comment">// 创建webcocket服务器</span><br><span class="hljs-keyword">const</span> wss = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WebSocket</span>.<span class="hljs-title class_">WebSocketServer</span>(&#123; <span class="hljs-attr">port</span>: <span class="hljs-number">8080</span> &#125;);<br><br><span class="hljs-comment">// 监听连接事件</span><br>wss.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;connection&quot;</span>, <span class="hljs-keyword">function</span> <span class="hljs-title function_">connection</span>(<span class="hljs-params">ws</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;New connection&quot;</span>);<br><br>  <span class="hljs-comment">// 监听消息事件</span><br>  ws.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-function">(<span class="hljs-params">message</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`[Client]: <span class="hljs-subst">$&#123;message&#125;</span>`</span>);<br>    <span class="hljs-comment">// 发送消息给客户端</span><br>    ws.<span class="hljs-title function_">send</span>(<span class="hljs-string">&quot;ok&quot;</span>);<br>  &#125;);<br><br>  <span class="hljs-comment">// 监听关闭事件</span><br>  ws.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;close&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Disconnected&quot;</span>);<br>  &#125;);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>然后在终端输入</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-keyword">node</span> <span class="hljs-title">index</span>.js<br></code></pre></td></tr></table></figure>
+
+<p>启动服务器</p>
+<h1 id="客户端连接"><a href="#客户端连接" class="headerlink" title="客户端连接"></a>客户端连接</h1><p>如果想在浏览器中连接客户端，js 原生支持 WebSocket，也可以使用 sockeio 或其他的库。如果想要在 node 中以终端的形式运行，也可以继续使用上面的 ws</p>
+<hr>
+<p>这里先讲在 node 下运行服务端<br>新建一个 client.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//导入ws</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">WebSocket</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;ws&quot;</span>);<br><br><span class="hljs-comment">// 新建连接</span><br>ws = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WebSocket</span>(<span class="hljs-string">&quot;ws://localhost:8080&quot;</span>);<br><br><span class="hljs-comment">// 监听open连接事件</span><br>ws.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;open&quot;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-comment">// 发送消息给服务端</span><br>  ws.<span class="hljs-title function_">send</span>(<span class="hljs-string">&quot;ok?&quot;</span>);<br>&#125;);<br><br><span class="hljs-comment">// 监听消息接收事件:</span><br>ws.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">message</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`[SERVER]:<span class="hljs-subst">$&#123;message&#125;</span>`</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>终端输入命令运行</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-keyword">node</span> <span class="hljs-title">client</span>.js<br></code></pre></td></tr></table></figure>
+
+<hr>
+<p>如果要在浏览器中连接，可以直接用原生的 WebSocket</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>WebSocket连接<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;input&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> /&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;send()&quot;</span>&gt;</span>发送消息<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript">  <span class="hljs-comment">// 新建WebSocket对象并建立连接</span></span><br><span class="language-javascript">  <span class="hljs-keyword">let</span> ws = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WebSocket</span>(<span class="hljs-string">&quot;ws://localhost:8080&quot;</span>);</span><br><span class="language-javascript"></span><br><span class="language-javascript">  <span class="hljs-comment">// 监听连接事件</span></span><br><span class="language-javascript">  ws.<span class="hljs-property">onopen</span> = <span class="hljs-function">() =&gt;</span> &#123;</span><br><span class="language-javascript">    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;连接成功&quot;</span>);</span><br><span class="language-javascript">  &#125;;</span><br><span class="language-javascript"></span><br><span class="language-javascript">  <span class="hljs-comment">// 监听消息接收事件</span></span><br><span class="language-javascript">  ws.<span class="hljs-property">onmessage</span> = <span class="hljs-function">(<span class="hljs-params">message</span>) =&gt;</span> &#123;</span><br><span class="language-javascript">    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(message.<span class="hljs-property">data</span>);</span><br><span class="language-javascript">  &#125;;</span><br><span class="language-javascript"></span><br><span class="language-javascript">  <span class="hljs-comment">//发送消息</span></span><br><span class="language-javascript">  <span class="hljs-keyword">function</span> <span class="hljs-title function_">send</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="language-javascript">    <span class="hljs-keyword">let</span> message = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;input&quot;</span>).<span class="hljs-property">value</span>;</span><br><span class="language-javascript">    ws.<span class="hljs-title function_">send</span>(message);</span><br><span class="language-javascript">  &#125;</span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="制作一个简单的聊天室"><a href="#制作一个简单的聊天室" class="headerlink" title="制作一个简单的聊天室"></a>制作一个简单的聊天室</h1><p>服务端 index.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-title class_">WebSocket</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;ws&quot;</span>);<br><br><span class="hljs-keyword">var</span> clients = [];<br><br><span class="hljs-comment">// 创建WebSocket服务器</span><br><span class="hljs-keyword">const</span> wss = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WebSocket</span>.<span class="hljs-title class_">Server</span>(&#123; <span class="hljs-attr">port</span>: <span class="hljs-number">8080</span> &#125;);<br><br><span class="hljs-comment">// 监听连接事件</span><br>wss.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;connection&quot;</span>, <span class="hljs-keyword">function</span> <span class="hljs-title function_">connection</span>(<span class="hljs-params">ws, req</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;New connection&quot;</span>);<br><br>  <span class="hljs-comment">// 监听消息事件</span><br>  ws.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-function">(<span class="hljs-params">message</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Received: %s&quot;</span>, message);<br>    <span class="hljs-comment">// 如果消息以用户名开头，则解析用户名</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-title class_">String</span>(message).<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">&quot;[username]&quot;</span>)) &#123;<br>      <span class="hljs-keyword">const</span> index = clients.<span class="hljs-title function_">findIndex</span>(<span class="hljs-function">(<span class="hljs-params">client</span>) =&gt;</span> client.<span class="hljs-property">ws</span> === ws);<br>      <span class="hljs-comment">// 如果不是新用户则修改名字</span><br>      <span class="hljs-keyword">if</span> (index != -<span class="hljs-number">1</span>) &#123;<br>        clients[index].<span class="hljs-property">name</span> = message;<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-comment">// 如果是新用户，则加入列表</span><br>        <span class="hljs-keyword">const</span> username = message.<span class="hljs-title function_">slice</span>(<span class="hljs-number">10</span>); <span class="hljs-comment">// 去掉 &#x27;[username]&#x27; 前缀</span><br>        clients.<span class="hljs-title function_">push</span>(&#123; ws, username &#125;);<br>      &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-comment">// 否则，将消息发送给除发送者外的所有客户端</span><br>      <span class="hljs-keyword">let</span> index = clients.<span class="hljs-title function_">findIndex</span>(<span class="hljs-function">(<span class="hljs-params">client</span>) =&gt;</span> client.<span class="hljs-property">ws</span> == ws);<br>      <span class="hljs-keyword">let</span> username = clients[index].<span class="hljs-property">username</span>;<br>      clients.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">client</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">if</span> (client.<span class="hljs-property">ws</span> !== ws) &#123;<br>          client.<span class="hljs-property">ws</span>.<span class="hljs-title function_">send</span>(<span class="hljs-string">`  [<span class="hljs-subst">$&#123;username&#125;</span>]：<span class="hljs-subst">$&#123;message&#125;</span>`</span>);<br>        &#125;<br>      &#125;);<br>    &#125;<br>  &#125;);<br><br>  <span class="hljs-comment">// 监听关闭事件</span><br>  ws.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;close&quot;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-comment">// 从列表删除用户</span><br>    <span class="hljs-keyword">const</span> index = clients.<span class="hljs-title function_">findIndex</span>(<span class="hljs-function">(<span class="hljs-params">client</span>) =&gt;</span> client.<span class="hljs-property">ws</span> === ws);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`[<span class="hljs-subst">$&#123;clients[index].username&#125;</span>]Disconnected`</span>);<br>    clients.<span class="hljs-title function_">splice</span>(index, <span class="hljs-number">1</span>);<br>  &#125;);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>客户端 client.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs Javascript"><span class="hljs-keyword">const</span> <span class="hljs-title class_">WebSocket</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;ws&quot;</span>);<br><span class="hljs-keyword">const</span> readline = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;readline&quot;</span>);<br><br><span class="hljs-keyword">const</span> rl = readline.<span class="hljs-title function_">createInterface</span>(&#123;<br>  <span class="hljs-attr">input</span>: process.<span class="hljs-property">stdin</span>,<br>  <span class="hljs-attr">output</span>: process.<span class="hljs-property">stdout</span><br>&#125;);<br><br><span class="hljs-comment">// WebSocket 连接的函数</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">connect</span>(<span class="hljs-params">name</span>) &#123;<br>  <span class="hljs-keyword">const</span> ws = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WebSocket</span>(<span class="hljs-string">&quot;ws://localhost:8080&quot;</span>);<br><br>  ws.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;open&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;连接成功&quot;</span>);<br>    ws.<span class="hljs-title function_">send</span>(<span class="hljs-string">`[username]<span class="hljs-subst">$&#123;name&#125;</span>`</span>);<br>  &#125;);<br><br>  ws.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-function">(<span class="hljs-params">message</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;收到消息:%s&quot;</span>, message);<br>  &#125;);<br><br>  <span class="hljs-comment">// 发送消息的函数</span><br>  <span class="hljs-keyword">function</span> <span class="hljs-title function_">send</span>(<span class="hljs-params"></span>) &#123;<br>    rl.<span class="hljs-title function_">question</span>(<span class="hljs-string">&quot;发送:&quot;</span>, <span class="hljs-function">(<span class="hljs-params">message</span>) =&gt;</span> &#123;<br>      ws.<span class="hljs-title function_">send</span>(message);<br>      <span class="hljs-title function_">send</span>(); <span class="hljs-comment">// 再次调用，继续监听用户输入</span><br>    &#125;);<br>  &#125;<br><br>  <span class="hljs-title function_">send</span>(); <span class="hljs-comment">// 启动发送消息功能</span><br>&#125;<br><br><span class="hljs-comment">// 第一个问题输入用户名</span><br>rl.<span class="hljs-title function_">question</span>(<span class="hljs-string">&quot;你的名字:&quot;</span>, <span class="hljs-function">(<span class="hljs-params">name</span>) =&gt;</span> &#123;<br>  <span class="hljs-title function_">connect</span>(name); <span class="hljs-comment">// 开始 WebSocket 连接并启动消息发送</span><br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>打开三个终端，启动一次 index.js 和两个 client.js</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-keyword">node</span> <span class="hljs-title">idnex</span>.js<br><span class="hljs-keyword">node</span> <span class="hljs-title">client</span>.js<br><span class="hljs-keyword">node</span> <span class="hljs-title">client</span>.js<br></code></pre></td></tr></table></figure>
+
+<p>在输入名字后就可以发送和接收消息了</p>
+<h1 id="原生-WebSocket-简单语法"><a href="#原生-WebSocket-简单语法" class="headerlink" title="原生 WebSocket 简单语法"></a>原生 WebSocket 简单语法</h1><p>只讲一些常用、简单的内容，具体内容请参考官方文档<br><code>WebSocket</code> 对象提供了用于创建和管理 <code>WebSocket</code> 连接，以及可以通过该连接发送和接收数据的 API。</p>
+<hr>
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">var aWebSocket = <span class="hljs-keyword">new</span> <span class="hljs-constructor">WebSocket(<span class="hljs-params">url</span>[, <span class="hljs-params">protocols</span>])</span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>参数<ul>
+<li><code>url</code>：要连接的服务器 URL</li>
+</ul>
+</li>
+</ul>
+<h2 id="实例属性"><a href="#实例属性" class="headerlink" title="实例属性"></a>实例属性</h2><h3 id="binaryType"><a href="#binaryType" class="headerlink" title="binaryType"></a>binaryType</h3><p><code>WebSocket.binaryType</code>返回 websocket 连接所传输二进制数据的类型</p>
+<ul>
+<li>返回值<br>返回一串 String - “blob”:传输的是 blob 类型的数据 - “arraybuffer”:传输的是 ArrayBuffer 类型的数据</li>
+</ul>
+<h3 id="bufferedAmount"><a href="#bufferedAmount" class="headerlink" title="bufferedAmount"></a>bufferedAmount</h3><p><code>WebSocket.bufferedAmount</code>是一个只读属性，用于返回已经被<code>send()</code>方法放入队列但还没有发送的数据的字节数，当全部数据被发送完后就会被重置为 0，如果传输中途连接中断则不会重置</p>
+<h3 id="readyState"><a href="#readyState" class="headerlink" title="readyState"></a>readyState</h3><p><code>WebSocket.readyState</code>是一个只读属性，返回 WebSocket 的链接状态</p>
+<ul>
+<li>返回值<br>0-3 的数字用于表示不同的状态 <ul>
+<li>0(WebSocket.CONNETION):正在连接中 </li>
+<li>1(WebSocket.OPEN):已经连接并且可以通讯 </li>
+<li>2(WebSocket.CLOSE):连接正在关闭 </li>
+<li>3(WebSocket.CLOSED):连接已经关闭或连接没有成功</li>
+</ul>
+</li>
+</ul>
+<h3 id="url"><a href="#url" class="headerlink" title="url"></a>url</h3><p><code>WebSocket.url</code>是一个只读属性，返回构造函数创建<code>WebSocket</code>实例对象时URL的绝对路线</p>
+<ul>
+<li>返回值<br>string类型</li>
+</ul>
+<h2 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h2><h3 id="close"><a href="#close" class="headerlink" title="close()"></a>close()</h3><p><code>WebSocket.close([code][,reason])</code>关闭连接</p>
+<ul>
+<li>参数<ul>
+<li>可选<code>code</code>：一个数字状态码，解释了连接关闭的原因，不传默认1005（表示没有收到预期的状态码），其他状态码可以查看官方文档</li>
+<li>可选<code>reason</code>：一个人类可读的字符串，解释连接关闭的原因，这个UTF-8编码的字符串不能超过123个字节</li>
+</ul>
+</li>
+<li>抛出异常<ul>
+<li><code>INVALID_ACCESS_ERR</code>：一个无效的code</li>
+<li><code>SYNTAX_ERR</code>：reason字符串太长</li>
+</ul>
+</li>
+</ul>
+<h3 id="send"><a href="#send" class="headerlink" title="send()"></a>send()</h3><p><code>WebSocket.send(data)</code>,将 需要发送的数据 添加到队列中，并根据所需要传输的data bytes的大小自行增加<code>bufferedAmount</code>的值。</p>
+<ul>
+<li>参数<ul>
+<li><code>data</code>：传输至服务器的数据，必须是以下类型<ul>
+<li>USVString：文本字符串</li>
+<li>ArrayBuffer：类型化数组对象发送底层二进制数据</li>
+<li>Blob：Blob 类型将队列 blob 中的原始数据以二进制中传输</li>
+<li>ArrayBufferView：你可以以二进制帧的形式发送任何 JavaScript 类数组对象</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>异常<ul>
+<li><code>INVALID_STATE_ERR</code>：连接未处于open状态</li>
+<li><code>SYNTAX_ERR</code>：数据是一个包含未配对代理的字符串</li>
+</ul>
+</li>
+</ul>
+<p>未配对代理 (unpaired surrogates) 指的是在字符串中存在不匹配的 Unicode 代理项。Unicode 中的代理项用于表示一些特殊字符，而代理项对通常是成对出现的，例如表示表情符号的代理对。如果一个字符串中的代理项没有配对，就会出现未配对代理的情况。</p>
+<h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><p>响应事件可以用WebSocket中的属性或者使用js监听器</p>
+<h3 id="close-1"><a href="#close-1" class="headerlink" title="close"></a>close</h3><p><code>WebSocket.onclose</code>属性返回一个事件监听器，当连接变为<code>CLOSED</code>的时候会被调用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title class_">WebSocket</span>.<span class="hljs-property">onclose</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(event)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>event中包含了时间戳、url、关闭的code等消息</p>
+<h3 id="error"><a href="#error" class="headerlink" title="error"></a>error</h3><p>当websocket的连接由于一些错误事件的发生 (例如无法发送一些数据) 而被关闭时，一个error事件将被引发。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs JavaScript"><span class="hljs-keyword">const</span> socket = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WebSocket</span>(<span class="hljs-string">&quot;ws://localhost:8080&quot;</span>);<br>socket.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;error&quot;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(event)<br>&#125;)<br>socket.<span class="hljs-property">onerror</span> = ...<br></code></pre></td></tr></table></figure>
+
+<h3 id="message"><a href="#message" class="headerlink" title="message"></a>message</h3><p>接收新消息时触发</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript">socket.<span class="hljs-property">onmessage</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(event)<br>&#125;<br>socket.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;message&quot;</span>,<span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(event)<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>event中包含了接收的消息data</p>
+<h3 id="open"><a href="#open" class="headerlink" title="open"></a>open</h3><p>建立连接时触发</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">socket.<span class="hljs-property">onopen</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(event)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JavaScript/">#JavaScript</a>
+      
+        <a href="/tags/WebSocket/">#WebSocket</a>
+      
+        <a href="/tags/node/">#node</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/14/%E5%90%88%E7%BA%A6%E6%BC%8F%E6%B4%9E/" title="合约漏洞">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">合约漏洞</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/04/26/js%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5/" title="js同步异步">
+                        <span class="hidden-mobile">js同步异步</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a><p>
+
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>

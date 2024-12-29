@@ -1,0 +1,1004 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/BMlogo3.jpg">
+  <link rel="icon" href="/img/BMlogo3.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BM-BoomMouse">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="基础应用配置启动与停止MySQL服务在安装MySQL后，可以通过命令行启动服务，只需输入以下命令 1net start [服务名]  我的服务名为mysql57，所以输入 1net start mysql57  不知道服务名的可以win+R输入services.msc，在弹出的【服务】管理器中可以找到名字带有MySQL的服务，比如MySQL57,当然，也可以在这里打开服务。 如果启动服务时出现“拒">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL数据库学习">
+<meta property="og:url" content="http://example.com/2024/01/15/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="BM的小窝">
+<meta property="og:description" content="基础应用配置启动与停止MySQL服务在安装MySQL后，可以通过命令行启动服务，只需输入以下命令 1net start [服务名]  我的服务名为mysql57，所以输入 1net start mysql57  不知道服务名的可以win+R输入services.msc，在弹出的【服务】管理器中可以找到名字带有MySQL的服务，比如MySQL57,当然，也可以在这里打开服务。 如果启动服务时出现“拒">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-01-15T15:21:00.000Z">
+<meta property="article:modified_time" content="2024-12-28T12:08:01.351Z">
+<meta property="article:author" content="BM-BoomMouse">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>MySQL数据库学习 - BM的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BM的个人空间</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>类别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/%E5%B0%8F%E7%8E%A9%E6%84%8F">
+                <i class="iconfont icon-pen"></i>
+                <span>小玩意</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="MySQL数据库学习"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-15 23:21" pubdate>
+          January 15, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.5k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          71 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">MySQL数据库学习</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on a day ago
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="基础应用"><a href="#基础应用" class="headerlink" title="基础应用"></a>基础应用</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="启动与停止MySQL服务"><a href="#启动与停止MySQL服务" class="headerlink" title="启动与停止MySQL服务"></a>启动与停止MySQL服务</h3><p>在安装MySQL后，可以通过命令行启动服务，只需输入以下命令</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dos"><span class="hljs-built_in">net</span> <span class="hljs-built_in">start</span> [服务名]<br></code></pre></td></tr></table></figure>
+
+<p>我的服务名为<code>mysql57</code>，所以输入</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dos"><span class="hljs-built_in">net</span> <span class="hljs-built_in">start</span> mysql57<br></code></pre></td></tr></table></figure>
+
+<p>不知道服务名的可以<code>win+R</code>输入<code>services.msc</code>，在弹出的【服务】管理器中可以找到名字带有<strong>MySQL</strong>的服务，比如<code>MySQL57</code>,当然，也可以在这里打开服务。</p>
+<p><strong>如果启动服务时出现“拒绝访问”，可以用管理员模式打开终端</strong>,WIN+R，输出cmd，然后CTRL+SHIFT+ENTER即可。</p>
+<p>如果想要停止服务，则输入</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">net</span> stop<span class="hljs-meta"> [服务名]</span><br></code></pre></td></tr></table></figure>
+
+<p>比如：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">net stop mysql57<br></code></pre></td></tr></table></figure>
+
+<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><p>登录的指令需要在<strong>MySQL安装目录的bin文件下输入</strong>，默认的文件路径为<code>c:\Program Files\MySQL</code>，可以通过<code>cd</code>指令进入</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livescript">cd c:<span class="hljs-string">\Program</span> Files<span class="hljs-string">\MySQL\MySQL</span> Server <span class="hljs-number">5.7</span><span class="hljs-string">\bin</span><br></code></pre></td></tr></table></figure>
+
+<p>然后通过<code>mysql</code>指令登录</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">mysql -h <span class="hljs-selector-attr">[主机名]</span> -u <span class="hljs-selector-attr">[用户名]</span> -<span class="hljs-selector-tag">p</span><br></code></pre></td></tr></table></figure>
+
+<p>默认为</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">mysql -h localhost -u root -<span class="hljs-selector-tag">p</span><br></code></pre></td></tr></table></figure>
+
+<p>之后输入密码即可</p>
+<h3 id="配置PATCH变量"><a href="#配置PATCH变量" class="headerlink" title="配置PATCH变量"></a>配置PATCH变量</h3><p>每次都要进入文件夹运行非常麻烦，不过只要设置了PATH就可以全局使用了。设置方法如下</p>
+<ol>
+<li>右键“我的电脑”-“属性”-“高级系统设置”-“环境变量”’</li>
+<li>在系统变量中找到“patch”</li>
+<li>添加bin文件的路径，比如”c:\Program Files\MySQL\MySQL Server 5.7\bin”</li>
+</ol>
+<p>现在就可以全局使用<code>mysql</code>了</p>
+<h3 id="更改配置文件"><a href="#更改配置文件" class="headerlink" title="更改配置文件"></a>更改配置文件</h3><ol>
+<li><p>使用配置向导修改配置</p>
+<p>即<strong>mysqlinstaller</strong>，使用方法与安装MySQL时类似，软件路径为：<code>C:\Program Files\MySQL\MySQL Installer for Windows</code></p>
+</li>
+<li><p>手动修改配置</p>
+<p>MySQL默认的安装路径是<code>C:\Program Files\MySQL\MySQL Server 5.7</code>,大多数版本包含以下文件夹</p>
+<table>
+<thead>
+<tr>
+<th>文件夹</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bin</td>
+<td>客户端程序和服务端程序</td>
+</tr>
+<tr>
+<td>C:\Program Files (x86)\MySQL\MySQL Server 5.7\Data</td>
+<td>数据库和日志文件</td>
+</tr>
+<tr>
+<td>include</td>
+<td>包含（头）文件</td>
+</tr>
+<tr>
+<td>lib</td>
+<td>库文件</td>
+</tr>
+<tr>
+<td>share</td>
+<td>字符集、语言等消息</td>
+</tr>
+<tr>
+<td>examples</td>
+<td>示例程序和脚本</td>
+</tr>
+</tbody></table>
+<p>在安装目录下还包含<strong>ini</strong>类型的文件，如：</p>
+<ul>
+<li>my.ini：当前应用的配置文件</li>
+<li>my_日期时间.ini：修改配置后自动生成的以日期时间命名的配置文件</li>
+</ul>
+<p>手工修改配置就是修改my.ini的内容。</p>
+</li>
+</ol>
+<h2 id="创建与维护数据库"><a href="#创建与维护数据库" class="headerlink" title="创建与维护数据库"></a>创建与维护数据库</h2><h3 id="数据库特点"><a href="#数据库特点" class="headerlink" title="数据库特点"></a>数据库特点</h3><p>SQL有以下特点</p>
+<ol>
+<li>一体化： 集数据定义语言、数据操纵语言、数据控制语言元素为一体。</li>
+<li>使用方式： 交互使用方式和嵌入高级语言中的使用方式</li>
+<li>非过程化语言：只需要提出“干什么”，不需要指出“如何干”，语句的操作用系统自动完成</li>
+<li>人性化：符合人们的思维方式、容易理解和掌握</li>
+</ol>
+<h3 id="SQL的分类"><a href="#SQL的分类" class="headerlink" title="SQL的分类"></a>SQL的分类</h3><p>在MySQL中，SQL可以分为3类：<strong>数据定义语言、数据操纵语言、数据控制语言</strong>：</p>
+<ol>
+<li><p>数据定义语言（Data Definition Language ,DDL）</p>
+<p>DDL是最基础的SQL类型，<strong>用来创建数据库和创建、修改、删除数据库中的各种对象</strong>，为其他语言的操作提供对象。最常用的DDL语句是：<code>CREATE、DROP、ALTER</code></p>
+</li>
+<li><p>数据操纵语言（Data Manipulation Language ,DML)</p>
+<p>DML用于<strong>完成数据查询和数据更新操作</strong>，其中数据更新是指<strong>对数据进行插入、删除和修改操作</strong>。最常用的DML语句是：<code>SELECT、INSERT、UPDATA、DELETE</code></p>
+</li>
+<li><p>数据控制语言（Data Control Language, DCL）</p>
+<p>DCL是用来设置或更改数据库用户或角色权限的语句，主要包括<code>GRANT</code>语句和<code>REVOKE</code>语句。<code>GRANT</code>语句可以将指定的安全对象的权限授予相应的主体，<code>REVOKE</code>语句则删除授予的权限</p>
+</li>
+</ol>
+<h3 id="数据库文件"><a href="#数据库文件" class="headerlink" title="数据库文件"></a>数据库文件</h3><p>在MySQL中，每个数据库都对应存放一个与数据库同名的文件夹中。 My circle数据库文件有.frM，.MYD和.NYI中的三种。其中.FRM是描述表结构的文件，.myd的是表的数据文件。.NYI是表数据文件中的索引文件。它们都存放在与数据库同名的文件夹中。</p>
+<h3 id="自动创立的数据库"><a href="#自动创立的数据库" class="headerlink" title="自动创立的数据库"></a>自动创立的数据库</h3><p>MySQL安装完成之后，将会在data目录下自动创建四个数据库，在连接到数据库后，可以通过<code>SHOW DATABASES;</code>命令查看当前所有数据库</p>
+<table>
+<thead>
+<tr>
+<th>数据库</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mysql</td>
+<td>描述用户访问权限。</td>
+</tr>
+<tr>
+<td>information_schema</td>
+<td>保存关于MySQL服务器维护的所有其他数据库的信息，如数据库名、数据库表、表栏的数据类型与访问权限等。</td>
+</tr>
+<tr>
+<td>performance_schema</td>
+<td>主要用于收集数据库服务器性能参数。</td>
+</tr>
+<tr>
+<td>sys</td>
+<td>通过视图的形式把information_schema和performance_schema结合起来，查询出更加容易理解的数据存储过程，可以执行一些性能方面的配置，也可以得到一些性能诊断报告内容。</td>
+</tr>
+</tbody></table>
+<p><strong>不要随意修改和删除系统自带的数据库</strong></p>
+<h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><p>使用<code>CREATE DATABASE</code>创建数据库，他的语法格式如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> DATABASE database_name;<br></code></pre></td></tr></table></figure>
+
+<p>注意不要忘记分号，database_name是要创建的数据库的名字</p>
+<h3 id="打开数据库"><a href="#打开数据库" class="headerlink" title="打开数据库"></a>打开数据库</h3><p>使用<code>USE</code>打开数据库，他的语法格式如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">USE database_name;<br></code></pre></td></tr></table></figure>
+
+<h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><p>使用<code>DROP</code>删除数据库，他的语法格式如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">DROP</span> DATABASE database_name;<br></code></pre></td></tr></table></figure>
+
+<p>删除时一定要注意，数据库中存储的所有内容会被一同删除，且<strong>无法恢复</strong></p>
+<h2 id="数据库存储引擎"><a href="#数据库存储引擎" class="headerlink" title="数据库存储引擎"></a>数据库存储引擎</h2><p>存储引擎就是存储数据，为存储的数据建立索引和更新查询数据等技术的实现方法。因为在关系数据库中，数据是以表的形式存储的，所以存储引擎简而言之就是指表的类型。数据库的存储引擎决定了表在计算机中的存储方式。</p>
+<p>查看数据库支持的存储引擎可以用<code>SHOW ENGINES</code>语句，将会返回一个表格，其中Support列表示能否使用，YES代表可以使用，NO不行，DEFAULT表示当前默认默认使用的存储引擎。以下是5.7的展示结果：</p>
+<table>
+<thead>
+<tr>
+<th>Engine</th>
+<th>Support</th>
+<th>Comment</th>
+<th>Transactions</th>
+<th>XA</th>
+<th>Savepoints</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>InnoDB</td>
+<td>DEFAULT</td>
+<td>支持事务、行级锁定和外键</td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td>MRG_MYISAM</td>
+<td>是</td>
+<td>一组相同的MyISAM表</td>
+<td>否</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>MEMORY</td>
+<td>是</td>
+<td>基于哈希存储在内存中，适用于临时表</td>
+<td>否</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>BLACKHOLE</td>
+<td>是</td>
+<td>&#x2F;dev&#x2F;null存储引擎（向其中写入的任何内容都会消失）</td>
+<td>否</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>MyISAM</td>
+<td>是</td>
+<td>MyISAM存储引擎</td>
+<td>否</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>CSV</td>
+<td>是</td>
+<td>CSV存储引擎</td>
+<td>否</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>ARCHIVE</td>
+<td>是</td>
+<td>归档存储引擎</td>
+<td>否</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>PERFORMANCE_SCHEMA</td>
+<td>是</td>
+<td>性能模式</td>
+<td>否</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>FEDERATED</td>
+<td>否</td>
+<td>分布式MySQL存储引擎</td>
+<td>NULL</td>
+<td>NULL</td>
+<td>NULL</td>
+</tr>
+</tbody></table>
+<p>以下是部分引擎特点：</p>
+<ul>
+<li>InnoDB：支持事务、行级锁定和外键，适合于处理高并发和复杂事务的应用。</li>
+<li>MyISAM：不支持事务和行级锁定，但具有高速读取和插入数据的特性，适合于读多写少的应用。</li>
+<li>MEMORY：将数据存储在内存中，适用于临时表和需要高速读写的应用。</li>
+<li>CSV：将数据以逗号分隔的形式存储在文本文件中，适用于处理简单的数据集。</li>
+<li>ARCHIVE：用于归档和压缩数据，适合于大量历史数据的存储和查询。</li>
+</ul>
+<h2 id="数据表"><a href="#数据表" class="headerlink" title="数据表"></a>数据表</h2><h3 id="什么是表"><a href="#什么是表" class="headerlink" title="什么是表"></a>什么是表</h3><p>表是数据库中最重要、最基本的操作对象，是存储数据的基本单位，<strong>一个表就是一个关系，表实质上就是行列的集合，每一行代表一条记录，每一列代表记录的一个字段。</strong></p>
+<h3 id="表的命名"><a href="#表的命名" class="headerlink" title="表的命名"></a>表的命名</h3><p>完整的数据表名称应该有<strong>数据库名和表名两部分组成</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">databse_name.table_name<br></code></pre></td></tr></table></figure>
+
+<p>同时要遵守MySQL对数据库和表的命名原则：</p>
+<ol>
+<li>名称可以有当前<strong>字符集</strong>中的任何字母、数据、字符组成</li>
+<li>最长64个字符，但同时也受限于所用操作系统限定的长度</li>
+<li>如果要用引号，<strong>必须使用单引号</strong>，单双引号并不禁止变量解释</li>
+<li>文件系统的大小写敏感性影响到如何命名和引用数据表。比如UNIX，名称my_tbl和MY_TBL是两个不同的表。从开发环境转移到新系统运行时一定要注意。</li>
+</ol>
+<h3 id="表的结构"><a href="#表的结构" class="headerlink" title="表的结构"></a>表的结构</h3><p>数据表像表格一样拥有<strong>列（Column）</strong>和<strong>行（Row）</strong>。用数据库的专业术语表示<strong>列既是字段（Field），每个字段分别存储不同性质的数据，每一行中各个字段的数据构成一条数据记录（Record）</strong>。</p>
+<p>结构（Structure）和数据记录是表的两大组成部分，表在存储数据记录之前，需要先定义结构，需要定义拥有哪些字段和这些字段的特性（字段名称、数据类型、长度等）</p>
+<p>查看表结构可以用<code>DESC</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">DESC</span> table_name;<br></code></pre></td></tr></table></figure>
+
+<p>输出结果如下：</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-code">+-------+</span>--------------<span class="hljs-code">+------+</span>-----<span class="hljs-code">+---------+</span>-------+<br><span class="hljs-section">| Field | Type         | Null | Key | Default | Extra |</span><br><span class="hljs-section">+-------+--------------+------+-----+---------+-------+</span><br><span class="hljs-section">| NAME  | varchar(255) | YES  |     | NULL    |       |</span><br><span class="hljs-section">+-------+--------------+------+-----+---------+-------+</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="字段名"><a href="#字段名" class="headerlink" title="字段名"></a>字段名</h3><p>字段名相当于表格首行的表头，各个字段分别用来存储不同性质的数据，字段名同样必须符合MySQL命名格式</p>
+<h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><p>使用<code>CREATE</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> [TEMPORARY] <span class="hljs-keyword">TABLE</span> [ IF <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span>] [库名.]表名 ( <br>  表的结构定义 <br>)[ 表选项 ]<br></code></pre></td></tr></table></figure>
+
+<p>如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> mytable (<br>    id <span class="hljs-type">int</span> <span class="hljs-keyword">PRIMARY</span> KEY AUTO_INCREMENT,<br>    name <span class="hljs-type">varchar</span>(<span class="hljs-number">55</span>) <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NULL</span>,<br>    age <span class="hljs-type">int</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span><br>) ENGINE<span class="hljs-operator">=</span>InnoDB CHARSET<span class="hljs-operator">=</span>utf8mb4 <span class="hljs-keyword">COLLATE</span> utf8mb4_general_ci;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>id列是一个<code>INT</code>整数类型，<code>PRIMARY KEY</code>设置id列作为主键，并且使用<code>AUTO_INCREMENT</code>属性使其自动递增。</li>
+<li>name列是一个<code>VARCHAR</code>可变长度的字符串类型，最大长度为55个字符，并且设置了<code>DEFAULT NULL</code>属性，表示该列默认为空（可以为空）。</li>
+<li>age列是一个<code>INT</code>整数类型，<code>NOT NULL</code>不允许为空。</li>
+<li><code>ENGINE</code>设置存储引擎，<code>CHARSET</code>设置字符集，<code>COLLATE</code>设置排序方法</li>
+</ul>
+<p>如果库名带有小数点或者是数据库关键字，则需要将库名用”&#96;”括起来，注意这不是单引号是反引号，键盘左上角那玩意。比如:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> `sql.TEST`;<br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> sql.TEST;<br></code></pre></td></tr></table></figure>
+
+<p>是两个不同的意思，第一个表示在当前使用的库下创建名为sql.test的表，第二个表示，在名为sql的数据库里面创建一个名为test的表，如果是关键字，不适用反引号则会报错。</p>
+<h3 id="删除和清空表"><a href="#删除和清空表" class="headerlink" title="删除和清空表"></a>删除和清空表</h3><p>删除表用<code>DROP</code>,清空用的是<code>	TRUNCATE</code>,只会清空表的数据，但是结构还在。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> [IF <span class="hljs-keyword">EXISTS</span>] table_name;<br><span class="hljs-keyword">TRUNCATE</span> <span class="hljs-keyword">TABLE</span> table_name;<br></code></pre></td></tr></table></figure>
+
+<p>使用<code>DELETE</code>也可以删除数据，可以清楚指定行，这三者的区别是：</p>
+<ol>
+<li><p>delete 和 truncate 仅仅删除表数据，drop 连表数据和表结构一起删除，打个比方，delete 是单杀，truncate 是团灭，drop 是把电脑摔了。</p>
+</li>
+<li><p>delete 是 DML 语句，操作完以后如果没有不想提交事务还可以回滚，truncate 和 drop 是 DDL 语句，操作完马上生效，不能回滚，打个比方，delete 是发微信说分手，后悔还可以撤回，truncate 和 drop 是直接扇耳光说滚，不能反悔。</p>
+</li>
+<li><p>执行的速度上，<strong>drop&gt;truncate&gt;delete</strong>，把库比作抽屉，drop是直接把抽屉丢了（1步），truncate是把里面的东西倒出来然后安回去（2步），delete是在抽屉里找到我要丢的，单独丢掉，然后把抽屉放回去（3步）。</p>
+</li>
+</ol>
+<h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><p>使用<code>INSERT INTO</code>语句来插入数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs MySQL">INSERT INTO table_name (column1, column2, column3, ...)<br>VALUES (value1, value2, value3, ...);<br></code></pre></td></tr></table></figure>
+
+<p>如果值是字符串类型，则需要用单引号或双引号括起来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">INSERT INTO mytable (id, name, age) VALUES (1, &#x27;xiaoming&#x27;, 20);<br></code></pre></td></tr></table></figure>
+
+<p>插入新行</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>age</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>xiaoming</td>
+<td>20</td>
+</tr>
+</tbody></table>
+<p>如果要插入多行，可以指定多组VALUES，用逗号分隔</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs mysql">INSERT INTO mytable (id, name, age)<br>VALUES<br>	(4, &#x27;xiaohong&#x27;, 21),<br>	(5, &#x27;tom&#x27;, 20);<br></code></pre></td></tr></table></figure>
+
+<h3 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h3><p>查询数据用<code>SELECT</code>语句查询</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT column1, column2, colunm3 <br>FROM table_name<br>[WHERE condition]<br>[ORDER BY column_name [ASC | DESC]]<br>[LIMIT number];<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>WHERE condition</code> 是一个可选的子句，用于指定过滤条件，只返回符合条件的行。</li>
+<li><code>ORDER BY column_name [ASC | DESC]</code> 是一个可选的子句，用于指定结果集的排序顺序，默认是升序（ASC）。</li>
+<li><code>LIMIT number</code> 是一个可选的子句，用于限制返回的行数。</li>
+</ul>
+<p>实例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs mysql">#返回所有数据<br>SELECT * FROM mytable;<br><br>#返回特定字段<br>SELECT id,name FROM mytable;<br><br>#WHERE语句，返回满足设定条件的行<br>#以下表示返回age字段等于20的行<br>SELECT * FROM mytable WHERE age = 20;<br><br>#ORDER BY 语句，默认表示按照某列的升序排序，ASC表示升序可以省略<br>SELECT * FROM mytable ORDER BY age;<br><br>#ORDER BY 语句设置DESC，表示按照某列的降序排序<br>SELECT * FROM mytable ORDER BY id DESC;<br><br>#LIMIT 语句，限制返回的行数<br>SELECT * FROM mytable LIMIT 2;<br></code></pre></td></tr></table></figure>
+
+<p><code>WHERE</code>语句还支持各种运算符，比较运算符、逻辑运算符（NOT AND OR）、通配符等都能使用。</p>
+<p>如果要使用通配符，需要用到<code>LIKE</code>，如果用了<code>LIKE</code>但没用通配符，那么他的效果和<code>=</code>是一样的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs MySQL">#通配符%，表示0个或多个字符，返回name字段带有xiao前缀的行<br>SELECT * FROM mytable WHERE  name LIKE &#x27;xiao%&#x27;;<br><br>#通配符_，表示一个字符，返回name字段第二个字母为x的行<br>SELECT * FROM mytable WHERE name LIKE &#x27;_x%&#x27;;<br><br>#不区分大小写匹配<br>SELECT * FROM mytable WHERE name LIKE &#x27;x%&#x27; COLLATE utf8mb4_general_ci;<br></code></pre></td></tr></table></figure>
+
+<p><code>WHERE</code>还有个<code>IN</code>和<code>NOT IN</code>条件，可以筛选与指定数据相等的行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs MySQL">#返回age字段是11或20的<br>SELECT * FROM mytable WHERE age IN (11, 20);<br><br>#取上面的补集<br>SELECT * FROM mytable WHERE age NOT IN (11, 20);<br></code></pre></td></tr></table></figure>
+
+<p><code>WHERE</code>还有<code>BETWEEN、NOT BETWEEN、IS NULL 、IS NOT NULL</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mysql">#BETWEEN，筛选属于给定区间的数据，可以是时间、数字、文本<br>#两边都是闭区间，即包含两边<br>SELECT * FROM mytable WHERE id BETWEEN 1 AND 5;<br><br>#如果需要取补集可以用NOT BETWEEN<br></code></pre></td></tr></table></figure>
+
+<h3 id="更新数据"><a href="#更新数据" class="headerlink" title="更新数据"></a>更新数据</h3><p><code>UPDATE</code>用来更新数据，语法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">UPDATE table_name<br>SET column1=value1,column1=value2...<br>WHERE condition;<br></code></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs mysql"># 更新多个列<br>  UPDATE mytable<br>  SET age=20,name=&#x27;lihua&#x27;<br>  WHERE id=1;<br><br># 使用表达式更新<br>	UPDATE mytable<br>	SET age=age+1;<br>	<br># 使用子查询的值<br>	UPDATE mytable<br>  SET name = (<br>  	SELECT name FROM 座位表<br>  	WHERE 座位表.id = mytable.id<br>  	LIMIT 1<br>  );<br></code></pre></td></tr></table></figure>
+
+<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><p>删除数据用<code>DELETE</code>语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">DELETE FROM table_name<br>WHERE condition;<br></code></pre></td></tr></table></figure>
+
+<p>如果没有指定条件，则所有记录都会被删除。</p>
+<h3 id="修改表结构"><a href="#修改表结构" class="headerlink" title="修改表结构"></a>修改表结构</h3><p>使用<code>ALTER</code>可以修改表的结构，重命名，添加删除字段等</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">ALTER TABLE [表名] &#123;MODIFY | RENAME | ADD | DROP&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>修改字段类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">ALTER TABLE [表名] MODIFY COLUMN  [字段名] [新类型]<br></code></pre></td></tr></table></figure>
+
+<p>比如修改name字段为varchar200类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">ALTER TABLE table_name MODIFY COLUMN name VARCHAR(200);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>重命名字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">ALTER TABLE [表名] RENAME COLUMN  [字段名] [新字段名];<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="UNION操作符"><a href="#UNION操作符" class="headerlink" title="UNION操作符"></a>UNION操作符</h3><p>用于连接两个及以上的SELECT语句的结果组合到一个集合并去除重复。语法格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT column1, column2, ...<br>FROM table1<br>WHERE condition1<br>UNION<br>SELECT column1, column2, ...<br>FROM table2<br>WHERE condition2<br>[ORDER BY column1, column2...]<br></code></pre></td></tr></table></figure>
+
+<p><code>ORDER BY</code> 子句是一个可选的子句，用于指定合并后的结果集的排序顺序。</p>
+<p><strong>每个 SELECT 语句的列数和对应位置的数据类型必须相同,如果数量不等可以用NULL补位</strong></p>
+<p>使用<code>UNION</code>的时候会自动去除重复行，如果不想去除，可以用<code>UNION ALL</code></p>
+<h3 id="ORDER-BY排序"><a href="#ORDER-BY排序" class="headerlink" title="ORDER BY排序"></a>ORDER BY排序</h3><p>在使用<code>SELECT</code>时，可以对获取的数据进行排序，<code>ORDER BY</code>可以设定指定一个或多个字段以哪种方式进行排序，并支持<code>ASC</code>升序或<code>	DESC</code>降序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT column1, column2...<br>FROM mytable<br>ORDER BY column1 [ASC|DESC],column2[ASC|DESC],...;<br></code></pre></td></tr></table></figure>
+
+<p>当有指定了多个字段时，会按照书写顺序依次排序，比如上诉代码中，会先以column1为依据排序，如果有column1相同的行，则会继续以column2进行排序。</p>
+<p>除了使用字段外，还可以用<strong>表达式进行排序</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT product_name, price * discount_rate AS discounted_price<br>FROM products<br>ORDER BY discounted_price DESC;<br></code></pre></td></tr></table></figure>
+
+<p>以上 SQL 语句将选择产品表 products 中的产品名称和根据折扣率计算的折扣后价格，并按折扣后价格降序 DESC 排序</p>
+<p>在SQL中，如果需要把指定的字段中出现了<strong>NULL值</strong>可以用<code>NULLS FIRST</code>或<code>NULLS LAST</code>设置NULL值的排序</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> product_name, price<br><span class="hljs-keyword">FROM</span> products<br><span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> price <span class="hljs-keyword">DESC</span> NULLS <span class="hljs-keyword">LAST</span>;<br></code></pre></td></tr></table></figure>
+
+<p>而在mysql中，NULL值默认为最小，即升序最前，降序最后，如果想改变，由于MySQL并没有NULLS语法，所以需要使用<code>CASE</code>或<code>IS</code>实现相同的效果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT name<br>FROM mytable<br>ORDER BY CASE WHEN name IS NULL THEN 1 ELSE 0 END, name DESC;<br></code></pre></td></tr></table></figure>
+
+<p>上述代码表示如果name是NULL值则返回1，否则返回0，数据库会先根据这个返回值进行排序，而默认是升序排序，所以1也就是<code>name IS NULL</code>，会被置底，接着其他name则会按照<code>DESC</code>降序排序.如果想让NULL置顶，可以更改01的位置，或者在<code>END</code>后添加<code>DESC</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT name<br>FROM mytable<br>ORDER BY name IS NULL DESC, name DESC;<br></code></pre></td></tr></table></figure>
+
+<p>上述代码表示，先根据（name IS NULL）的值（1&#x2F;0）进行排序，然后再根据name进行排序，上面的代码会将null值置顶，其余的name按照降序排序。和用case方法类似。不过这种方法在不同的数据库中得到了不同的效果，建议手动尝试下。</p>
+<h3 id="GROUP-分组"><a href="#GROUP-分组" class="headerlink" title="GROUP 分组"></a>GROUP 分组</h3><p><code>GROUP BY</code>可以根据一个或多个字段进行分组，还可以使用<code>COUNT,SUM,AVG</code>等函数。语法格式:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> column1, aggregate_function(column2)<br><span class="hljs-keyword">FROM</span> table_name<br><span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">condition</span><br><span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> column1;	<br></code></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql"># 按名字分组，查看班里重名的人数<br>SELECT name ,COUNT(*) FROM 座位表 GROUP BY name;<br></code></pre></td></tr></table></figure>
+
+<p>使用<code>WITH ROLLUP</code>可以在实现分组统计基础上再进行统计（<code>SUM, AVG, COUNT...</code>）</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MySQL/">#MySQL</a>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/16/%E5%89%8D%E7%AB%AF%E5%A4%A7%E5%B8%88%E8%AF%BE/" title="前端大师课">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">前端大师课</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/10/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0/" title="微信小程序学习">
+                        <span class="hidden-mobile">微信小程序学习</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a><p>
+
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>

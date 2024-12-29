@@ -1,0 +1,693 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/BMlogo3.jpg">
+  <link rel="icon" href="/img/BMlogo3.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BM-BoomMouse">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="什么是虚拟环境相当于给解释器复制了几个副本，在项目中使用这个副本进行包的安装和管理，在项目打包时，可以更方便的导出。对于多个项目也可以使用虚拟环境对环境进行区分，而不需要去更改全局环境。 python使用虚拟环境有多种方法，这里用venv（针对py3），如果有切换py版本的需求，还可以使用pyenv venv安装一般不需要安装，在安装python的时候会自带 查看venv help列表终端输入 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python venv虚拟环境基础">
+<meta property="og:url" content="http://example.com/2024/07/22/python-venv%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:site_name" content="BM的小窝">
+<meta property="og:description" content="什么是虚拟环境相当于给解释器复制了几个副本，在项目中使用这个副本进行包的安装和管理，在项目打包时，可以更方便的导出。对于多个项目也可以使用虚拟环境对环境进行区分，而不需要去更改全局环境。 python使用虚拟环境有多种方法，这里用venv（针对py3），如果有切换py版本的需求，还可以使用pyenv venv安装一般不需要安装，在安装python的时候会自带 查看venv help列表终端输入 1">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-07-22T03:16:50.000Z">
+<meta property="article:modified_time" content="2024-07-22T08:01:11.349Z">
+<meta property="article:author" content="BM-BoomMouse">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>python venv虚拟环境基础 - BM的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BM的个人空间</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>类别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/%E5%B0%8F%E7%8E%A9%E6%84%8F">
+                <i class="iconfont icon-pen"></i>
+                <span>小玩意</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="python venv虚拟环境基础"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-22 11:16" pubdate>
+          July 22, 2024 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.4k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">python venv虚拟环境基础</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on 5 months ago
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="什么是虚拟环境"><a href="#什么是虚拟环境" class="headerlink" title="什么是虚拟环境"></a>什么是虚拟环境</h1><p>相当于给解释器复制了几个副本，在项目中使用这个副本进行包的安装和管理，在项目打包时，可以更方便的导出。对于多个项目也可以使用虚拟环境对环境进行区分，而不需要去更改全局环境。</p>
+<p>python使用虚拟环境有多种方法，这里用venv（针对py3），如果有切换py版本的需求，还可以使用pyenv</p>
+<h1 id="venv安装"><a href="#venv安装" class="headerlink" title="venv安装"></a>venv安装</h1><p>一般不需要安装，在安装python的时候会自带</p>
+<h1 id="查看venv-help列表"><a href="#查看venv-help列表" class="headerlink" title="查看venv help列表"></a>查看venv help列表</h1><p>终端输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">python -m venv -h<br></code></pre></td></tr></table></figure>
+
+<p>返回结果如下：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">usage: venv [-h] [<span class="hljs-comment">--system-site-packages] [--symlinks | --copies] [--clear] [--upgrade] [--without-pip]</span><br>            [<span class="hljs-comment">--prompt PROMPT] [--upgrade-deps]</span><br>            ENV_DIR [ENV_DIR ...]<br><br>Creates virtual Python environments <span class="hljs-keyword">in</span> <span class="hljs-literal">one</span> <span class="hljs-keyword">or</span> more target <span class="hljs-built_in">directories</span>.<br><br>positional arguments:<br>  ENV_DIR               A <span class="hljs-built_in">directory</span> <span class="hljs-built_in">to</span> <span class="hljs-built_in">create</span> <span class="hljs-keyword">the</span> environment <span class="hljs-keyword">in</span>.<br><br>options:<br>  -h, <span class="hljs-comment">--help            show this help message and exit</span><br>  <span class="hljs-comment">--system-site-packages</span><br>                        Give <span class="hljs-keyword">the</span> virtual environment access <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> <span class="hljs-keyword">system</span> site-packages dir.<br>  <span class="hljs-comment">--symlinks            Try to use symlinks rather than copies, when symlinks are not the default for the platform.</span><br>  <span class="hljs-comment">--copies              Try to use copies rather than symlinks, even when symlinks are the default for the platform.</span><br>  <span class="hljs-comment">--clear               Delete the contents of the environment directory if it already exists, before environment</span><br>                        creation.<br>  <span class="hljs-comment">--upgrade             Upgrade the environment directory to use this version of Python, assuming Python has been</span><br>                        upgraded <span class="hljs-keyword">in</span>-place.<br>  <span class="hljs-comment">--without-pip         Skips installing or upgrading pip in the virtual environment (pip is bootstrapped by default)</span><br>  <span class="hljs-comment">--prompt PROMPT       Provides an alternative prompt prefix for this environment.</span><br>  <span class="hljs-comment">--upgrade-deps        Upgrade core dependencies: pip setuptools to the latest version in PyPI</span><br><br>Once <span class="hljs-keyword">an</span> environment has been created, you may wish <span class="hljs-built_in">to</span> activate <span class="hljs-keyword">it</span>, e.g. <span class="hljs-keyword">by</span> sourcing <span class="hljs-keyword">an</span> activate script <span class="hljs-keyword">in</span> its bin<br><span class="hljs-built_in">directory</span>.<br></code></pre></td></tr></table></figure>
+
+<p>让GPT翻译翻译</p>
+<ol>
+<li><strong>–system-site-packages</strong><ul>
+<li>这个选项允许虚拟环境访问系统的 site-packages 目录，即当前系统 Python 安装的库。默认情况下，虚拟环境是隔离的，不会访问系统安装的包。</li>
+</ul>
+</li>
+<li><strong>–symlinks</strong><ul>
+<li>当平台默认不是符号链接时，尝试使用符号链接而不是拷贝文件。符号链接可以节省空间并且更改后会同步更新，但不适用于所有平台。</li>
+</ul>
+</li>
+<li><strong>–copies</strong><ul>
+<li>即使平台默认使用符号链接，也尝试使用拷贝而不是符号链接。这个选项可以确保在所有平台上都使用拷贝，避免符号链接可能带来的兼容性问题。</li>
+</ul>
+</li>
+<li><strong>–clear</strong><ul>
+<li>如果指定了这个选项，并且目标环境目录已经存在，将会删除目录中的内容，然后重新创建环境。</li>
+</ul>
+</li>
+<li><strong>–upgrade</strong><ul>
+<li>这个选项用于升级已存在的虚拟环境目录，以适应当前使用的 Python 版本。这在你的系统 Python 升级后，想要更新虚拟环境时非常有用。</li>
+</ul>
+</li>
+<li><strong>–without-pip</strong><ul>
+<li>如果指定了这个选项，创建虚拟环境时将跳过安装或升级 pip。通常情况下，pip 是默认引导安装的。</li>
+</ul>
+</li>
+<li><strong>–prompt PROMPT</strong><ul>
+<li>这个选项允许你为虚拟环境提供一个自定义的提示符前缀，用于在激活虚拟环境后显示在命令行界面中。</li>
+</ul>
+</li>
+<li><strong>–upgrade-deps</strong><ul>
+<li>这个选项用于升级虚拟环境中的核心依赖项，如 pip 和 setuptools，到最新的 PyPI 版本。</li>
+</ul>
+</li>
+</ol>
+<h1 id="创建环境"><a href="#创建环境" class="headerlink" title="创建环境"></a>创建环境</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">python -m venv &lt;环境名&gt;<br></code></pre></td></tr></table></figure>
+
+<p>创建完成后，当前路径下会出现一个与环境名同名的目录，该目录目录结构如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">&lt;DIR&gt;          Include<br>&lt;DIR&gt;          Lib<br>pyvenv.cfg<br>&lt;DIR&gt;          Scripts<br></code></pre></td></tr></table></figure>
+
+<h1 id="激活环境"><a href="#激活环境" class="headerlink" title="激活环境"></a>激活环境</h1><p>进入到同名目录的<code>Scripts</code>目录下，该目录有一个<code>activate</code>文件，在终端中运行它即可激活环境</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">activate<br></code></pre></td></tr></table></figure>
+
+<p>之后终端的前面有带有一个括号，括号里是环境名，如：</p>
+<p><code>(test) D:\code&gt;</code></p>
+<p>在这个基础上输出<code>pip list</code>查看该环境下的包，可以发现，虚拟环境中并没有我们在真实环境过的包。说明成功了</p>
+<p>激活的本质就是修改临时修改环境变量</p>
+<p>如果不想激活也可以直接运行<code>Scripts</code>下的python也是可以的，或者是在IDE中指定解释器</p>
+<h1 id="复制和保存虚拟环境"><a href="#复制和保存虚拟环境" class="headerlink" title="复制和保存虚拟环境"></a>复制和保存虚拟环境</h1><p>在pip中有一个<code>pip list</code>指令，可以查看当前环境安装的包，在通过<code>&gt;</code>可以将结果输出到文件中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pip list &gt; requirements.txt<br></code></pre></td></tr></table></figure>
+
+<p>这样就安装的包名与版本输出到文本文件中了</p>
+<p>如果想要导入这个文件中的包，可以通过<code>pip install -r &lt;文件名&gt;</code>批量导入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">pip install -r requirements.txt<br></code></pre></td></tr></table></figure>
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">#学习笔记</a>
+      
+        <a href="/tags/python/">#python</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/26/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/" title="网络技术学习">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">网络技术学习</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/14/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" title="线性代数">
+                        <span class="hidden-mobile">线性代数</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a><p>
+
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>

@@ -1,0 +1,835 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/BMlogo3.jpg">
+  <link rel="icon" href="/img/BMlogo3.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BM-BoomMouse">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="介绍fico Table.sol提供了CRUD接口用于直接访问底层的存储表 使用在节点控制台中的合约仓库中，可以添加Table.sol到IDE引用Table.sol 1import &quot;Table.sol&quot;;  Table.sol的接口包括：  createTable :创建表 select(string, Condition): 查询数据 insert(string, Entr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FISCO table表使用">
+<meta property="og:url" content="http://example.com/2024/12/28/FISCO%20table/index.html">
+<meta property="og:site_name" content="BM的小窝">
+<meta property="og:description" content="介绍fico Table.sol提供了CRUD接口用于直接访问底层的存储表 使用在节点控制台中的合约仓库中，可以添加Table.sol到IDE引用Table.sol 1import &quot;Table.sol&quot;;  Table.sol的接口包括：  createTable :创建表 select(string, Condition): 查询数据 insert(string, Entr">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-12-28T12:36:11.000Z">
+<meta property="article:modified_time" content="2024-12-28T12:37:29.507Z">
+<meta property="article:author" content="BM-BoomMouse">
+<meta property="article:tag" content="区块链">
+<meta property="article:tag" content="solidity">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>FISCO table表使用 - BM的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BM的个人空间</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>类别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/%E5%B0%8F%E7%8E%A9%E6%84%8F">
+                <i class="iconfont icon-pen"></i>
+                <span>小玩意</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="FISCO table表使用"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-28 20:36" pubdate>
+          December 28, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          34 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">FISCO table表使用</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on 21 hours ago
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>fico Table.sol提供了CRUD接口用于直接访问底层的存储表</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>在节点控制台中的合约仓库中，可以添加<code>Table.sol</code>到IDE<br>引用Table.sol</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs solidity">import &quot;Table.sol&quot;;<br></code></pre></td></tr></table></figure>
+
+<p>Table.sol的接口包括：</p>
+<ul>
+<li>createTable :创建表</li>
+<li>select(string, Condition): 查询数据</li>
+<li>insert(string, Entry): 插入数据</li>
+<li>update(string, Entry, Condition): 更新数据</li>
+<li>remove(string, Condition): 删除数据</li>
+</ul>
+<h2 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs solidity">// TableFactory的地址固定为0x1001<br>TableFactory tf = TableFactory(0x1001);<br><br>int count = tf.createTable(&quot;table_name&quot;, &quot;key_name&quot;, &quot;item_1,item_2&quot;);<br>if (count == 0) &#123;<br>    // success<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>解释：</p>
+<ul>
+<li><p><code>TableFactory(0x1001)</code>:<br>  <code>TableFactory</code>合约默认地址为<code>0x1001</code></p>
+</li>
+<li><p><code>table_name</code>:<br>  创建的表的表名</p>
+</li>
+<li><p><code>key_name</code>:<br>  表的主键名，在Table中，可以有多个相同主键</p>
+</li>
+<li><p><code>item_1,item_2</code>:<br>  表的字段名，用逗号分隔</p>
+</li>
+<li><p><code>count</code>:<br>  <code>createTable</code>会返回状态码，为0则创建成功，状态码如下：</p>
+<table>
+<thead>
+<tr>
+<th>错误码</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>创建成功</td>
+</tr>
+<tr>
+<td>-50000</td>
+<td>用户没有权限</td>
+</tr>
+<tr>
+<td>-50001</td>
+<td>创建表名已存在</td>
+</tr>
+<tr>
+<td>-50002</td>
+<td>表名超过48字符</td>
+</tr>
+<tr>
+<td>-50003</td>
+<td>valueField长度超过64字符</td>
+</tr>
+<tr>
+<td>-50004</td>
+<td>valueField总长度超过1024字符</td>
+</tr>
+<tr>
+<td>-50005</td>
+<td>keyField长度超过64字符</td>
+</tr>
+<tr>
+<td>-50007</td>
+<td>存在重复字段</td>
+</tr>
+<tr>
+<td>-50007</td>
+<td>字段存在非法字符</td>
+</tr>
+<tr>
+<td>其他</td>
+<td>创建时遇到的其他错误</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="导入表"><a href="#导入表" class="headerlink" title="导入表"></a>导入表</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs solidity">TableFactory tf = TableFactory(0x1001);<br>Table table = tf.openTable(&quot;table_name&quot;);<br><br>if(table == address(0x0)) &#123;<br>    // error<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>解释：</p>
+<ul>
+<li><code>tf.openTable(&quot;table_name&quot;)</code>:<br>  <code>table_name</code>为表名，返回<code>table_name</code>的地址，如果<code>address(0x0)</code>则表示打开失败</li>
+</ul>
+<h2 id="插入行"><a href="#插入行" class="headerlink" title="插入行"></a>插入行</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs solidity">TableFactory tf = TableFactory(0x1001);<br>Table table = tf.openTable(&quot;table_name&quot;);<br><br>// 新建行<br>Entry entry = table.newEntry();<br>// 设置字段值<br>entry.set(&quot;item_1&quot;,&quot;1&quot;);<br>entry.set(&quot;item_2&quot;,&quot;2&quot;);<br>// 将行插入到表中，主键设为key1<br>int count = table.insert(&quot;key1&quot;, entry);<br><br>if (count == 1) &#123;<br>    // success<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>解释：</p>
+<ul>
+<li><code>Entry</code>:<br>  <code>Entry</code>表示一行，<code>table.newEntry</code>用于新建一个<code>table</code>表对应的行</li>
+<li><code>set</code>:<br>  用于设置行的字段，第一个参数为字段名，第二个参数为字值，字段值支持<code>int string address</code></li>
+<li><code>insert</code>:<br>  用于将行插入到表中，第一个参数为插入行的主键值，第二参数为待插入的行对象</li>
+<li><code>count</code>:<br>  <code>insert</code>返回值表示 “受影响的行数” 为1说明插入成功</li>
+</ul>
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs solidity">TableFactory tf = TableFactory(0x1001);<br>Table table = tf.openTable(&quot;table_name&quot;);<br>if(table == address(0x0)) &#123;<br>    // error<br>&#125;<br><br>// 新建筛选条件对象<br>Condition condition = table.newCondition();<br>// 筛选出符合条件的行<br>Entries entries = table.select(&quot;key1&quot;, condition);<br><br>// 新建数据，存储数据，根据字段选择数组类型<br>bytes32[] string_item_list = new bytes32[];<br>int256[]  int_item_list = new int256[];<br><br>// 获得行数<br>int size = entries.size();<br>// 便利每行，将对应数据放入数组<br>for (int i = 0; i &lt; size; i++) &#123;<br>    // 获取查询结果的第i行<br>    Entry entry = entries.get(i);<br>    // 获取i行的item_1字段，以Bytes32的形式读取<br>    string_item_list[uint256(i)] = entry.getBytes32(&quot;item_1&quot;);<br>    // 获取i行的item_1字段，以int的形式读取<br>    int_item_list[uint256(i)] = entry.getInt(&quot;item_2&quot;);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>解释：</p>
+<ul>
+<li><p><code>Entries</code>:<br>  <code>Entry</code>的复数，表示多行的集合</p>
+</li>
+<li><p><code>Condition</code>:<br>  过滤条件对象，可以通过它的子方法添加过滤条件，<code>condition.EQ(&quot;item_1&quot;,&quot;1&quot;)</code>表示筛选条件为 字段item_值 为 1的行，条件可以设置多个</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs solidity">condition.EQ(&quot;item_1&quot;,&quot;1&quot;);<br>condition.EQ(&quot;item_1&quot;,&quot;2&quot;);<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>接口</th>
+<th>功能</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EQ(string, int)</td>
+<td>相等条件</td>
+<td>字段名，字段值</td>
+</tr>
+<tr>
+<td>EQ(string, string)</td>
+<td>相等条件</td>
+<td>字段名，字段值</td>
+</tr>
+<tr>
+<td>NE(string, int)</td>
+<td>不等条件</td>
+<td>字段名，字段值</td>
+</tr>
+<tr>
+<td>NE(string, string)</td>
+<td>不等条件</td>
+<td>字段名，字段值</td>
+</tr>
+<tr>
+<td>GT(string, int)</td>
+<td>大于条件</td>
+<td>字段名，字段值</td>
+</tr>
+<tr>
+<td>GE(string, int)</td>
+<td>大于或等于条件</td>
+<td>字段名，字段值</td>
+</tr>
+<tr>
+<td>LT(string, int)</td>
+<td>小于条件</td>
+<td>字段名，字段值</td>
+</tr>
+<tr>
+<td>LE(string, int)</td>
+<td>小于或等于条件</td>
+<td>字段名，字段值</td>
+</tr>
+<tr>
+<td>limit(int)</td>
+<td>记录选取条件</td>
+<td>返回多少条记录</td>
+</tr>
+<tr>
+<td>limit(int, int)</td>
+<td>记录选取条件</td>
+<td>记录启始行位置，返回多少条记录</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><code>table.select</code>:<br>  用于筛选数据，参数一为主键值，参数二为筛选条件，比<code>table.select(&quot;key1&quot;, condition)</code>表示筛选出所有主键为<code>key1</code>且，满足筛选条件<code>condition</code>的行</p>
+</li>
+<li><p><code>entries.size</code>:<br>  返回行数</p>
+</li>
+<li><p><code>entries.get</code>:<br>  单独获取某一行，参数为uint，表示需要获取的行</p>
+</li>
+<li><p><code>entry.get...()</code>:<br>  <code>Entry</code>提供了多个get方法，在使用时需要根据字段值使用应的get方法，如<code>getString getBytes32 getInt</code>，传入参数为需要获取的字段名</p>
+<table>
+<thead>
+<tr>
+<th>接口</th>
+<th>功能</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>getInt(string)</td>
+<td>获取字段值</td>
+<td>字段名</td>
+</tr>
+<tr>
+<td>getString(string)</td>
+<td>获取字段值</td>
+<td>字段名</td>
+</tr>
+<tr>
+<td>getBytes64(string)</td>
+<td>获取字段值</td>
+<td>字段名</td>
+</tr>
+<tr>
+<td>getBytes32(string)</td>
+<td>获取字段值</td>
+<td>字段名</td>
+</tr>
+<tr>
+<td>getAddress(string)</td>
+<td>获取字段值</td>
+<td>字段名</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="删除行"><a href="#删除行" class="headerlink" title="删除行"></a>删除行</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs solidity">TableFactory tf = TableFactory(0x1001);<br>Table table = tf.openTable(&quot;table_name&quot;);<br>if(table == address(0x01)) &#123;<br>    // error<br>&#125;<br><br>// 新建筛选条件<br>Condition condition = table.newCondition();<br>condition.EQ(&quot;item_1&quot;,&quot;1&quot;);<br>// 删除<br>int count = table.remove(&quot;key1&quot;, condition);<br></code></pre></td></tr></table></figure>
+<p>解释：</p>
+<ul>
+<li><code>count</code>:<br>  删除的行数</li>
+<li><code>table.remove</code>:<br>  删除满足条件的行，参数一为主键值，参数二为筛选条件，返回值为删除的行数</li>
+</ul>
+<h2 id="修改行"><a href="#修改行" class="headerlink" title="修改行"></a>修改行</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs solidity">TableFactory tf =TableFactory(0x1001);<br>Table table =tf.openTable(&quot;t_test&quot;);<br>// 检查table是否是空地址<br>if(table == address(0x0))<br>&#123;<br>    // error<br>&#125;<br><br>// 新建行<br>Entry newEntry = table.newEntry();<br>// 设置字段值<br>entry.set(&quot;item_1&quot;,&quot;1&quot;);<br>entry.set(&quot;item_2&quot;.&quot;2&quot;);<br><br>// 新建过滤条件<br>Condition condition = table.newCondition();<br>// 设置过滤条件<br>condition.EQ(&quot;imte_1&quot;,&quot;update&quot;);<br><br>// 修改行<br>int count = table.update(&quot;key1&quot;, newEntry, condition);<br></code></pre></td></tr></table></figure>
+<p>解释:</p>
+<ul>
+<li><code>update</code>:<br>  参数一为主键值，参数二为修改后的行对象，参数三为过滤条件，返回值为修改的行数</li>
+</ul>
+<h1 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h1><ol>
+<li><strong>主键不唯一</strong></li>
+<li><strong>字段过多，可以使用数组或struct封装参数</strong></li>
+</ol>
+<p>​        </p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">#区块链</a>
+      
+        <a href="/tags/solidity/">#solidity</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/10/08/Foundry%E7%AC%94%E8%AE%B0/" title="Foundry笔记">
+                        <span class="hidden-mobile">Foundry笔记</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a><p>
+
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>

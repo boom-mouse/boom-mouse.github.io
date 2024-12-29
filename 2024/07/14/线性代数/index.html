@@ -1,0 +1,875 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/BMlogo3.jpg">
+  <link rel="icon" href="/img/BMlogo3.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BM-BoomMouse">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="行列式行列式的概念首先要知道几个概念：  逆序数： 将1-n进行排序，枚举每对数字，若大数在小数前，则出现一个逆序，逆序的数量称为逆序数  奇偶排列：根据逆序数的奇偶，称为奇排列或偶排列   比如23541，枚举每对数字23 25 24 21 35 34 31 ... 41出现逆序的次数为5，则它的逆序数为5，5是个奇数，所以称为奇排列。 了解了这几个概念，开始说行列式的定义，n阶行列式的定义为：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性代数">
+<meta property="og:url" content="http://example.com/2024/07/14/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/index.html">
+<meta property="og:site_name" content="BM的小窝">
+<meta property="og:description" content="行列式行列式的概念首先要知道几个概念：  逆序数： 将1-n进行排序，枚举每对数字，若大数在小数前，则出现一个逆序，逆序的数量称为逆序数  奇偶排列：根据逆序数的奇偶，称为奇排列或偶排列   比如23541，枚举每对数字23 25 24 21 35 34 31 ... 41出现逆序的次数为5，则它的逆序数为5，5是个奇数，所以称为奇排列。 了解了这几个概念，开始说行列式的定义，n阶行列式的定义为：">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-07-14T13:57:05.000Z">
+<meta property="article:modified_time" content="2024-12-28T12:13:07.663Z">
+<meta property="article:author" content="BM-BoomMouse">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>线性代数 - BM的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BM的个人空间</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>类别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/%E5%B0%8F%E7%8E%A9%E6%84%8F">
+                <i class="iconfont icon-pen"></i>
+                <span>小玩意</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="线性代数"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-14 21:57" pubdate>
+          July 14, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.5k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          55 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">线性代数</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on a day ago
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="行列式"><a href="#行列式" class="headerlink" title="行列式"></a>行列式</h1><h2 id="行列式的概念"><a href="#行列式的概念" class="headerlink" title="行列式的概念"></a>行列式的概念</h2><p>首先要知道几个概念：</p>
+<ul>
+<li><p><strong>逆序数：</strong></p>
+<p>将1-n进行排序，枚举<strong>每对数字，若大数在小数前，则出现一个逆序，逆序的数量称为逆序数</strong></p>
+</li>
+<li><p><strong>奇偶排列：</strong>根据逆序数的奇偶，称为<strong>奇排列或偶排列</strong></p>
+</li>
+</ul>
+<p>比如<code>23541</code>，枚举每对数字<code>23 25 24 21 35 34 31 ... 41</code>出现逆序的次数为5，则它的逆序数为5，5是个奇数，所以称为奇排列。</p>
+<h1 id="了解了这几个概念，开始说行列式的定义，n阶行列式的定义为：-begin-vmatrix-a-11-amp-a-12-amp-…a-1n-a-21-amp-a-22-amp-…a-2n-a-31-amp-a-32-amp-…a-3n-…a-n1-amp-a-n2-amp-…a-nn-end-vmatrix"><a href="#了解了这几个概念，开始说行列式的定义，n阶行列式的定义为：-begin-vmatrix-a-11-amp-a-12-amp-…a-1n-a-21-amp-a-22-amp-…a-2n-a-31-amp-a-32-amp-…a-3n-…a-n1-amp-a-n2-amp-…a-nn-end-vmatrix" class="headerlink" title="了解了这几个概念，开始说行列式的定义，n阶行列式的定义为：$$\begin{vmatrix}a_{11} &amp; a_{12} &amp; …a_{1n} \a_{21} &amp; a_{22} &amp; …a_{2n} \a_{31} &amp; a_{32} &amp; …a_{3n} \…a_{n1} &amp; a_{n2} &amp; …a_{nn} \\end{vmatrix} "></a>了解了这几个概念，开始说行列式的定义，n阶行列式的定义为：<br>$$<br>\begin{vmatrix}<br>a_{11} &amp; a_{12} &amp; …a_{1n} \<br>a_{21} &amp; a_{22} &amp; …a_{2n} \<br>a_{31} &amp; a_{32} &amp; …a_{3n} \<br>…<br>a_{n1} &amp; a_{n2} &amp; …a_{nn} \<br>\end{vmatrix} </h1><p>\sum(-1)^{\tau(j_1j_2\cdots j_n)}a_{1j_1}a_{2j_2}\cdots a_{nj_n}<br>$$<br>行列式是一个n*n的数表。两边用竖线括起，行列式是一种运算，运算的方法为：</p>
+<ul>
+<li>从每行中取出一个元素，每行的元素都不同列，求出乘积</li>
+<li>如果列标号是奇排序则加负号</li>
+<li>把所有情况求和，就是行列式的结果</li>
+</ul>
+<p>比如现在有一个三阶行列式：<br>$$<br>\begin{vmatrix}<br>1&amp;2&amp;3\<br>4&amp;5&amp;6\<br>7&amp;8&amp;9<br>\end{vmatrix}<br>$$<br>那么每一行取不重复的一列，总共可以有6种取法：123，132，213，231，321，312</p>
+<p>接下来算每种情况的乘积：</p>
+<p>123对应1<em>5</em>9，相乘为45，123的逆序数为0，所以是偶排列 ，不需要负号，</p>
+<p>132对应168，相乘 为48，逆序数为1，所以是奇排列，需要加负号，</p>
+<p>…</p>
+<p>将所有乘积算出后相加，得到行列式的结果为0</p>
+<h2 id="特殊状态快速求解"><a href="#特殊状态快速求解" class="headerlink" title="特殊状态快速求解"></a>特殊状态快速求解</h2><p>通过基础概念去运算，可以看到非常的繁琐，而对于一些特殊的行列式，通过公式快速得出结果</p>
+<ul>
+<li><p>二阶行列式：</p>
+<p>二阶行列式只有两种取法，12和21，而21的逆序数为1，是奇排列，需要加负号，所以二阶行列式的计算公式为：</p>
+<blockquote>
+<p><strong>主对角线乘积（从左上到右下）-副对角线乘积（从右上到左下）</strong></p>
+</blockquote>
+</li>
+<li><p>有多个元素为0：</p>
+<p>当有多个元素为0时，可以直接通过定义求值，因为0乘以任何数都为0，会去除很多种取值</p>
+</li>
+<li><p>对角度、上&#x2F;下三角行列式：</p>
+<p>形如：<br>$$<br>\begin{vmatrix}a_{11}&amp;0&amp;…&amp;0\0&amp;a_{22}&amp;…&amp;0\\vdots&amp;\vdots&amp;\vdots\0&amp;0&amp;\cdots&amp;a_{nn}\end{vmatrix}&#x3D;\begin{vmatrix}a_{11}&amp;a_{12}&amp;\cdots&amp;a_{1n}\0&amp;a_{22}&amp;\cdots&amp;a_{2n}\\vdots&amp;\vdots&amp;\vdots\0&amp;0&amp;\cdots&amp;a_{m}\end{vmatrix}&#x3D;\begin{vmatrix}a_{11}&amp;0&amp;…&amp;0\a_{21}&amp;a_{22}&amp;\vdots&amp;0\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\a_{n1}&amp;a_{n2}&amp;\cdots&amp;a_{nn}\end{vmatrix}&#x3D;\prod a_{ii}<br>$$<br>如果主对角线下方是0，称为<strong>上三角行列式</strong>，下方是0称为<strong>下三角行列式</strong>（没写反，就是这样），全是0称为<strong>对角行列式</strong>。</p>
+<p>对于这几种情况，有且只有一种取值，就是<strong>取在主对角线上</strong>，所以他们的结果为</p>
+<blockquote>
+<p><strong>对角线元素的乘积</strong></p>
+</blockquote>
+</li>
+<li><p>非特殊：</p>
+<p>没有0则创造0，可以通过行列式的性质进行转换，化简得到上下三角行列式</p>
+</li>
+</ul>
+<h2 id="行列式的性质"><a href="#行列式的性质" class="headerlink" title="行列式的性质"></a>行列式的性质</h2><p>通过行列式的性质，可以对行列式进行转换，化简，行列式的性质有：</p>
+<ul>
+<li><p>转置不变：</p>
+<p>将行和列调换，行列式的值不变，根据整个性质可知，以下性质同样适用于列</p>
+</li>
+<li><p><strong>逐行保数乘：</strong>（常用）</p>
+<p>如果某一行有公因数k，可以提到行列式外面；如果整个行列式都是公因数k，提到外边将变成 k的n次方</p>
+</li>
+<li><p>逐行保加：</p>
+<p>某一行拆成两个数的和，可据此拆成两个行列式的和。用的不多</p>
+</li>
+<li><p><strong>交错性：</strong></p>
+<p>交换行列式的任意两行或两列，行列式的值变成相反数，交换两次则负负得正。</p>
+</li>
+<li><p><strong>倍加不变：</strong>（用的最多，重点）</p>
+<p>把任意 一行乘以任意数加到另一行上，行列式的值不变</p>
+</li>
+<li><p><strong>同比化零：</strong>（从倍加不变推导）</p>
+<p>两行成比例，整个行列式为0</p>
+</li>
+</ul>
+<p>通过以上特性，可以将行列式转换为对角，上下三角行列式</p>
+<h2 id="行列式展开定理"><a href="#行列式展开定理" class="headerlink" title="行列式展开定理"></a>行列式展开定理</h2><p>学会之后可以更开的求值。</p>
+<p>在学习之前，需要先理解两个概念：<strong>余子式和代数余子式</strong>：</p>
+<ul>
+<li><p>余子式M<del>ij</del>：</p>
+<p>对于元素a<del>jj</del>,把同行、同列的元素去掉，剩下的行列式称为它的**余子式M<del>ij</del>**。</p>
+</li>
+<li><p>代数余子式A<del>ij</del>:<br>$$<br>{A_{ij}}&#x3D;(-1)^{i+j} M_{ij}<br>$$</p>
+</li>
+</ul>
+<p>了解之后，就能学习行列式的展开定理：</p>
+<ul>
+<li><p>n阶行列式等于它任意一行的所有元素与代数余子式的乘积之和：<br>$$<br>D&#x3D;a_{i1}A_{i1}+a_{i2}A_{i2}+\cdots+a_{in}A_{in}<br>$$</p>
+</li>
+<li><p>如果把余子式相应乘到另一行上，结果为0：<br>$$<br>D&#x3D;a_{k1}A_{i1}+a_{k2}A_{i2}+\cdots+a_{kn}A_{in} (i\neq k)<br>$$</p>
+</li>
+</ul>
+<h1 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h1><h2 id="矩阵的概念"><a href="#矩阵的概念" class="headerlink" title="矩阵的概念"></a>矩阵的概念</h2><p>由m*n个数排成的矩形数表称为矩阵，记为：<br>$$<br>A_{m\times n}&#x3D;\left(a_{ij}\right)_{m\times n}<br>$$<br>矩阵本身用大写字母表示，矩阵中的元素则用小写字母表示。</p>
+<p>只有形状相同（行列数相同）且对应元素都相同的矩阵才相等</p>
+<p>对于一些特殊的矩阵，有特定的名称：</p>
+<ul>
+<li><p>方阵：行数等于列数称为方阵，只有方阵有对应的行列式</p>
+</li>
+<li><p>三角矩阵（针对方阵）：</p>
+<ul>
+<li>上三角矩阵：对角线左下方全为0</li>
+<li>下三角矩阵：对角线右上方全为0</li>
+<li>对角矩阵：只有对角线上的元素不是0，记为diag(a<del>11</del>,a<del>22</del>,…,a<del>nn</del>)</li>
+</ul>
+</li>
+<li><p>向量：若矩阵只有一行，称为行矩阵或行向量；只有一列称为列矩阵或列向量</p>
+</li>
+<li><p>零矩阵：所有元素都是0，记为0或0<del>m*n</del>。且形状不同的零矩阵不相等</p>
+</li>
+<li><p>单位矩阵I<del>n</del>：对角元素都是1的对角矩阵</p>
+</li>
+<li><p>数量矩阵：对角元素都相等的对角矩阵</p>
+</li>
+<li><p>幂：</p>
+<ul>
+<li><p>只有A为方阵时，才有矩阵的幂A^k^，等于k个A相乘</p>
+</li>
+<li><p>矩阵幂运算的性质与实数类似：<br>$$<br>A^0&#x3D;I,A^k A^l&#x3D;A^{k+l},\left(A^k\right)^l&#x3D;A^{kl}\<br>但是<br>(AB)^{k}\neq A^{k}B^{k}<br>$$</p>
+</li>
+</ul>
+</li>
+<li><p>矩阵的转置：</p>
+<ul>
+<li><p>将矩阵A的行列颠倒，称为矩阵的转置，记为A^T^</p>
+</li>
+<li><p>矩阵转置的性质与乘方类似：<br>$$<br>(A^T)^T&#x3D;A,(A+B)^T&#x3D;A^T+B^T,(kA)^T&#x3D;kA^T,(AB)^T&#x3D;B^TA^T<br>$$</p>
+</li>
+<li><p>根据转置结果，有以下特殊矩阵且都是方阵：</p>
+<ul>
+<li>对称矩阵：A&#x3D;A^T^</li>
+<li>反对称矩阵：转置后所有的元素变为相反数，A^T^&#x3D;-A，对角元素必然都是0（因为转置不影响对角线元素，0的相反数还是0）。</li>
+</ul>
+<p>若A、B是同阶的对称或反对称矩阵，则A+B、kA、kB也是对称或非对称矩阵，但AB不一定是</p>
+</li>
+</ul>
+</li>
+<li><p>矩阵的逆：若A为方阵，存在矩阵B使AB&#x3D;BA&#x3D;I，则成方阵A可逆，B是A的逆矩阵A^-1^</p>
+<p>逆矩阵的性质有：</p>
+<ul>
+<li><p>若A可逆，则逆矩阵唯一</p>
+</li>
+<li><p>若A可逆，则A^-1^也可逆，(A^-1^)^-1^&#x3D;A</p>
+</li>
+<li><p>(AB)^-1^ &#x3D; B^-1^A^-1^</p>
+</li>
+<li><p>(A^T^)^-1^ &#x3D; (A^-1^)^T^</p>
+</li>
+<li><p>(kA)^-1^ &#x3D; k^-1^A^-1^</p>
+</li>
+<li><p>|A^-1^| &#x3D; |A|^-1^</p>
+</li>
+</ul>
+<p>求逆矩阵的方法：</p>
+<ul>
+<li><p>待定系数法：麻烦没人用</p>
+</li>
+<li><p>伴随矩阵法：<br>伴随矩阵是指n阶方阵各元素代数余子式构成矩阵的转置，称为伴随矩阵A^<em>^<br>$$<br>AA^{</em>}&#x3D;A^{*}A&#x3D;|A|I<br>$$</p>
+<p>矩阵可逆等价于<br>$$<br>|A|\neq0<br>$$</p>
+<p>伴随矩阵的性质有：<br>$$<br>|A^*|&#x3D;|A|^{n-1} (A^T)^*&#x3D;(A^*)^T,(A^{-1})^*&#x3D;(A^*)^{-1}<br>$$</p>
+</li>
+<li><p>初等行变换法：</p>
+<p>对矩阵【A|I】进行初等行变换，将A变换为一个单位矩阵（对角线全1其余0），同时I同步进行行变换。</p>
+<p>如果成功则变换后的I就是要求的逆矩阵；如果A变换时出现全0行，则说明A不可逆</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="矩阵的运算"><a href="#矩阵的运算" class="headerlink" title="矩阵的运算"></a>矩阵的运算</h2><ul>
+<li><p>同型矩阵的线性运算：</p>
+<ul>
+<li>矩阵的加减乘、负矩阵：对应元素加减</li>
+<li>数乘：所有元素都乘以这个数</li>
+</ul>
+<p>线性运算满足交换律、结合律、分配律</p>
+</li>
+<li><p>矩阵的乘法：</p>
+<ul>
+<li><p>可乘原则：前一个矩阵的列数&#x3D;后一个矩阵的行数（前列数&#x3D;后行数）只有满足这个条件才能相乘</p>
+</li>
+<li><p>乘积阶数：两个矩阵相乘后的大小为：前行数*后列数（左行右列中相等）<br>$$<br>A_{m\times n}\times B_{n\times p}&#x3D;C_{m\times p}<br>$$</p>
+</li>
+<li><p>乘积元素：C<del>ij</del>是A的第i行元素与B的第j列元素，对应相乘后，求和（左行右列中求和）<br>$$<br>AB&#x3D;\left(a_{ij}\right)<em>{m\times s}\cdot\left(b</em>{ij}\right)<em>{s\times n}&#x3D;\left(c</em>{ij}\right)<em>{m\times n}&#x3D;C, c</em>{ij}&#x3D;\sum a_{ik}b_{kj}<br>$$<br>比如两个2*2的矩阵相乘，一个为A(1,2|3,4)另一个为B(2,2|3,4)，则它们相乘的结果为2*2的矩阵C，则<br>$$<br>\begin{aligned}C_{11}&amp;&#x3D;A_{11}\times B_{21}+A_{12}\times B_{21}+A_{13}\times B_{31}\end{aligned}<br>$$</p>
+<p>结果为8</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="矩阵与行列式的关系"><a href="#矩阵与行列式的关系" class="headerlink" title="矩阵与行列式的关系"></a>矩阵与行列式的关系</h2><p>若A为方阵，则有对应的行列式，记为|A|或det(A)<br>$$<br>|kA|&#x3D;k^{n}A , |AB|&#x3D;|A||B| , |A^{k}|&#x3D;|A|^{k} , |A^{T}|&#x3D;|A|\<br>注意\<br>|A+B|\neq|A|+|B|<br>$$</p>
+<h2 id="矩阵的初等行变换"><a href="#矩阵的初等行变换" class="headerlink" title="矩阵的初等行变换"></a>矩阵的初等行变换</h2><p>和行列式类似：</p>
+<ul>
+<li><p>对换：</p>
+<p>交换i，j两行的位置，和行列式不一样，不需要加负号</p>
+</li>
+<li><p>倍乘：</p>
+<p>将第i行变为C倍，c不等于0</p>
+</li>
+<li><p>倍加：</p>
+<p>将第i行的k倍加到第j行</p>
+</li>
+</ul>
+<h2 id="矩阵的秩"><a href="#矩阵的秩" class="headerlink" title="矩阵的秩"></a>矩阵的秩</h2><h3 id="矩阵的秩的概念"><a href="#矩阵的秩的概念" class="headerlink" title="矩阵的秩的概念"></a>矩阵的秩的概念</h3><p>k阶段子式：从矩阵A中任取k行k列，构成的行列式称为A的k阶子式</p>
+<p>对于矩阵A，若存在r阶子式不为0，但所有r+1阶子式都为0，则r称为矩阵的秩，记为r(A)。零矩阵的秩是0</p>
+<h3 id="矩阵的秩的求法"><a href="#矩阵的秩的求法" class="headerlink" title="矩阵的秩的求法"></a>矩阵的秩的求法</h3><p>对矩阵做初等行变换，变换为阶梯矩阵，并尽可能地把一行化为零。最终的阶梯矩阵的非零行数，就是矩阵的秩。</p>
+<p>如：<br>$$<br>\left.A&#x3D;\left[\begin{array}{cccc}1&amp;2&amp;0&amp;3&amp;4\-1&amp;2&amp;-4&amp;1&amp;0\2&amp;1&amp;3&amp;-2&amp;-10\-2&amp;1&amp;-5&amp;1&amp;3\end{array}\right.\right]\to\left[\begin{array}{cccc}1&amp;2&amp;0&amp;3&amp;4\0&amp;1&amp;-1&amp;1&amp;1\0&amp;-3&amp;3&amp;-8&amp;-18\0&amp;5&amp;-5&amp;7&amp;11\end{array}\right]\to\left[\begin{array}{cccc}1&amp;2&amp;0&amp;3&amp;4\0&amp;1&amp;-1&amp;1&amp;1\0&amp;0&amp;0&amp;1&amp;3\0&amp;0&amp;0&amp;0&amp;0\end{array}\right]<br>$$<br>非零行有三行，故r(A)&#x3D;3</p>
+<h3 id="矩阵的秩的性质"><a href="#矩阵的秩的性质" class="headerlink" title="矩阵的秩的性质"></a>矩阵的秩的性质</h3><ul>
+<li><p>基本性质：<br>$$<br>0\leq r(A)\leq\min{m,n}<br>$$</p>
+</li>
+<li><p>满秩矩阵的性质</p>
+<ul>
+<li>可逆矩阵满秩r(A)&#x3D;n；不可逆矩阵不满秩r(A)&lt;n</li>
+<li>初等变换不改变矩阵的秩，乘可逆矩阵不改变矩阵的秩</li>
+<li>左乘列满秩、右行满秩矩阵，不改矩阵的秩</li>
+</ul>
+</li>
+<li><p>矩阵运算的秩的性质</p>
+<ul>
+<li><p>$$<br>r({A+B})\leq r(A)+r(B)<br>$$</p>
+</li>
+<li><p>$$<br>r({kA})&#x3D;{r(A)}\quad(k\neq0)<br>$$</p>
+</li>
+<li><p>$$<br>&amp;\bullet r(A)+r(B)-n\leq r(\underline{AB})\leq\min{r(A),r(B)}(n\text{为A的列数、B的行数})\&amp;\bullet \text{若}AB&#x3D;0 , \text{则}r(A)+r(B)\leq n\&amp;\bullet \text{若}AB&#x3D;0 , \text{且}A\text{列满秩,则}B&#x3D;0 ; B \text{行满秩,则}A&#x3D;0\<br>$$</p>
+</li>
+<li><p>$$<br>r(A)&#x3D;r(\underline{A^T})&#x3D;r(AA^T)&#x3D;r(A^TA)<br>$$</p>
+</li>
+<li><p>$$<br>\text{对于n}\geq2\text{阶方阵,}r(\underline{A^*})&#x3D;\begin{cases} n r(A)&#x3D;n\ 1 r(A)&#x3D;n-1\ 0 r(A)\leqslant n-2\end{cases}<br>$$</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="线性方程组"><a href="#线性方程组" class="headerlink" title="线性方程组"></a>线性方程组</h1><h2 id="线性方程组的概念"><a href="#线性方程组的概念" class="headerlink" title="线性方程组的概念"></a>线性方程组的概念</h2><ul>
+<li><p>普通形式：<br>$$<br>\left.\left{\begin{array}{l}a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&#x3D;b_1\a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n&#x3D;b_2\…\a_{m1}x_1+a_{m2}x_2+\cdots+a_{mn}x_n&#x3D;b_m\end{array}\right.\right.<br>$$<br>如果等式右边全为0，则称为<strong>齐次线性方程组，否则称为非齐次线性方程组</strong></p>
+</li>
+<li><p>矩阵形式：<br>$$<br>设A&#x3D; ( a_ij) _{m\times n}(即把未知数系数取出作为一个矩阵), \vec{X} &#x3D; ( x_1, x_2, \cdots , x_n) ^T(解x1到xn作为一个向量), \vec{b} &#x3D; ( b_1, b_2, \cdots , b_n) ^T(右边系数也写为一个向量),\<br>线性方程组可化为A\vec{X}&#x3D;\vec{b}\<br>其中，A称为系数矩阵，[A|b] 称为增广矩阵。如果A可逆，当然可以直接求解 \vec{X}&#x3D;A^{-1}\vec{b}<br>$$</p>
+</li>
+</ul>
+<h2 id="线性方程组的求解"><a href="#线性方程组的求解" class="headerlink" title="线性方程组的求解"></a>线性方程组的求解</h2><p>利用初等行变换，将增广矩阵化为阶梯矩阵</p>
+<ul>
+<li><p>若系数矩阵某行为0，但结果不为0，比如“0 0 0 | 1”，无解</p>
+</li>
+<li><p>若系数矩阵有全0行，且结果同样为0，比如“0 0 0 | 0”，有解</p>
+<ul>
+<li>当有解时，若未知数个数&#x3D;非0行数（也就是秩），有限解，直接写出结果</li>
+<li>当有解时，若未知数个数&gt;非0行数（也就是秩），无穷解，需要写出通解</li>
+</ul>
+</li>
+</ul>
+<h1 id="向量"><a href="#向量" class="headerlink" title="向量"></a>向量</h1><h2 id="向量的概念："><a href="#向量的概念：" class="headerlink" title="向量的概念："></a>向量的概念：</h2><ul>
+<li>n*1矩阵称为列向量，反之行向量</li>
+<li>向量a一般默认为列向量</li>
+<li>向量的长度为所有元素的平方和去开根</li>
+<li>所有分量为0的向量称为零向量，长度为1的向量称为单位向量</li>
+<li>m*n的矩阵可以看成m个行向量组成或n个列向量组成</li>
+</ul>
+<h2 id="向量的运算"><a href="#向量的运算" class="headerlink" title="向量的运算"></a>向量的运算</h2><ul>
+<li><p>线性运算</p>
+<p>n维向量的加、乘只需逐元素运算即可，且满足交换律、分配律、结合律</p>
+</li>
+</ul>
+<h1 id="特征值和特征向量"><a href="#特征值和特征向量" class="headerlink" title="特征值和特征向量"></a>特征值和特征向量</h1><h2 id="特征值和特征向量的概念"><a href="#特征值和特征向量的概念" class="headerlink" title="特征值和特征向量的概念"></a>特征值和特征向量的概念</h2><p>对于n阶<strong>方阵</strong>，若存在数k和非零向量X，使得AX&#x3D;kX</p>
+<p>则称k是A的特征值，X是A的属于特征值k的特征向量</p>
+<h2 id="特征值与特征向量的计算"><a href="#特征值与特征向量的计算" class="headerlink" title="特征值与特征向量的计算"></a>特征值与特征向量的计算</h2><p>使用公式<br>$$<br>f_A(k)&#x3D;|kI-A|&#x3D;0<br>$$<br>其中I是单位矩阵，kI即为：<br>$$<br>\left.\left[\begin{matrix}k&amp;0&amp;0\0&amp;k&amp;0\0&amp;0&amp;k\end{matrix}\right.\right]<br>$$<br>化简后求出值即为特征值</p>
+<p>之后将各个依次特征值带入方程算出对应的特征向量即可<br>$$<br>(k I-A)X&#x3D;0<br>$$</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/22/python-venv%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/" title="python venv虚拟环境基础">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">python venv虚拟环境基础</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/12/python%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%AD%A6%E4%B9%A0/" title="python数学建模学习">
+                        <span class="hidden-mobile">python数学建模学习</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a><p>
+
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>

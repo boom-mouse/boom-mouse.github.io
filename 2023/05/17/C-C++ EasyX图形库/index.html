@@ -1,0 +1,723 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/BMlogo3.jpg">
+  <link rel="icon" href="/img/BMlogo3.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BM-BoomMouse">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="--&gt;官方文档">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C&#x2F;C++ EasyX图形库">
+<meta property="og:url" content="http://example.com/2023/05/17/C-C++%20EasyX%E5%9B%BE%E5%BD%A2%E5%BA%93/index.html">
+<meta property="og:site_name" content="BM的小窝">
+<meta property="og:description" content="--&gt;官方文档">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/easyX/%E9%80%8F%E6%98%8E%E5%8E%9F%E7%90%86.jpg">
+<meta property="article:published_time" content="2023-05-17T14:43:46.000Z">
+<meta property="article:modified_time" content="2023-06-03T07:17:22.686Z">
+<meta property="article:author" content="BM-BoomMouse">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/easyX/%E9%80%8F%E6%98%8E%E5%8E%9F%E7%90%86.jpg">
+  
+  
+  
+  <title>C/C++ EasyX图形库 - BM的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BM的个人空间</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>类别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/%E5%B0%8F%E7%8E%A9%E6%84%8F">
+                <i class="iconfont icon-pen"></i>
+                <span>小玩意</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="C/C++ EasyX图形库"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-05-17 22:43" pubdate>
+          May 17, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7 words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          1 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">C/C++ EasyX图形库</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on 2 years ago
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p class="note note-success"><a target="_blank" rel="noopener" href="https://docs.easyx.cn/zh-cn/intro"><b>-->官方文档<--</b></a></p>
+
+<h1 id="EsayX头文件"><a href="#EsayX头文件" class="headerlink" title="EsayX头文件"></a>EsayX头文件</h1><p>头文件有两个</p>
+<ul>
+<li><p><strong>graphics.h</strong>:包含了已经被淘汰的函数</p>
+</li>
+<li><p><strong>easyx.h</strong>：只有最新的函数</p>
+</li>
+</ul>
+<h1 id="窗口的创建与关闭"><a href="#窗口的创建与关闭" class="headerlink" title="窗口的创建与关闭"></a>窗口的创建与关闭</h1><ul>
+<li><strong>initgraph(int x ,int y ,int style)</strong>:x,y为窗口大小，style为是否显示控制台</li>
+<li><strong>closegraph()</strong>:关闭窗口</li>
+</ul>
+<h1 id="设置窗口属性"><a href="#设置窗口属性" class="headerlink" title="设置窗口属性"></a>设置窗口属性</h1><ul>
+<li>**setbkcolor(颜色)**：设置窗口颜色<ul>
+<li>颜色宏：颜色英文大写，可在easyx.h文件中支持的颜色</li>
+<li>RGB</li>
+</ul>
+</li>
+</ul>
+<h1 id="基本绘图函数"><a href="#基本绘图函数" class="headerlink" title="基本绘图函数"></a>基本绘图函数</h1><ul>
+<li><p>**line(int x,int y.int xx .int yy)**：两点确定一条直线</p>
+</li>
+<li><p><strong>circle(int x ,int y ,int r)</strong>:使用圆心和半径画圆</p>
+<ul>
+<li>fillcircle(int x,int y ,int r):填充圆(带边界线)</li>
+<li>solidcircle(int x,int y,int r):填充圆(不带边界线)</li>
+</ul>
+</li>
+<li><p>**rectangle(int x ,int y ,int xx ,int yy)**：使用左上角坐标，右下角坐标画矩形</p>
+<ul>
+<li>fillrectangle(int x,int y,int xx,int yy):填充矩形(带边界线)</li>
+<li>solidrectangle(int x,int y,int r):填充矩形(不带边界线)</li>
+</ul>
+</li>
+<li><p><strong>setfillcolor(颜色)</strong>:设置填充颜色</p>
+</li>
+<li><p><strong>cleardevice()</strong>:刷新</p>
+</li>
+</ul>
+<h1 id="贴图"><a href="#贴图" class="headerlink" title="贴图"></a>贴图</h1><p>定义IMAGE变量</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">IMAGE img;<span class="hljs-comment">//用IMAGE变量表示图片</span><br></code></pre></td></tr></table></figure>
+
+<p>加载图像</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c">loadimage(IMAGE *img,URL);<span class="hljs-comment">//原始大小</span><br>loadimage(IMAGE *img,URL,<span class="hljs-type">int</span> width,<span class="hljs-type">int</span> height);<span class="hljs-comment">//修改大小</span><br></code></pre></td></tr></table></figure>
+
+<p>显示图像</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">putimage(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y,IMAGE* img);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>原样贴图:按照上面步骤进行</p>
+</li>
+<li><p>透明贴图</p>
+<ol>
+<li><p>使用位与运算显示<strong>二进制掩码图</strong></p>
+ <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">putimage(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y,IMAGE* img,SRCAND);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用位异或运算显示<strong>背景图</strong></p>
+ <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">putimage(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y,IMAGE* img,SRCPAINT);<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>png贴图</p>
+<p>  直接载入的话透明部分会显示为黑色，可通过算法解决。（自行寻找）</p>
+</li>
+</ul>
+<h2 id="透明贴图素材制作与原理"><a href="#透明贴图素材制作与原理" class="headerlink" title="透明贴图素材制作与原理"></a>透明贴图素材制作与原理</h2><p><strong>二进制掩码图</strong>：</p>
+<p>将需要设置成透明的部分填充成白色，要保留的部分填充成黑色，用1表示白色，0表示黑色，故称为二进制掩码图</p>
+<p><strong>背景图</strong>：</p>
+<p>将需要设置成透明的部分填充成黑色，要保留的地方不变</p>
+<p><strong>原理(个人理解)</strong>:</p>
+<p><p	class="note note-warning">以下内容仅为个人理解，没有任何依据，仅供方便理解记忆</p></p>
+<p>以下内容仅为个人理解，没有依据，仅供方便理解参考</p>
+<p>我们可以用<strong>setcolor()<strong>设置</strong>窗口背景颜色</strong>，或是使用<strong>putimage()<strong>设置一张图片作为</strong>窗口背景图</strong>，用二进制表示每个位的颜色，0为黑，其余统一为1。<br></p>
+<p>接着使用**SRCAND()**将二进制掩码图和窗口背景图进行位与运算，由于掩码图将需要保留的部分填充为黑色，将需要透明的部分填充为白色，与运算后，会得到一张需要保留的部分为黑色，需要成透明的部分为窗口背景图的图，称为a<br></p>
+<p>最后使用SRCPAINT(),将背景图与a进行位异或运算，由于背景图要保留的部分是不为黑的1，透明部分为黑0，与b运算后，会得到一张</p>
+<p>所需要的透明图了。</p>
+<p><img src="/img/easyX/%E9%80%8F%E6%98%8E%E5%8E%9F%E7%90%86.jpg" srcset="/img/loading.gif" lazyload alt="图示"></p>
+<h1 id="交互"><a href="#交互" class="headerlink" title="交互"></a>交互</h1><p><strong>阻塞式交互</strong></p>
+<p>不交互就无法继续进行</p>
+<p><strong>非阻塞式交互</strong></p>
+<p>不交互仍然会进行</p>
+<h2 id="定时器和双缓冲绘图"><a href="#定时器和双缓冲绘图" class="headerlink" title="定时器和双缓冲绘图"></a>定时器和双缓冲绘图</h2><p><strong>定时器</strong></p>
+<p>sleep()是一个全局阻塞，可以使用定时器进行单个对象的刷新</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;time.h&gt;</span><span class="hljs-comment">//头文件</span></span><br><span class="hljs-type">int</span> <span class="hljs-title function_">Timer</span><span class="hljs-params">(<span class="hljs-type">int</span> id,<span class="hljs-type">int</span> duration)</span><span class="hljs-comment">//输入时间间隔和计时器id</span><br>&#123;<br>	<span class="hljs-type">static</span> <span class="hljs-type">int</span> startTime[<span class="hljs-number">10</span>];<span class="hljs-comment">//静态变量默认初始化为0</span><br>    <span class="hljs-type">int</span> endTime = clock();<span class="hljs-comment">//clock函数，获取程序开始运行目前位置的时间</span><br>    <span class="hljs-keyword">if</span>(endTime - startTime[id] &gt;= duration)<br>    &#123;<br>        startTime[id] = endTime;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>双缓冲绘图</strong></p>
+<p>双缓冲绘图是指，在屏幕看不见的地方，先将图形绘制出来，然后再移动到指定位置，可以避免频闪问题。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;graphics.h&gt;</span></span><br>BeginBatchDraw();<span class="hljs-comment">//开启双缓冲绘图</span><br>FlushBatchDraw();<span class="hljs-comment">//显示每一帧，不开的话图形会不显示</span><br>EndBatchDraw();<span class="hljs-comment">//关闭双缓冲绘图</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="键盘交互"><a href="#键盘交互" class="headerlink" title="键盘交互"></a>键盘交互</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;conio.h&gt;</span></span><br><span class="hljs-built_in">getch</span>();<span class="hljs-comment">//getch()不需要回车确认，可配合switch和if语句进行键盘输入和操作,但会造成阻塞</span><br><br><span class="hljs-built_in">kbhit</span>()<span class="hljs-comment">//检查当前是否有键盘输入，有则返回一个非0值，否则返回0，而且按下键盘后必须有getch一类将输入接收掉，不然会一直有返回值。</span><br><br>异步处理<br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;graphics.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">keyDown</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-built_in">GetAsyncKeyState</span>(vkey))<span class="hljs-comment">//vkey为虚拟键码</span><br>&#125;<br><span class="hljs-comment">//使用异步处理，运动会更快速更流畅，速度可以配合定时器控制。</span><br><br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/win32/inputdev/virtual-key-codes">虚拟键码 (Winuser.h) - Win32 apps | Microsoft Learn</a></p>
+<h2 id="鼠标交互"><a href="#鼠标交互" class="headerlink" title="鼠标交互"></a>鼠标交互</h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C%E8%AF%AD%E8%A8%80/">#C语言</a>
+      
+        <a href="/tags/C/">#C++</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/06/11/C%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="C语言数据结构与算法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">C语言数据结构与算法</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/05/16/java-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" title="java-面向对象">
+                        <span class="hidden-mobile">java-面向对象</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a><p>
+
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>

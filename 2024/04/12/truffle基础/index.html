@@ -1,0 +1,703 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/BMlogo3.jpg">
+  <link rel="icon" href="/img/BMlogo3.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BM-BoomMouse">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="truffle 是什么Truffle 是一个在以太坊进行 DApp 开发的世界级开发环境、测试框架。可以合约的编译、部署、管理，通过命令控制台直接与智能合约进行交互等功能。 truffle 安装首先需要安装 NodeJS v8.9.4 或 之后的版本，然后通过 npm 安装 truffle 1npm install -g truffle  创建项目 创建项目文件夹 1mkdir project">
+<meta property="og:type" content="article">
+<meta property="og:title" content="truffle基础">
+<meta property="og:url" content="http://example.com/2024/04/12/truffle%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="BM的小窝">
+<meta property="og:description" content="truffle 是什么Truffle 是一个在以太坊进行 DApp 开发的世界级开发环境、测试框架。可以合约的编译、部署、管理，通过命令控制台直接与智能合约进行交互等功能。 truffle 安装首先需要安装 NodeJS v8.9.4 或 之后的版本，然后通过 npm 安装 truffle 1npm install -g truffle  创建项目 创建项目文件夹 1mkdir project">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-04-12T01:11:42.000Z">
+<meta property="article:modified_time" content="2024-12-28T12:24:30.074Z">
+<meta property="article:author" content="BM-BoomMouse">
+<meta property="article:tag" content="区块链">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>truffle基础 - BM的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BM的个人空间</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>类别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/%E5%B0%8F%E7%8E%A9%E6%84%8F">
+                <i class="iconfont icon-pen"></i>
+                <span>小玩意</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="truffle基础"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-12 09:11" pubdate>
+          April 12, 2024 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.2k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          52 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">truffle基础</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on a day ago
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="truffle-是什么"><a href="#truffle-是什么" class="headerlink" title="truffle 是什么"></a>truffle 是什么</h1><p>Truffle 是一个在以太坊进行 DApp 开发的世界级开发环境、测试框架。可以合约的编译、部署、管理，通过命令控制台直接与智能合约进行交互等功能。</p>
+<h1 id="truffle-安装"><a href="#truffle-安装" class="headerlink" title="truffle 安装"></a>truffle 安装</h1><p>首先需要安装 NodeJS v8.9.4 或 之后的版本，然后通过 npm 安装 truffle</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install -g truffle<br></code></pre></td></tr></table></figure>
+
+<h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><ol>
+<li><p>创建项目文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> project<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建空项目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> project<br>truffle init<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建实例代码和项目模板，init 创建的是一个空项目，如果需要创建模板，可以 <code>Truffle Box</code> 进行下载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">truffle unbox &lt;box-name&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>项目结构</p>
+<ul>
+<li><code>contracts/</code>：存放合约</li>
+<li><code>migrations/</code>：部署脚本文件目录</li>
+<li><code>test/</code>：测试脚本目录</li>
+<li><code>truffle-config.js</code>：配置文件</li>
+</ul>
+</li>
+</ol>
+<h1 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h1><p>配置文件自带注释，这里只讲简单的修改</p>
+<ul>
+<li><p><code>networks-development</code>：用于设置连接的网络，以 ganache 为例子,在 ganache 顶部有相关参数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-attr">development</span>: &#123;<br>  <span class="hljs-attr">host</span>: <span class="hljs-string">&quot;127.0.0.1&quot;</span>,<br>  <span class="hljs-attr">port</span>: <span class="hljs-number">7545</span>,<br>  <span class="hljs-attr">network_id</span>: <span class="hljs-number">5777</span>,<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>compilers-solc-version</code>：编译器版本</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-attr">compilers</span>: &#123;<br>  <span class="hljs-attr">sole</span>: &#123;<br>    <span class="hljs-attr">versioin</span>: <span class="hljs-string">&quot;0.8.21&quot;</span>,<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="项目全过程"><a href="#项目全过程" class="headerlink" title="项目全过程"></a>项目全过程</h1><h2 id="连接到-Ganache"><a href="#连接到-Ganache" class="headerlink" title="连接到 Ganache"></a>连接到 Ganache</h2><p>略</p>
+<h2 id="编写合约"><a href="#编写合约" class="headerlink" title="编写合约"></a>编写合约</h2><p>在<code>contracts/</code>文件夹中编写合约</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: UNLICENSED<br>pragma solidity ^0.8;<br>contract MyContract &#123;<br>    struct Flag &#123;<br>        string title;<br>        string content;<br>        address owner;<br>        uint ts;<br>    &#125;<br>    Flag[] public flags;<br><br>    // 添加评论<br>    function set(string memory title , string memory content) public &#123;<br>        flags.push(Flag(title, content, msg.sender, block.timestamp));<br>    &#125;<br><br>		获取评论数量<br>    function getLength() public view returns(uint) &#123;<br>        return flags.length;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="编写迁移脚本"><a href="#编写迁移脚本" class="headerlink" title="编写迁移脚本"></a>编写迁移脚本</h2><p>迁移脚本文件，也可以叫迁移文件，是放在<code>migrations/</code>文件夹中的 js 文件，以数字开头，用于部署合约</p>
+<p>如<code>1_deploy_MyContract.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-title class_">MyContract</span> = artifacts.<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;MyContract&quot;</span>);<br><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">deployer</span>) &#123;<br>  <span class="hljs-comment">// 部署迁移合约</span><br>  deployer.<span class="hljs-title function_">deploy</span>(<span class="hljs-title class_">MyContract</span>);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p><code>MyContract</code>是合约名，而不是文件名，一个文件可以有多个合约,当有多个合约需要<strong>依次</strong>部署时，可以使用异步</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-title class_">MyContract</span> = artifacts.<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;MyContract1&quot;</span>);<br><span class="hljs-keyword">const</span> <span class="hljs-title class_">MyContract</span> = artifacts.<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;MyContract2&quot;</span>);<br><br><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">deployer, network, accounts</span>) &#123;<br>  <span class="hljs-comment">// 部署合约</span><br>  <span class="hljs-keyword">await</span> deployer.<span class="hljs-title function_">deploy</span>(<span class="hljs-title class_">MyContract1</span>);<br>  <span class="hljs-comment">// 获取部署后的合约实例</span><br>  <span class="hljs-keyword">const</span> myContract1Instance = <span class="hljs-keyword">await</span> <span class="hljs-title class_">MyContract1</span>.<span class="hljs-title function_">deployed</span>();<br>  <span class="hljs-comment">// 获取合约地址</span><br>  <span class="hljs-keyword">const</span> contract1Address = myContract1Instance.<span class="hljs-property">address</span>;<br>  <span class="hljs-comment">// 利用合约地址部署合约(需要的话)</span><br>  <span class="hljs-keyword">await</span> deployer.<span class="hljs-title function_">deploy</span>(<span class="hljs-title class_">MyContract2</span>, contract1Address);<br>  <span class="hljs-comment">// 获取部署后的合约实例</span><br>  <span class="hljs-keyword">const</span> myContract2Instance = <span class="hljs-keyword">await</span> <span class="hljs-title class_">MyContract2</span>.<span class="hljs-title function_">deployed</span>();<br>  <span class="hljs-comment">// 获取合约地址</span><br>  <span class="hljs-keyword">const</span> contract2Address = myContract2Instance.<span class="hljs-property">address</span>;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="部署合约"><a href="#部署合约" class="headerlink" title="部署合约"></a>部署合约</h2><p>终端输入 (<code>truffle complie</code>和<code>truffle migrate</code>) 或 <code>truffle migrate --reset</code> 进行合约的编译部署或重部署</p>
+<p>如果出现了<code>hit an invalid opcode while deploying</code>这样的报错，需要修改<code>truffle-config.js</code>配置文件中版本 solc 版本，和合约对应。（这里是 0.8.0）</p>
+<p>部署成功后出现下面类似信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs shell">1_deploy_MyContract.js<br>======================<br><br>   Deploying &#x27;MyContract&#x27;<br>   ----------------------<br><span class="hljs-meta prompt_">   &gt; </span><span class="language-bash">transaction <span class="hljs-built_in">hash</span>:    0xa0516507693bd555e0b6bf49ee2fc0f3ea41041f1db897d0ea7481beb5978b09</span><br><span class="hljs-meta prompt_">   &gt; </span><span class="language-bash">Blocks: 0            Seconds: 0</span><br><span class="hljs-meta prompt_">   &gt; </span><span class="language-bash">contract address:    0x1E5e59B3FeD2030F8D6b7B2ec1D0D53E441f23a9</span><br><span class="hljs-meta prompt_">   &gt; </span><span class="language-bash">block number:        1</span><br><span class="hljs-meta prompt_">   &gt; </span><span class="language-bash">block timestamp:     1713065479</span><br><span class="hljs-meta prompt_">   &gt; </span><span class="language-bash">account:             0x9d3f59003Da03D71e647eE10294395Aba69C87Ae</span><br><span class="hljs-meta prompt_">   &gt; </span><span class="language-bash">balance:             99.998420554</span><br><span class="hljs-meta prompt_">   &gt; </span><span class="language-bash">gas used:            467984 (0x72410)</span><br><span class="hljs-meta prompt_">   &gt; </span><span class="language-bash">gas price:           3.375 gwei</span><br><span class="hljs-meta prompt_">   &gt; </span><span class="language-bash">value sent:          0 ETH</span><br><span class="hljs-meta prompt_">   &gt; </span><span class="language-bash">total cost:          0.001579446 ETH</span><br><br><span class="hljs-meta prompt_">   &gt; </span><span class="language-bash">Saving artifacts</span><br>   -------------------------------------<br><span class="hljs-meta prompt_">   &gt; </span><span class="language-bash">Total cost:         0.001579446 ETH</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="调用合约"><a href="#调用合约" class="headerlink" title="调用合约"></a>调用合约</h2><p>调用合约的方法有三种：通过 test 脚本调用，通过网页 js 调用，使用 truffle 控制台</p>
+<ul>
+<li><p>使用 truffle 控制台<code>truffle console</code></p>
+<p>在终端中输入<code>truffle console</code>可以启动控制台，在控制台中，可以输入 js 语句对合约进行调用，且注意，一定要用异步方法</p>
+<p>首先要实例化合约</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 获取合约实例</span><br><span class="hljs-keyword">let</span> <span class="hljs-title class_">MyContract</span> = <span class="hljs-keyword">await</span> <span class="hljs-title class_">MyContract</span>.<span class="hljs-title function_">deployed</span>()<br></code></pre></td></tr></table></figure>
+
+<p>接着就可以通过实例调用合约了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 调用合约的set方法</span><br><span class="hljs-keyword">await</span> <span class="hljs-title class_">MyContract</span>.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;title&quot;</span>,<span class="hljs-string">&quot;content&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>此时在 ganache 的<code>transaction</code>中会出现<code>CONTRACT CALL</code>的交易，在终端中也会出现对应的信息</p>
+<p>而如果调用的函数没有对链上数据进行修改，则不会出现<code>CONTRACT CALL</code>交易</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">// 调用合约的get方法</span><br><span class="hljs-keyword">let</span> flagLength = await <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">MyContract</span>.</span></span>get<span class="hljs-constructor">Length()</span><br><span class="hljs-comment">// 查看数据</span><br>flagLength.<span class="hljs-keyword">to</span><span class="hljs-constructor">Number()</span><br></code></pre></td></tr></table></figure>
+
+<p>而如果我们想要查看公开的状态变量，也可以通过实例进行访问，如果状态变量是个数组则需要输入一个 uint 作为参数</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 查看公开的状态变量<br>MyContract.flags(<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用网页 js</p>
+</li>
+</ul>
+<h2 id="编写测试脚本"><a href="#编写测试脚本" class="headerlink" title="编写测试脚本"></a>编写测试脚本</h2><p>测试脚本可以部署并测试合约，也可以测试以部署的合约，测试使用<code>mocha</code>语法，支持一样的钩子函数<code>before()</code>、<code>after()</code>、<code>beforeEach()</code>和<code>afterEach()</code><br>测试脚本一般与对应的合约同名，并加上<code>.test.js</code>后缀<br>大体格式如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 导入合约</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">Contract1</span> = artifacts.<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;Contract1&quot;</span>);<br><br><span class="hljs-comment">// 定义测试块，truffle使用了 contract 替换了 describe，函数参数为账户列表</span><br><span class="hljs-title function_">contract</span>(<span class="hljs-string">&quot;Contract1的测试&quot;</span>, <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span>(<span class="hljs-params">accounts</span>) =&gt; &#123;<br>  <br>  <span class="hljs-keyword">let</span> contract1;<br><br>  <span class="hljs-title function_">before</span>(<span class="hljs-keyword">async</span> ()=&gt;&#123;<br>    <span class="hljs-comment">// 所有测试用例之前执行</span><br>    <br>    <span class="hljs-comment">// 部署合约并获取合约实例</span><br>    <span class="hljs-comment">// 部署合约的三种方式</span><br>    <span class="hljs-comment">// 1. 使用nwe创建新的合约实例，构造参数可自己写</span><br>    contract1 = <span class="hljs-keyword">await</span> <span class="hljs-title class_">Contract1</span>.<span class="hljs-title function_">new</span>(params,&#123;<span class="hljs-attr">value</span>: web3.<span class="hljs-property">utils</span>.<span class="hljs-title function_">toWei</span>(<span class="hljs-string">&quot;1&quot;</span>,<span class="hljs-string">&quot;Ether&quot;</span>), <span class="hljs-attr">gas</span>:..., <span class="hljs-attr">from</span>: accounts[<span class="hljs-number">1</span>]&#125;);<br>    <span class="hljs-comment">// 2. 使用deployed 通过迁移脚本创建合约实例，构造参数为迁移脚本中指定的参数</span><br>    contract1 = <span class="hljs-keyword">await</span> <span class="hljs-title class_">Contract1</span>.<span class="hljs-title function_">deployed</span>();<br>    <span class="hljs-comment">// 3. 使用at连接到已部署的合约</span><br>    contract1 = awati <span class="hljs-title class_">Contrac1</span>.<span class="hljs-title function_">at</span>(address);<br>  &#125;)<br>  <span class="hljs-title function_">beforeEach</span>( <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-comment">// 在本区块的每个测试用例之前执行</span><br>    <span class="hljs-comment">// 如果需要用例之间互相独立，则可以使用beforeEach进行初始化</span><br>  &#125;)<br>  <span class="hljs-comment">// 测试用例</span><br>  <span class="hljs-title function_">it</span>(<span class="hljs-string">&quot;测试内容：应该初始化合约&quot;</span>, <span class="hljs-keyword">async</span> ()=&gt;&#123;<br>    <span class="hljs-comment">// 执行的操作</span><br>    <span class="hljs-comment">// 获取合约的状态或调用方法等</span><br><br><br>    <span class="hljs-comment">// 断言</span><br>    <span class="hljs-comment">// 断言相等，不等则抛出错误，错误信息为message</span><br>    assert.<span class="hljs-title function_">equal</span>(actual, expected, message);<br>    <span class="hljs-comment">// 断言不等，相等抛出错误，错误信息为message</span><br>    assert.<span class="hljs-title function_">notEqual</span>(actual, expected, message);<br>    <span class="hljs-comment">// 断言为真，不为真则抛出错误，错误信息为message</span><br>    assert.<span class="hljs-title function_">isTrue</span>(value, message);<br>    <span class="hljs-comment">// 断言为假，不为假则抛出错误，错误信息为message</span><br>    assert.<span class="hljs-title function_">isFalse</span>(value, message)<br>  &#125;)<br>  <span class="hljs-comment">// 更多测试用例</span><br>  <span class="hljs-title function_">it</span>(<span class="hljs-params"></span>)&#123;&#125;<br>  <span class="hljs-title function_">afterEach</span>( <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-comment">// 在本区块的每个测试用例之后执行</span><br>    <span class="hljs-comment">// 可以对所有用例进行统一断言或清理操作</span><br>  &#125;)<br>  <span class="hljs-title function_">after</span>( <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-comment">// 在所有测试用例执行完后执行</span><br>    <span class="hljs-comment">// 可以进行清理操作，比如撤销合约或释放资源</span><br>  &#125;)<br><br>&#125;)<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 引用合约</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">Greeter</span> = artifacts.<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;Greeter&quot;</span>);<br><br><span class="hljs-comment">//执行定义合约中的其他操作</span><br><span class="hljs-title function_">contract</span>(<span class="hljs-string">&quot;Greeter&quot;</span>, <span class="hljs-function">(<span class="hljs-params">accounts</span>) =&gt;</span> &#123;<br><br>  <span class="hljs-comment">// before 测试前的准备工作</span><br>  <span class="hljs-title function_">before</span>(<span class="hljs-keyword">async</span> () =&gt; &#123;<br>    <span class="hljs-comment">// 部署合约的两种方式</span><br>    <span class="hljs-comment">//01 通过迁移脚本部署，不能传递构造参数</span><br>    <span class="hljs-keyword">let</span> a = <span class="hljs-keyword">await</span> <span class="hljs-title class_">Greeter</span>.<span class="hljs-title function_">deployed</span>();<br>    <span class="hljs-comment">//02 直接创建新的合约实例，可以传递构造参数</span><br>    <span class="hljs-comment">//let Contract_Ches  = await Ches.new(var_a);</span><br>    <span class="hljs-keyword">let</span> c = <span class="hljs-keyword">await</span> a.<span class="hljs-title function_">getGreeting</span>();<br>    <span class="hljs-keyword">let</span> d = <span class="hljs-keyword">await</span> a.<span class="hljs-title function_">setGreeting</span>(var_b);<br>    <span class="hljs-keyword">let</span> f = <span class="hljs-keyword">await</span> a.<span class="hljs-title function_">getGreeting</span>();<br><br>    <span class="hljs-comment">//在原有的合约上进行获取</span><br>    <span class="hljs-keyword">let</span> g = <span class="hljs-keyword">await</span> <span class="hljs-title class_">Greeter</span>.<span class="hljs-title function_">at</span>(<span class="hljs-string">&quot;0x592C0067a4B3Fc66D7f26430b3EBeF9ac7796F85&quot;</span>);<br>    <span class="hljs-keyword">let</span> h = <span class="hljs-keyword">await</span> g.<span class="hljs-title function_">getGreeting</span>();<br>    <span class="hljs-keyword">let</span> i = <span class="hljs-keyword">await</span> g.<span class="hljs-title function_">setGreeting</span>(<span class="hljs-string">&quot;您好，世界！&quot;</span>);<br>    <span class="hljs-keyword">let</span> k = <span class="hljs-keyword">await</span> g.<span class="hljs-title function_">getGreeting</span>();<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;合约地址:&quot;</span>, a.<span class="hljs-property">address</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;获取原数据:&quot;</span>, c);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;获取新数据:&quot;</span>, f);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;获取原来的合约地址:&quot;</span>, g.<span class="hljs-property">address</span>);<br><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;获取原来的合约值:&quot;</span>, h);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;更改原来合约的值，并且显示出来:&quot;</span>, k);<br>    <span class="hljs-comment">// console.log(&quot;02合约地址:&quot;,Contract_Ches.address);</span><br>  &#125;);<br><br>  <span class="hljs-comment">// it一个测试用例</span><br>  <span class="hljs-title function_">it</span>(<span class="hljs-string">&quot;实例描述，比如‘应该初始化合约状态’&quot;</span>, <span class="hljs-keyword">async</span> () =&gt; &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;测试合约的操作:&quot;</span>);<br>  &#125;);<br>  <span class="hljs-comment">// 可以有多个测试用例</span><br>  <span class="hljs-title function_">it</span>(<span class="hljs-string">&quot;应该调用xx函数&quot;</span>， <span class="hljs-keyword">async</span> ()=&gt;&#123;<br>    <span class="hljs-comment">// 测试</span><br>    asset.<span class="hljs-title function_">equal</span>(i, <span class="hljs-string">&quot;你好世界&quot;</span>, <span class="hljs-string">&quot;i的值不是你好世界，执行结果不对&quot;</span>);<br>  &#125;)<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h1 id="常用-truffle-命令"><a href="#常用-truffle-命令" class="headerlink" title="常用 truffle 命令"></a>常用 truffle 命令</h1><h2 id="truffle-complie-合约编译"><a href="#truffle-complie-合约编译" class="headerlink" title="truffle complie - 合约编译"></a>truffle complie - 合约编译</h2><p>默认情况下，<code>truffle complie</code>只会编译更新的合约。可以用 <code>--all</code>强制编译所有合约，<code>--network</code>指定使用的网络</p>
+<h2 id="truffle-development-开发网络"><a href="#truffle-development-开发网络" class="headerlink" title="truffle development - 开发网络"></a>truffle development - 开发网络</h2><p>会启动 truffle 内置的测试网络，在该网络中部署调用等操作不会影响真实网络</p>
+<h2 id="truffle-console-控制台"><a href="#truffle-console-控制台" class="headerlink" title="truffle console - 控制台"></a>truffle console - 控制台</h2><p>可以使用<code>--network</code>指定要使用的网络</p>
+<h2 id="truffle-migrate-部署合约"><a href="#truffle-migrate-部署合约" class="headerlink" title="truffle migrate - 部署合约"></a>truffle migrate - 部署合约</h2><p><code>truffle migrate</code>.命令将从最后完成的迁移脚本开始运行。<br><code>--reset</code>：从头运行所有迁移脚本</p>
+<h2 id="truffle-networks-检查网络构件"><a href="#truffle-networks-检查网络构件" class="headerlink" title="truffle networks - 检查网络构件"></a>truffle networks - 检查网络构件</h2><p>显示每个网络上的部署合约的地址</p>
+<h2 id="truffle-test-运行测试脚本"><a href="#truffle-test-运行测试脚本" class="headerlink" title="truffle test - 运行测试脚本"></a>truffle test - 运行测试脚本</h2><p>执行<code>test/</code>文件夹中的测试脚本，可以加上文件名运行特定测试。</p>
+<h2 id="truffle-unbox-下载模板"><a href="#truffle-unbox-下载模板" class="headerlink" title="truffle unbox - 下载模板"></a>truffle unbox - 下载模板</h2><p>下载指定模板，后接模板名</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">#区块链</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/04/15/eth%E5%90%91%E5%90%88%E7%BA%A6%E5%9C%B0%E5%9D%80%E8%BD%AC%E8%B4%A6/" title="eth向合约地址转账">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">eth向合约地址转账</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/04/10/sh%E8%84%9A%E6%9C%AC%E4%B8%8E%E5%91%BD%E4%BB%A4/" title="sh脚本学习">
+                        <span class="hidden-mobile">sh脚本学习</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a><p>
+
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>

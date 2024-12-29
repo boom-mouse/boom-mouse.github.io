@@ -1,0 +1,901 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/BMlogo3.jpg">
+  <link rel="icon" href="/img/BMlogo3.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BM-BoomMouse">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="网络类型网络在范围上可以分为  广域网 城域网 局域网  网络地址网络地址可以分为a、b、c三类，和d、e两种特殊类，他们的范围如下：    分类 范围    A 0-127，其中只有1-126可用   B 127-191   C 192-223   D 224-239(组播地址)   E 240-255(军事、科研地址)   ip地址形本质是32位的二进制数，通常用三点分十进制表示如192.16">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络技术学习">
+<meta property="og:url" content="http://example.com/2024/07/26/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="BM的小窝">
+<meta property="og:description" content="网络类型网络在范围上可以分为  广域网 城域网 局域网  网络地址网络地址可以分为a、b、c三类，和d、e两种特殊类，他们的范围如下：    分类 范围    A 0-127，其中只有1-126可用   B 127-191   C 192-223   D 224-239(组播地址)   E 240-255(军事、科研地址)   ip地址形本质是32位的二进制数，通常用三点分十进制表示如192.16">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-07-26T12:27:22.000Z">
+<meta property="article:modified_time" content="2024-08-25T09:21:20.303Z">
+<meta property="article:author" content="BM-BoomMouse">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>网络技术学习 - BM的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BM的个人空间</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>类别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/%E5%B0%8F%E7%8E%A9%E6%84%8F">
+                <i class="iconfont icon-pen"></i>
+                <span>小玩意</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="网络技术学习"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-26 20:27" pubdate>
+          July 26, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.4k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          29 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">网络技术学习</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on 4 months ago
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="网络类型"><a href="#网络类型" class="headerlink" title="网络类型"></a>网络类型</h1><p>网络在范围上可以分为</p>
+<ul>
+<li>广域网</li>
+<li>城域网</li>
+<li>局域网</li>
+</ul>
+<h1 id="网络地址"><a href="#网络地址" class="headerlink" title="网络地址"></a>网络地址</h1><p>网络地址可以分为a、b、c三类，和d、e两种特殊类，他们的范围如下：</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A</td>
+<td>0-127，其中只有1-126可用</td>
+</tr>
+<tr>
+<td>B</td>
+<td>127-191</td>
+</tr>
+<tr>
+<td>C</td>
+<td>192-223</td>
+</tr>
+<tr>
+<td>D</td>
+<td>224-239(组播地址)</td>
+</tr>
+<tr>
+<td>E</td>
+<td>240-255(军事、科研地址)</td>
+</tr>
+</tbody></table>
+<p>ip地址形本质是32位的二进制数，通常用三点分十进制表示如192.168。1.1</p>
+<h2 id="网段"><a href="#网段" class="headerlink" title="网段"></a>网段</h2><p>ip地址可以分为网络位和主机位，网络位相同意味着处于同一网段，主机位用于辨别主机。</p>
+<p>网络位可以用<strong>子网掩码</strong>进行标识，标准的掩码可以分A,B,C三类（255.0.0.0，255.255.0.0，255.255.255.0），也就是网络位数分别位8，16，32。</p>
+<p>对于<strong>主机位取值</strong>也有要求，主机位全0表示网络地址，(比如192.168.27.0&#x2F;24),全1表示广播地址(192.168.27.255&#x2F;24)</p>
+<h2 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h2><p>如果用标准网段，会造成主机位的浪费，就算是C类地址也可以有254个主机可用。这就需要子网划分。</p>
+<p>这时，网络位可以向主机位借位，进行子网划分可以划分出多个子网</p>
+<p><strong>划分个数 &#x3D; 2^n，n&#x3D;借位数</strong></p>
+<p><strong>每个子网可用地址 &#x3D; 原可用&#x2F;n - 2（去掉2个特殊地址）</strong></p>
+<p>比如:192.168.10.0&#x2F;25，分为两个子网，每个子网范围为:192.168.10.1-192.168.10.127, 192.168.10.129-192.168.10.254</p>
+<h2 id="VLSM"><a href="#VLSM" class="headerlink" title="VLSM"></a>VLSM</h2><p>在子网的基础上，再次借位</p>
+<h1 id="数据包发送方式"><a href="#数据包发送方式" class="headerlink" title="数据包发送方式"></a>数据包发送方式</h1><ul>
+<li><p>单播</p>
+<p>一对一</p>
+</li>
+<li><p>组播</p>
+<p>一对多（按需）</p>
+</li>
+<li><p>广播</p>
+<p>一对多</p>
+</li>
+</ul>
+<h1 id="DHCP-IP分配"><a href="#DHCP-IP分配" class="headerlink" title="DHCP-IP分配"></a>DHCP-IP分配</h1><ul>
+<li><p>作用：</p>
+<p>全称：动态主机配置协议，可以<strong>为主机自动分配IP地址</strong>，除了IP地址，它还分配以下：</p>
+<ul>
+<li><p>IP地址：用于标识网络设备&#x2F;接口</p>
+</li>
+<li><p>子网掩码：标识网络位</p>
+</li>
+<li><p>默认网关：本质是一个IP地址，用于跨网段通信的中介</p>
+<p>网络通信会经过网关进行转发。</p>
+</li>
+<li><p>DNS：域名解析</p>
+</li>
+</ul>
+</li>
+<li><p>原理：</p>
+<p>报文：</p>
+<ul>
+<li><strong>Discover发现报文</strong></li>
+<li><strong>offer回应报文</strong></li>
+<li><strong>Request请求报文</strong></li>
+<li><strong>ACK确认报文</strong></li>
+<li>Reset地址释放</li>
+<li>Decline地址冲突</li>
+<li>NAK客户端拒绝</li>
+<li>inform其他信息（网关地址、dns等）</li>
+</ul>
+</li>
+<li><p>思科配置：</p>
+<ul>
+<li><p>思科三模式：</p>
+<ol>
+<li>Router&gt;用户模式</li>
+<li>Router权模式，输入enable即可进入特权模式</li>
+<li>Router(config)#全局模式&#x2F;配置模式，输入configure terminal即可进入全局模式</li>
+</ol>
+</li>
+<li><p>配置代码：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">Router</span><span class="hljs-params">(config)</span></span><span class="hljs-selector-id">#ip</span> dhcp pool pc1      -- 创建地址池，名为pc1<br><span class="hljs-function"><span class="hljs-title">Router</span><span class="hljs-params">(dhcp-config)</span></span><span class="hljs-selector-id">#network</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">10.0</span> <span class="hljs-number">255.255</span>.<span class="hljs-number">255.0</span>			-- 指定DHCP分配的网络范围<br><span class="hljs-function"><span class="hljs-title">Router</span><span class="hljs-params">(dhcp-config)</span></span><span class="hljs-selector-id">#default-router</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">10.254</span>						-- 设置默认网关<br><span class="hljs-function"><span class="hljs-title">Router</span><span class="hljs-params">(dhcp-config)</span></span><span class="hljs-selector-id">#dns-server</span> <span class="hljs-number">1.1</span>.<span class="hljs-number">1.1</span>											-- 配置 DNS 服务器地址<br><span class="hljs-function"><span class="hljs-title">Router</span><span class="hljs-params">(dhcp-config)</span></span><span class="hljs-selector-id">#exit</span>																		-- 退出 DHCP 地址池配置模式<br><span class="hljs-function"><span class="hljs-title">Router</span><span class="hljs-params">(config)</span></span><span class="hljs-selector-id">#interface</span> fastEthernet <span class="hljs-number">0</span>/<span class="hljs-number">0</span>		-- 进入 FastEthernet <span class="hljs-number">0</span>/<span class="hljs-number">0</span> 接口配置模式<br><span class="hljs-function"><span class="hljs-title">Router</span><span class="hljs-params">(config-if)</span></span><span class="hljs-selector-id">#no</span> shutdown 		-- 激活接口<br><span class="hljs-function"><span class="hljs-title">Router</span><span class="hljs-params">(config-if)</span></span><span class="hljs-selector-id">#ip</span> <span class="hljs-selector-tag">address</span> <span class="hljs-number">192.168</span>.<span class="hljs-number">10.254</span> <span class="hljs-number">255.255</span>.<span class="hljs-number">255.0</span>		-- 配置接口 IP 地址和子网掩码<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h1 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h1><ul>
+<li><p>作用：私有地址转公有地址-</p>
+</li>
+<li><p>私有地址：</p>
+<ul>
+<li>A:10.0.0.-10255.255.255.255</li>
+<li>B:172.16.0.0-172.31.255.255</li>
+<li>C:192.168.0.0-192.168.255.255</li>
+</ul>
+</li>
+<li><p>NAT分类：</p>
+<ul>
+<li>静态NAT：一对一映射，常用于服务器，实现双向通信</li>
+<li>动态NAT：多对多映射</li>
+<li>easy IP：多对一，最常用</li>
+<li>NATserver：一对一映射，与静态类似，但可以实现端口映射</li>
+<li>NAPT：多对一，有多个公网IP，内部多态设备可以共用一个公网IP</li>
+</ul>
+</li>
+<li><p>四大步骤：</p>
+<ol>
+<li>定义内外网接口</li>
+<li>匹配感兴趣流量</li>
+<li>NAT转换集</li>
+<li>默认路由</li>
+</ol>
+</li>
+<li><p>easy IP思科配置：</p>
+<ul>
+<li>定义内外网接口  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cisco">int f0/0<br>ip nat inside		/* f0/0接口定义为内网接口 */<br>int f0/1<br>ip nat outside		/* f0/0接口定义为外网接口 */<br></code></pre></td></tr></table></figure></li>
+<li>感兴趣流量（谁需要转换）  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cisco">access-list 1 permit 192.168.10.0 0.0.0.255		/* 定义列表，1为ACL编号，permit同意列表，网段 + 反掩码，正掩码表示网络位，反掩码用于匹配主机位 */<br></code></pre></td></tr></table></figure></li>
+<li>转换集  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cisco">ip nat inseide source list 1 interface f0/1 overload		/* 列表1作为内网源地址，f0/1作为外网接口, overlaod端口复用，利用端口号实现多对一映射 */<br></code></pre></td></tr></table></figure></li>
+<li>默认路由<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cisco">ip route 0.0.0.0 0.0.0.0 200.100.1.254		/*	全0代表所有IP地址中目的地未知的默认转发给200.100.1.254 */<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h1 id="VLAN虚拟局域网"><a href="#VLAN虚拟局域网" class="headerlink" title="VLAN虚拟局域网"></a>VLAN虚拟局域网</h1><p>在交换机中，默认存在一个vlan1，所有端口默认存在vlan1中</p>
+<ul>
+<li><p>VLAN思科配置：</p>
+<ul>
+<li><p>创建VLAN：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cisco">vlan 10		/* 创建VLAN */<br>name JS		/* 命名VLAN */<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>查看VLAN：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cisco">show vlan<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>接口模式：</p>
+<ul>
+<li><p>access-接入模式</p>
+<p>用于接入<strong>终端设备</strong>，只允许一个VLAN的数据通过</p>
+</li>
+<li><p>trunk-主干模式</p>
+<p>用于连接<strong>上行设备</strong>，允许多个&#x2F;所有VLAN数据通过</p>
+</li>
+</ul>
+</li>
+<li><p>设置模式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cisco">switchport mode access		/* 设备接口模式位access */<br>switchport mode trunk		/* 二层交换机设置模式 */<br>sw trunk encapsulation dot1q		/* 三层交换机设置模式，封装trunk */<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>划分vlan：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cisco">switchport access vlan 10		/* 将接口划分进VLAN10 */<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h1 id="单臂路由-实现VLAN间通信"><a href="#单臂路由-实现VLAN间通信" class="headerlink" title="单臂路由-实现VLAN间通信"></a>单臂路由-实现VLAN间通信</h1><p>在路由器的一个接口上通过配置子接口的方式，实现原来相互隔离的不同VLAN之间的互联互通</p>
+<ul>
+<li><p>单臂路由思科配置：</p>
+<ul>
+<li><p>进入子接口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cisco">int f0/0.10<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>封装指定</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cisco">encapsulation dot1Q 10		/* 将子接口与vlan10绑定 */<br>ip ad 192.168.1.1 24<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置路由，可以是静态、动态路由，nat等，以默认路由为例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cisco">ip route 0.0.0.0 0.0.0.0 z.z.z.z		/* zzzz是下一跳地址 */<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h1 id="设备介绍"><a href="#设备介绍" class="headerlink" title="设备介绍"></a>设备介绍</h1><h2 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h2><p>用于连接两个或多个网络的硬件设备，在网络中起网关作用，接口较少。</p>
+<p>在家用路由器中有wan口和lan口，wan口用于连接运营商ISP，lan口用于连接本地设备</p>
+<h2 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h2><p>Switch，用于连接局域网的设备，接口多，可以用于扩展接口</p>
+<ul>
+<li><p>信息的传递过程：</p>
+<ol>
+<li><p>学习MAC地址表：</p>
+<p>当设备发送消息后，交换机会将该设备的MAC地址与其连接的端口绑定，加入MAC表</p>
+</li>
+<li><p>泛洪：</p>
+<p>当目标地址不在MAC表中，会进行泛洪（除了发送者，其他都转发），若成功找到，则将接受者的MAC地址与对应接口加入MAC地址表中</p>
+</li>
+</ol>
+</li>
+<li><p>交换机类型：</p>
+<ul>
+<li><p>二层交换机ASW（接入层交换机）：</p>
+<p>主要用于接入终端设备，一般不做配置</p>
+</li>
+<li><p>三层交换机：</p>
+<p>三层交换机具有一定的路由功能</p>
+<ul>
+<li><p>汇聚层交换机DSW：</p>
+<p>用于汇聚所有接入层的数据，一般不做配置</p>
+</li>
+<li><p>核心层交换机HX：</p>
+<p>进行部分数据处理</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="动态路由分类"><a href="#动态路由分类" class="headerlink" title="动态路由分类"></a>动态路由分类</h1><ul>
+<li>IGP：<ul>
+<li>距离矢量路由协议：<ul>
+<li>RIP</li>
+<li>EIGRP</li>
+</ul>
+</li>
+<li>链路状态路由协议<ul>
+<li>OSPF</li>
+<li>IS-IS</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>EGP：<ul>
+<li>距离矢量路由协议<ul>
+<li>BGP</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="OSPF"><a href="#OSPF" class="headerlink" title="OSPF"></a>OSPF</h1><p>开放式最短路径优先，属于链路状态协议</p>
+<ul>
+<li><p>特点：</p>
+<ul>
+<li>对设别性能有要求</li>
+<li>知道全网拓扑</li>
+<li>适用于大型网络</li>
+<li>自动适应拓扑的变更</li>
+</ul>
+</li>
+<li><p>参数：</p>
+<ul>
+<li>LSA：链路状态通告<ul>
+<li>接口信息</li>
+<li>连接了哪些设备</li>
+<li>接口带宽：</li>
+<li>开销：10^8 &#x2F; 接口带框</li>
+</ul>
+</li>
+<li>LSDB：链路状态数据库，对链路状态通告进行整合</li>
+<li>SPF：计算出最短路径</li>
+</ul>
+</li>
+<li><p>重点：</p>
+<ul>
+<li>三张表：<ul>
+<li>邻居表：存放邻居信息</li>
+<li>拓扑表：记录整个网络的拓扑</li>
+<li>路由表：存放最优路由</li>
+</ul>
+</li>
+<li>五个报文：<ul>
+<li>Hello</li>
+<li>DBD</li>
+<li>LSR</li>
+<li>LSU</li>
+<li>LSack</li>
+</ul>
+</li>
+<li>七个状态：<ul>
+<li>down：未开启</li>
+<li>init：一方接受Hello报文</li>
+<li>2-way：双方都接受到Hello报文</li>
+<li>exstart：单方面发送信息摘要</li>
+<li>exchange：双方交换摘要，开始请求详细信息</li>
+<li>loading：、</li>
+<li>FULL：</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>思科配置：</p>
+<pre><code class="cisco">router ospf 1		/* 1为进程id，建议所有设备统一 */
+
+/* 宣告方式 */
+network  192.168.14.0 0.0.0.255 area 0 /* 网段、反掩码、域（0为主干区域） */
+
+/* 接口方式 */
+int f0/0
+ip ospf 1 area 0
+</code></pre>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">#学习笔记</a>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/08/02/ajax/" title="AJAX">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">AJAX</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/22/python-venv%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/" title="python venv虚拟环境基础">
+                        <span class="hidden-mobile">python venv虚拟环境基础</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a><p>
+
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>

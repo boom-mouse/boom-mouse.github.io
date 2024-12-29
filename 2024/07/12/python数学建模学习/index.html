@@ -1,0 +1,1153 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/BMlogo3.jpg">
+  <link rel="icon" href="/img/BMlogo3.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BM-BoomMouse">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="python必备库 numpy： 科学计算的基础包  pandas： 建立在 NumPy 数组之上的数据分析工具  matplotlib： 用于绘制各种类型图表   评价决策类通过对比多个指标，做出适合的决策，比如买衣服，指标可能会有价格、颜色、样式设计等，这些指标需要进行一定的处理才能使用 归一化处理： 当有多个指标时，每个指标的数量级不同（比如明星的粉丝数几万和作品数只有十几个），如果直接将指">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python数学建模学习">
+<meta property="og:url" content="http://example.com/2024/07/12/python%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="BM的小窝">
+<meta property="og:description" content="python必备库 numpy： 科学计算的基础包  pandas： 建立在 NumPy 数组之上的数据分析工具  matplotlib： 用于绘制各种类型图表   评价决策类通过对比多个指标，做出适合的决策，比如买衣服，指标可能会有价格、颜色、样式设计等，这些指标需要进行一定的处理才能使用 归一化处理： 当有多个指标时，每个指标的数量级不同（比如明星的粉丝数几万和作品数只有十几个），如果直接将指">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190506222358274.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5ODMxMTYz,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2024-07-12T06:34:44.000Z">
+<meta property="article:modified_time" content="2024-09-05T08:58:50.522Z">
+<meta property="article:author" content="BM-BoomMouse">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="数学建模">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190506222358274.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5ODMxMTYz,size_16,color_FFFFFF,t_70">
+  
+  
+  
+  <title>python数学建模学习 - BM的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BM的个人空间</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>类别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/%E5%B0%8F%E7%8E%A9%E6%84%8F">
+                <i class="iconfont icon-pen"></i>
+                <span>小玩意</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="python数学建模学习"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-12 14:34" pubdate>
+          July 12, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          25k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          205 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">python数学建模学习</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on 4 months ago
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="python必备库"><a href="#python必备库" class="headerlink" title="python必备库"></a>python必备库</h1><ul>
+<li><p>numpy：</p>
+<p>科学计算的基础包</p>
+</li>
+<li><p>pandas：</p>
+<p>建立在 NumPy 数组之上的数据分析工具</p>
+</li>
+<li><p>matplotlib：</p>
+<p>用于绘制各种类型图表</p>
+</li>
+</ul>
+<h1 id="评价决策类"><a href="#评价决策类" class="headerlink" title="评价决策类"></a>评价决策类</h1><p>通过对比多个指标，做出适合的决策，比如买衣服，指标可能会有价格、颜色、样式设计等，这些指标需要进行一定的处理才能使用</p>
+<p><strong>归一化处理</strong>：</p>
+<p>当有多个指标时，每个指标的数量级不同（比如明星的粉丝数几万和作品数只有十几个），如果直接将指标相加进行比较容易忽略数量级较小的指标。</p>
+<p><strong>让指标处于同一数量级，且保证在同一指标下差距不变，就是归一化处理</strong>。</p>
+<p>比如：对于三种决策，同一指标下的指标数组<code>[a,b,c]</code>，归一化处理得到<code>[a/(a+b+c), b/(a+b+c), c/(a+b+c)]</code></p>
+<p>每个指标就统一为了(0,1)之间</p>
+<p><strong>每个指标的重要性是不同的，需要根据情况加上权重</strong></p>
+<p>比如：每个决策有2个指标，1个更重要，那么可以把他权重设为0.2，另一个权重为0.1，在归一化处理的时候乘以权重</p>
+<h2 id="两两分析法"><a href="#两两分析法" class="headerlink" title="两两分析法"></a>两两分析法</h2><p>可以使用两两比较法确定指标重要性，绘制一个表格，行列为各个指标，表格元素为两个指标的重要性之比且比值满足下表</p>
+<table>
+<thead>
+<tr>
+<th>尺度</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>A比B影响相同</td>
+</tr>
+<tr>
+<td>3</td>
+<td>A比B影响稍强</td>
+</tr>
+<tr>
+<td>5</td>
+<td>A比B影响强</td>
+</tr>
+<tr>
+<td>7</td>
+<td>A比B影响明显的强</td>
+</tr>
+<tr>
+<td>9</td>
+<td>A比B影响绝对的强</td>
+</tr>
+<tr>
+<td>2，4，6，8</td>
+<td>处于上述比值之间</td>
+</tr>
+<tr>
+<td>1，1&#x2F;2…</td>
+<td>与上述互反</td>
+</tr>
+</tbody></table>
+<h2 id="层次分析法"><a href="#层次分析法" class="headerlink" title="层次分析法"></a>层次分析法</h2><p>简称AHP，是对一些较为复杂、模糊的问题作出决策的简易方法，它特别适合<strong>难以完全定量分析的问题</strong></p>
+<h3 id="层次分析法模型"><a href="#层次分析法模型" class="headerlink" title="层次分析法模型"></a>层次分析法模型</h3><p>在应用AHP分析决策问题时，首先要把问题<strong>条理化、层次化</strong>，构造出一个有层次的结构模型</p>
+<ul>
+<li><strong>目标层：</strong>只有一个元素，一般是分析问题的<strong>预定目标或理想结果</strong></li>
+<li><strong>准则层：</strong>包含了<strong>目标所涉及的中间环节</strong>，可以包含若干个层次，包括所需考虑的准则、子准则</li>
+<li><strong>方案层：</strong>包含了为实现目标可供选择的<strong>各种措施、决策方案</strong></li>
+</ul>
+<h3 id="一致矩阵"><a href="#一致矩阵" class="headerlink" title="一致矩阵"></a>一致矩阵</h3><p>通过两两分析法可以获得一个矩阵，如果该矩阵合理则称为一致性矩阵，比如a<del>12</del>&#x3D;2:1,a<del>13</del>=5,那么t应该有：a<del>23</del>=a<del>21</del>*a<del>13</del>&#x3D;5&#x2F;2，但由于在比较时是两两比较的，就可能出现不一致的情况。所以矩阵构建后需要进行<strong>一致性检验</strong></p>
+<h4 id="一致性检验"><a href="#一致性检验" class="headerlink" title="一致性检验"></a>一致性检验</h4><p>一致性矩阵有两个性质：</p>
+<ul>
+<li>A的秩1，A的唯一非零特征根为n</li>
+<li>A的任一列向量都是对于特征根n</li>
+</ul>
+<p>一致性的检验方法：</p>
+<ol>
+<li>A的秩1，A的唯一非零特征值为n</li>
+<li>A的任一列向量都是对于特征值n的特征向量</li>
+<li>A不为一致矩阵时，其最大特征值k<del>max</del>&gt;n，且相差越大，其不一致程度越大</li>
+</ol>
+<p>计算一致性指标公式：<br>$$<br>CI&#x3D;\frac{\lambda_{\max}-n}{n-1},:CI&#x3D;\begin{cases}0\text{,有完全一致性}\\text{接近}0\text{,满意的一致性}\\text{越大,一致性越差}\end{cases}<br>$$<br>为了衡量CI的大小，引入了随机一致性指标RI，常用的RI如下表</p>
+<table>
+<thead>
+<tr>
+<th>n</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+<th>11</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RI</td>
+<td>0</td>
+<td>0</td>
+<td>0.58</td>
+<td>0.90</td>
+<td>1.12</td>
+<td>1.24</td>
+<td>1.32</td>
+<td>1.41</td>
+<td>1.45</td>
+<td>1.49</td>
+<td>1.51</td>
+</tr>
+</tbody></table>
+<p>定义一致性比例:<br>$$<br>CR&#x3D;\frac{CI}{RI}<br>$$<br>如果CR&lt;0.1，则判断一致性可以接受</p>
+<h4 id="一致性矩阵权重计算"><a href="#一致性矩阵权重计算" class="headerlink" title="一致性矩阵权重计算"></a>一致性矩阵权重计算</h4><ul>
+<li><p>对于一致性矩阵，可以将指标归一化处理得出权重，比如：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>a</th>
+<th>b</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>b</td>
+<td>1&#x2F;2</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>那么a的权重即为1&#x2F;(1+0.5)，b的权重为0.5&#x2F;(1+0.5)</p>
+</li>
+<li><p>对于非一致性矩阵，由于各列不成比例，所以需要计算每一列的权重，算出算术平均值作为最后的权重，如：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a</td>
+<td>1</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr>
+<td>b</td>
+<td>1&#x2F;2</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>c</td>
+<td>1&#x2F;5</td>
+<td>1&#x2F;2</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>对于第一列：a<del>1</del>&#x3D;1&#x2F;(1+0.5+0.25),b<del>1</del>&#x3D;0.5&#x2F;(1+0.5+0.25),c<del>1</del>&#x3D;0.25&#x2F;(1+0.5+0.25)</p>
+<p>对于第二列：a<del>2</del>&#x3D;2&#x2F;(2+1+0.5),b<del>2</del>&#x3D;1&#x2F;(2+1+0.5),c<del>2</del>&#x3D;0.5&#x2F;(2+1+0.5)</p>
+<p>对于第三列:……</p>
+<p>所以a的权重&#x3D;(a<del>1</del>+a<del>2</del>+a<del>3</del>)&#x2F;3,b的权重……</p>
+</li>
+<li><p><strong>通用方法：特征值求权重</strong>：</p>
+<p>当矩阵通过一致性检验后，算出矩阵的最大特征值对应的特征向量，对该特征向量进行归一化处理</p>
+</li>
+</ul>
+<h3 id="层次分析法PYTHON"><a href="#层次分析法PYTHON" class="headerlink" title="层次分析法PYTHON"></a>层次分析法PYTHON</h3><h4 id="一致性检验-1"><a href="#一致性检验-1" class="headerlink" title="一致性检验"></a>一致性检验</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-comment"># 定义矩阵</span><br>A = np.array([[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>], [<span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">1</span>/<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">1</span>/<span class="hljs-number">5</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-number">1</span>]])<br>eig_val, eig_vec = np.linalg.eig(A)     <span class="hljs-comment"># 求出特征值和特征向量</span><br><br><br>n = A.shape[<span class="hljs-number">0</span>]      <span class="hljs-comment"># 获取A的行，0改为1则是A的列，shape是获取形状信息</span><br>n<br></code></pre></td></tr></table></figure>
+
+
+
+
+<p>​    4</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">Max_eig = <span class="hljs-built_in">max</span>(eig_val)  <span class="hljs-comment"># 求出最大特征值</span><br>CI = (Max_eig - n) / (n-<span class="hljs-number">1</span>)<br>RI = [<span class="hljs-number">0</span>, <span class="hljs-number">0.0001</span>, <span class="hljs-number">0.52</span>, <span class="hljs-number">0.89</span>, <span class="hljs-number">1.12</span>, <span class="hljs-number">1.26</span>, <span class="hljs-number">1.36</span>, <span class="hljs-number">1.41</span>, <span class="hljs-number">1.46</span>, <span class="hljs-number">1.49</span>, <span class="hljs-number">1.52</span>, <span class="hljs-number">1.54</span>, <span class="hljs-number">1.56</span>, <span class="hljs-number">1.58</span>, <span class="hljs-number">1.59</span>]    <span class="hljs-comment"># 随机一致性指标，最大支持15</span><br><br>CR = CI / RI[n-<span class="hljs-number">1</span>]<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;一致性指标CI=&quot;</span>,CI)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;一致性比例CR=&quot;</span>,CR)<br><br><span class="hljs-keyword">if</span> CR &lt; <span class="hljs-number">0.10</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;一致性可接受&quot;</span>)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;一致性不可接受&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>​    一致性指标CI&#x3D; (0.03761001273071566+0j)<br>​    一致性比例CR&#x3D; (0.04225844127046704+0j)<br>​    一致性可接受<br>​    </p>
+<h4 id="三种方法求权重"><a href="#三种方法求权重" class="headerlink" title="三种方法求权重"></a>三种方法求权重</h4><ol>
+<li>算数平均法求权重</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># 定义判断矩阵A</span><br>A = np.array([[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>], [<span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">1</span>/<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">1</span>/<span class="hljs-number">5</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-number">1</span>]])<br><br><span class="hljs-comment"># 计算每列的和</span><br><span class="hljs-comment"># 通过np.sum可以计算一维数组中所有元素的和</span><br><span class="hljs-comment"># 还可以通过 axis 参数来计算多维数组的某个维度上的元素总和，例如在二维数组中，axis=0 表示按列计算总和，1 表示按行计算总和</span><br>ASum = np.<span class="hljs-built_in">sum</span>(A, axis=<span class="hljs-number">0</span>)<br><br><span class="hljs-comment"># 获取A的行和列</span><br>n = A.shape[<span class="hljs-number">0</span>]<br><br><span class="hljs-comment"># 归一化，二维数组除以一维数组会自动将一维数组扩展，然后逐元素进行出除法运算</span><br>Stand_A = A / ASum<br><br><span class="hljs-comment"># 各列相加到同一行</span><br>ASumr = np.<span class="hljs-built_in">sum</span>(Stand_A, axis=<span class="hljs-number">1</span>)<br><br><span class="hljs-comment"># 计算权重向量</span><br>weights = ASumr / n<br><br><span class="hljs-built_in">print</span>(weights)<br></code></pre></td></tr></table></figure>
+
+<p>​    [0.48885991 0.18192996 0.2318927  0.09731744]<br>​    </p>
+<ol start="2">
+<li>几何平均法求权重</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># 定义判断矩阵A</span><br>A = np.array([[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>], [<span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">1</span>/<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">1</span>/<span class="hljs-number">5</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-number">1</span>]])<br><br><span class="hljs-comment"># 获取A的行和列</span><br>n = A.shape[<span class="hljs-number">0</span>]<br><br><span class="hljs-comment"># 将A中每一行元素相乘得到一列向量</span><br><span class="hljs-comment"># np.prod 函数可以计算一维数组中所有元素的乘积</span><br><span class="hljs-comment"># 还可以通过 axis 参数来计算多维数组的某个维度上的元素总和，例如在二维数组中，axis=0 表示按列计算乘积，1 表示按行计算乘积</span><br>prod_A = np.prod(A, axis=<span class="hljs-number">1</span>)<br><br><br><span class="hljs-comment"># 将新的向量的每个分量开n次方等价求1/n次方</span><br><span class="hljs-comment"># np.power 用于对数组中的元素进行幂运算</span><br><span class="hljs-comment"># np.power(a, b) 表示对a中的所有元素进行b指数运算</span><br>prod_n_A = np.power(prod_A, <span class="hljs-number">1</span>/n)<br><br><span class="hljs-comment"># 归一化处理</span><br>re_prod_A = prod_n_A / np.<span class="hljs-built_in">sum</span>(prod_n_A)<br><br><span class="hljs-built_in">print</span>(re_prod_A)<br><br></code></pre></td></tr></table></figure>
+
+<p>​    [0.49492567 0.17782883 0.22724501 0.1000005 ]<br>​    </p>
+<ol start="3">
+<li>特征值求权重</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># 定义判断矩阵A</span><br>A = np.array([[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>], [<span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">1</span>/<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">1</span>/<span class="hljs-number">5</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-number">1</span>/<span class="hljs-number">2</span>, <span class="hljs-number">1</span>]])<br><br><span class="hljs-comment"># 获取A的行和列</span><br>n = A.shape[<span class="hljs-number">0</span>]<br><br><span class="hljs-comment"># 获取特征值和特征向量</span><br>eig_val, eig_vec = np.linalg.eig(A)<br><br><span class="hljs-comment"># 找出最大特征值的索引</span><br>max_index = np.argmax(eig_val)<br><br><span class="hljs-comment"># # 找出对应的特征向量</span><br>max_vec = eig_vec[:, max_index]<br><br><span class="hljs-comment"># # 对特征向量进行归一化处理</span><br>weights = max_vec / np.<span class="hljs-built_in">sum</span>(max_vec)<br><br><span class="hljs-built_in">print</span>(weights)<br><br></code></pre></td></tr></table></figure>
+
+<p>[0.4933895 +0.j 0.17884562+0.j 0.230339  +0.j 0.09742588+0.j]</p>
+<h2 id="Topsis算法"><a href="#Topsis算法" class="headerlink" title="Topsis算法"></a>Topsis算法</h2><p>可以翻译为<strong>逼近理想解排序法</strong>，也常简称为<strong>优劣解距离法</strong>，简单而言就是考虑方案距离最优方案（各个属性值都达到<strong>备选方案中最好的值</strong>）、最劣方案的距离（各个属性值都达到<strong>备选方案中最坏的值</strong>）。</p>
+<p>将备选方案与理想解、负理想解对比，若其中一个最接近理想解同时又远离负理想解，则该方案是备选方案中最好的方案。</p>
+<h3 id="Topsis模型"><a href="#Topsis模型" class="headerlink" title="Topsis模型"></a>Topsis模型</h3><p>就是计算出各方案与理想解的距离，也就是贴近度，贴近度取值为0-1，越接近1表示越接近理想解，反之则接近负理想解</p>
+<p>它的基本步骤如下：</p>
+<ul>
+<li><p>原始矩阵正向化</p>
+<p>对于不同指标，最优解有多种可能，最大的、最小的、接近某个值的、处于某个区间的</p>
+<p>正向化就是将各指标与最优解的距离转化为<strong>极大型指标</strong>，极大型指标越大表示越接近最优解</p>
+</li>
+<li><p>正向矩阵标准化</p>
+<p>主要目的是去除量纲的影响，保证不同指标出去同一数量级，且数据<strong>大小排序不变</strong></p>
+</li>
+<li><p>计算得分并归一化<br>$$<br>S_i&#x3D;\frac{D_i^-}{D_i^++D_i^-}\quad\text{其中}S_i\text{为得分,}D_i^+\text{为评价对象与最大值的距离,}D_i^-\text{为评价对象与最小值的距离}<br>$$</p>
+</li>
+<li></li>
+</ul>
+<h3 id="原始矩阵正向化"><a href="#原始矩阵正向化" class="headerlink" title="原始矩阵正向化"></a>原始矩阵正向化</h3><p>正向化就是将所有指标类型统一转化为<strong>极大型指标</strong>（极大型指标即越大越好的指标），其他指标类型有：极小型、中间型、区间型，他们转化为极大型的公式如下：</p>
+<ul>
+<li><p>极大型指标：、</p>
+<p>不需要转换</p>
+</li>
+<li><p>极小型指标：<br>$$<br>\hat{x}&#x3D;max-x\text{,}\hat{x}\text{为转化后指标,}max\text{为指标最大值,}x\text{为指标值}<br>$$</p>
+</li>
+<li><p>中间型指标：<br>$$<br>{x_{i}}\text{是一组中间型序列,最优值是}x_{best}\M&#x3D;max{|x_{i}-x_{best}|}, \hat{x}<em>{i}&#x3D;1-\frac{|x</em>{i}-x_{best}|}{M}<br>$$<br>比如指标x<del>i</del>&#x3D;[5,8,10]，则：</p>
+<p>最优解就是x<del>best</del>&#x3D;7，</p>
+<p>M&#x3D;max{|5-7|，|8-7|，|10-7|}&#x3D;3，</p>
+<p>转换后的指标分别是：1-|5-7|&#x2F;3, 1-|8-7|&#x2F;3, 1-|10-7|&#x2F;3，</p>
+<p>易得在三个值中，8最接近最优7</p>
+</li>
+<li><p>区间型指标：<br>$$<br>{x_{i}}\text{是一组区间型序列,最佳区间为}\left[a,b\right],\text{ 正向化公式如下}\M&#x3D;max{a-min{x_{i}}, max{x_{i}}-b}, \widetilde{x}<em>{i}&#x3D;\begin{cases}1-\frac{a-x</em>{i}}{M}, x_{i}&lt;a\1, a\leq x_{i}\leq b\1-\frac{x_{i}-b}{M}, x_{i}&gt;b\end{cases}<br>$$</p>
+</li>
+</ul>
+<h3 id="正向矩阵标准化"><a href="#正向矩阵标准化" class="headerlink" title="正向矩阵标准化"></a>正向矩阵标准化</h3><p>标准化的目的是<strong>消除不同指标量纲的</strong>影响<br>$$<br>\begin{aligned}<br>&amp;X&#x3D;\begin{bmatrix}x_{11}&amp;\cdots&amp;x_{1m}\\vdots&amp;\ddots&amp;\vdots\x_{n1}&amp;\cdots&amp;x_{nm}\end{bmatrix} \<br>&amp;\text{那么,对其标准化的矩阵记为}Z\text{,}Z\text{中的每一个元素}: \<br>&amp;z_{ij}&#x3D;\frac{x_{ij}}{\sqrt{\Sigma_{i&#x3D;1}^{n}x_{ij}^{2}}}(\text{每一个元素}&#x2F;\sqrt{\text{其所在列的元素的平方和}})<br>\end{aligned}<br>$$<br>标准化后，还需要给不同指标加上权重</p>
+<h3 id="计算得分并归一化"><a href="#计算得分并归一化" class="headerlink" title="计算得分并归一化"></a>计算得分并归一化</h3><ul>
+<li><p>$$<br>定义最大值 ( Z^+ &#x3D; (Z_1^+, Z_2^+, …, Z_m^+) &#x3D; ( \max{z_{11}, z_{21}, …, z_{n1}}, \max{z_{12}, z_{22}, …, z_{n2}}, …, \max{z_{1m}, z_{2m}, …, z_{nm}} )<br>$$</p>
+</li>
+<li><p>$$<br>定义最小值 Z^- &#x3D; (Z_1^-, Z_2^-, …, Z_m^-) &#x3D; ( \min{z_{11}, z_{21}, …, z_{n1}}, \min{z_{12}, z_{22}, …, z_{n2}}, …, \min{z_{1m}, z_{2m}, …, z_{nm}})<br>$$</p>
+</li>
+<li><p>$$<br>定义第 i  (i &#x3D; 1, 2, …, n)个评价对象与最大值的距离D_i^+ &#x3D; \sqrt{\sum_{j&#x3D;1}^m (Z_j^+ - z_{ij})^2}<br>$$</p>
+</li>
+<li><p>$$<br>定义第i(i &#x3D; 1, 2, …, n) 个评价对象与最小值的距离D_i^- &#x3D; \sqrt{\sum_{j&#x3D;1}^m (Z_j^- - z_{ij})^2}<br>$$</p>
+</li>
+<li><p>$$<br>那么，我们可以计算出第i( i &#x3D; 1, 2, …, n) 个评价对象未归一化的得分：S_i &#x3D; \frac{D_i^-}{D_i^+ + D_i^-}<br>$$</p>
+</li>
+<li><p>$$<br>很明显0 \leq S_i \leq 1，且S_i越大D_i^- 越小，即越接近最大值<br>$$</p>
+</li>
+<li><p>$$<br>\text{我们可以将得分归一化并换成百分制:}\widetilde{S}<em>\mathrm{i}&#x3D;\frac{S_\mathrm{i}}{\sum</em>{i&#x3D;1}^nS_\mathrm{i}}\times\underline{1}00<br>$$</p>
+</li>
+</ul>
+<h3 id="python代码实现"><a href="#python代码实现" class="headerlink" title="python代码实现"></a>python代码实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;输入参评数目:&quot;</span>)<br>n = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>())<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;输入指标数目&quot;</span>)<br>m = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">input</span>())<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;输入矩阵类型，用空格分隔:1极大，2极小，3中间，4区间&quot;</span>)<br>kind = <span class="hljs-built_in">input</span>().split(<span class="hljs-string">&quot; &quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;输入矩阵&quot;</span>)<br>A = np.zeros(shape=(n,m))       <span class="hljs-comment"># 初始化n行m列的零矩阵A</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):<br>    A[i] = <span class="hljs-built_in">input</span>().split(<span class="hljs-string">&quot; &quot;</span>)<br>    A[i] = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">float</span>, A[i]))       <span class="hljs-comment"># 将接受的到的字符串转为浮点数列表</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;输入矩阵为，\n&#123;&#125;&quot;</span>, <span class="hljs-built_in">format</span>(A))<br></code></pre></td></tr></table></figure>
+
+<p>​    输入参评数目:3<br>​    输入指标数目:4<br>​    输入矩阵类型，用空格分隔:1极大，2极小，3中间，4区间<br>​    1 2 3 4<br>​    输入矩阵<br>​    输入矩阵为，<br>​    {} [[  9.  10. 175. 120.]<br>​     [  8.   7. 164.  80.]<br>​     [  6.   3. 157.  90.]]<br>​    </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 极小指标转极大指标函数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">minTomax</span>(<span class="hljs-params">maxx, x</span>):<br>    x = <span class="hljs-built_in">list</span>(x)     <span class="hljs-comment"># 将输入的指标数据转化为列表</span><br>    ans = [[maxx-e] <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> x]     <span class="hljs-comment"># 计算最大值与每个指标值的差，并放入新列表中</span><br>    <span class="hljs-keyword">return</span> np.array(ans)        <span class="hljs-comment"># 将列表转换为numpy数组并返回</span><br><br><br><span class="hljs-comment"># 中间型转极大指标函数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">midTomax</span>(<span class="hljs-params">bestx, x</span>):<br>    x = <span class="hljs-built_in">list</span>(x)<br>    h = [<span class="hljs-built_in">abs</span>(e-bestx) <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> x]<br>    M = <span class="hljs-built_in">max</span>(h)<br>    <span class="hljs-keyword">if</span> M == <span class="hljs-number">0</span>:<br>        M = <span class="hljs-number">1</span>       <span class="hljs-comment"># 防止最大差值为0的情况</span><br>    ans = [[(<span class="hljs-number">1</span>-e/M)] <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> h]        <span class="hljs-comment"># 计算每个差值占最大差值的比例，并从1中减去，得到新指标值</span><br>    <span class="hljs-keyword">return</span> np.array(ans)<br><br><br><span class="hljs-comment"># 区间型转极大指标函数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">regTomax</span>(<span class="hljs-params">lowx, hightx, x</span>):<br>    x = <span class="hljs-built_in">list</span>(x)<br>    M = <span class="hljs-built_in">max</span>(lowx-<span class="hljs-built_in">min</span>(x), <span class="hljs-built_in">max</span>(x)-hightx)     <span class="hljs-comment"># 计算指标值超出区间的最大距离</span><br>    <span class="hljs-keyword">if</span> M == <span class="hljs-number">0</span>:<br>        M = <span class="hljs-number">1</span>       <span class="hljs-comment"># 防止最大距离为0的情况</span><br>    ans = []<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(x)):<br>        <span class="hljs-keyword">if</span> x[i]&lt;lowx:<br>            ans.append([<span class="hljs-number">1</span>-(lowx-x[i])/M])<br>        <span class="hljs-keyword">elif</span> x[i]&gt;hightx:<br>            ans.append([(<span class="hljs-number">1</span>-(x[i]-hightx)/M)])<br>        <span class="hljs-keyword">else</span>:<br>            ans.append([<span class="hljs-number">1</span>])<br>    <span class="hljs-keyword">return</span> np.array(ans)<br><span class="hljs-comment"># 统一指标类型，将所有指标转化为极大型指标</span><br>X = np.zeros(shape=(n,<span class="hljs-number">1</span>))<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m):<br>    <span class="hljs-keyword">if</span> kind[i]==<span class="hljs-string">&quot;1&quot;</span>:        <span class="hljs-comment"># 极大型</span><br>        v = np.array(A[:, i])<br>    <span class="hljs-keyword">elif</span> kind[i]==<span class="hljs-string">&quot;2&quot;</span>:      <span class="hljs-comment"># 极小型</span><br>        maxA = <span class="hljs-built_in">max</span>(A[:, i])<br>        v = minTomax(maxA, A[:, i])<br>    <span class="hljs-keyword">elif</span> kind[i]==<span class="hljs-string">&quot;3&quot;</span>:      <span class="hljs-comment"># 中间型</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;请输入最优值:&quot;</span>)<br>        bestA = <span class="hljs-built_in">eval</span>(<span class="hljs-built_in">input</span>())<br>        v = midTomax(bestA, A[:, i])<br>    <span class="hljs-keyword">elif</span> kind[i]==<span class="hljs-string">&quot;4&quot;</span>:      <span class="hljs-comment"># 区间型</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;请输入区间[a,b]值a:&quot;</span>)<br>        lowA = <span class="hljs-built_in">eval</span>(<span class="hljs-built_in">input</span>())<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;请输入区间[a,b]值b:&quot;</span>)<br>        hightA = <span class="hljs-built_in">eval</span>(<span class="hljs-built_in">input</span>())<br>        v = regTomax(lowA, hightA, A[:, i])<br>    <span class="hljs-keyword">if</span> i==<span class="hljs-number">0</span>:<br>        X = v.reshape(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)        <span class="hljs-comment"># 如果是第一个指标，直接替换X数组</span><br>    <span class="hljs-keyword">else</span>:<br>        X = np.hstack([X, v.reshape(-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)])        <span class="hljs-comment"># 如果不是第一个指标，则将新指标拼接到X数组上</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;统一指标后矩阵为,\n&#123;&#125;&quot;</span>, <span class="hljs-built_in">format</span>(X))<br><br></code></pre></td></tr></table></figure>
+
+<p>​    请输入最优值:<br>​    请输入区间[a,b]值a:<br>​    请输入区间[a,b]值b:<br>​    统一指标后矩阵为,<br>​    {} [[9.  0.  0.  0. ]<br>​     [8.  3.  0.9 0.5]<br>​     [6.  7.  0.2 1. ]]<br>​    </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 对同一指标后的矩阵X进行标准化处理</span><br>X = X.astype(<span class="hljs-string">&#x27;float&#x27;</span>)       <span class="hljs-comment">#  确保X矩阵的数据类型为浮点数</span><br><span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m):<br>    X[:, j] = X[:, j]/np.sqrt(<span class="hljs-built_in">sum</span>(X[:, j]**<span class="hljs-number">2</span>))      <span class="hljs-comment"># 对每一列进行归一化处理</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;标准化矩阵为:\n &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(X))<br></code></pre></td></tr></table></figure>
+
+<p>​    标准化矩阵为:<br>​     [[0.66896473 0.         0.         0.        ]<br>​     [0.59463532 0.3939193  0.97618706 0.4472136 ]<br>​     [0.44597649 0.91914503 0.21693046 0.89442719]]<br>​    </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 最大值最小值距离的计算</span><br>x_max = np.<span class="hljs-built_in">max</span>(X, axis=<span class="hljs-number">0</span>)       <span class="hljs-comment"># 计算标准化矩阵每列的最大值</span><br>x_min = np.<span class="hljs-built_in">min</span>(X, axis=<span class="hljs-number">0</span>)       <span class="hljs-comment"># 计算标准化矩阵每列的最小值</span><br>d_z = np.sqrt(np.<span class="hljs-built_in">sum</span>(np.square((X - np.tile(x_max, (n, <span class="hljs-number">1</span>)))), axis=<span class="hljs-number">1</span>))      <span class="hljs-comment"># 计算每个参评对象与最优情况的距离d+</span><br>d_f = np.sqrt(np.<span class="hljs-built_in">sum</span>(np.square((X - np.tile(x_min, (n,<span class="hljs-number">1</span>)))), axis=<span class="hljs-number">1</span>))       <span class="hljs-comment"># 计算每个参评对象与最劣情况的距离d-</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;每个指标的最大值:&quot;</span>, x_max)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;每个指标的最小值:&quot;</span>, x_min)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;d+向量:&quot;</span>, d_z)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;d-向量:&quot;</span>, d_f)<br></code></pre></td></tr></table></figure>
+
+<p>​    每个指标的最大值: [0.66896473 0.91914503 0.97618706 0.89442719]<br>​    每个指标的最小值: [0.44597649 0.         0.         0.        ]<br>​    d+向量: [1.61175952 0.69382053 0.79132442]<br>​    d-向量: [0.22298824 1.15334862 1.30072534]<br>​    </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 计算每个参评对象的得分排名</span><br>s = d_f/(d_z+d_f)<br>Score = <span class="hljs-number">100</span>*s/<span class="hljs-built_in">sum</span>(s)    <span class="hljs-comment"># 得分转百分制</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(Score)):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;第<span class="hljs-subst">&#123;i+<span class="hljs-number">1</span>&#125;</span>个标准化后百分制得分为:<span class="hljs-subst">&#123;Score[i]&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>​    第1个标准化后百分制得分为:8.886366735657832<br>​    第2个标准化后百分制得分为:45.653341055701134<br>​    第3个标准化后百分制得分为:45.46029220864103<br>​    </p>
+<h2 id="熵权算法"><a href="#熵权算法" class="headerlink" title="熵权算法"></a>熵权算法</h2><p>熵是系统无序&#x2F;混乱程序的一个度量，可以用来衡量指标的离散程度，<strong>如果某项指标的值全部相等，则在评价中不起作用，权重也就是变小</strong></p>
+<p>熵权法是一种<strong>客观的赋权方法</strong>，它可以靠数据本身得出权重</p>
+<p><strong>指标的变异程度越小，所反映的信息就越少，对用的权值也应该越低</strong></p>
+<h3 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h3><ul>
+<li><p>矩阵正向化</p>
+<p>和topsis一样</p>
+</li>
+<li><p>数据标准化<br>$$<br>\text{对标准化的矩阵记为}Z\text{,则 z}<em>{ij}&#x3D;\frac{x</em>{ij}}{\sqrt{\sum_{i&#x3D;1}^nx_{ij}^2}}\quad\text{如果}x_{ij}\text{存在负数,则标准矩阵}\quad\tilde{Z}&#x3D;\frac{x-min{x_{1j},x_{2j},…,x_{nj}}}{max{x_{1j},x_{2j},…,x_{nj}}-min{x_{1j},x_{2j},…,x_{nj}}}<br>$$</p>
+</li>
+<li><p>计算概率矩阵P<br>$$<br>\text{计算第 j项指标下第 i个样本所占的比重 }p_{ij}&#x3D;\frac{\tilde{z}<em>{ij}}{\sum</em>{i&#x3D;1}^{n}\tilde{z}_{ij}}<br>$$</p>
+</li>
+<li><p>计算熵权<br>$$<br>e_j&#x3D;-\frac{1}{\ln n}\sum_{i&#x3D;1}^np_{ij}\ln(p_{ij})(j&#x3D;1,2,…,m)\quad d_j&#x3D;1-e_j\quad W_j&#x3D;\frac{a_j}{\sum_{j&#x3D;1}^md_j}<br>$$</p>
+</li>
+<li></li>
+</ul>
+<h3 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># 定义一个对数函数，用于处理输入数组中的0元素</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">mylog</span>(<span class="hljs-params">p</span>):<br>    n = <span class="hljs-built_in">len</span>(p)      <span class="hljs-comment"># 获取向量p的长度</span><br>    lnp = np.zeros(n)       <span class="hljs-comment"># 创建一个长度n，元素为0的新数组lnp</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):      <span class="hljs-comment"># 遍历向量的每个元素</span><br>        <span class="hljs-keyword">if</span> p[i] == <span class="hljs-number">0</span>:<br>            lnp[i] = <span class="hljs-number">0</span>      <span class="hljs-comment"># 在lnp中设置为0，因为log(0)未定义，这里规定为0</span><br>        <span class="hljs-keyword">else</span>:<br>            lnp[i] = np.log(p[i])     <span class="hljs-comment"># 不为0则计算后存入lnp</span><br>    <span class="hljs-keyword">return</span> lnp<br><br><br><span class="hljs-comment"># 定义一个指标矩阵X</span><br>X = np.array([[<span class="hljs-number">9</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>], [<span class="hljs-number">8</span>,<span class="hljs-number">3</span>,<span class="hljs-number">0.9</span>,<span class="hljs-number">0.5</span>], [<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">0.2</span>,<span class="hljs-number">1</span>]])<br><br><span class="hljs-comment"># 对矩阵X进行标准化，得到标准化矩阵Z</span><br>Z = X / np.sqrt(np.<span class="hljs-built_in">sum</span>(X*X, axis=<span class="hljs-number">0</span>))<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;标准化矩阵Z为：&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(Z))<br><br></code></pre></td></tr></table></figure>
+
+<p>​    标准化矩阵Z为：[[0.66896473 0.         0.         0.        ]<br>​     [0.59463532 0.3939193  0.97618706 0.4472136 ]<br>​     [0.44597649 0.91914503 0.21693046 0.89442719]]<br>​    </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 计算熵权所需的变量和矩阵初始化</span><br>n, m = Z.shape      <span class="hljs-comment"># 获取Z的行数和列数</span><br>D = np.zeros(m)     <span class="hljs-comment"># 初始化一个长度m的数组D，用于保存每个指标的信息效用值</span><br><br><br><span class="hljs-comment"># 计算每个指标的信息效用值</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(m):      <span class="hljs-comment"># 遍历Z的每一列</span><br>    x = Z[:,i]      <span class="hljs-comment"># 获取Z的第i列</span><br>    p = x / np.<span class="hljs-built_in">sum</span>(x)       <span class="hljs-comment"># 对第i个指标归一化，得到概率分布p</span><br>    <span class="hljs-comment"># 计算对数</span><br>    e = -np.<span class="hljs-built_in">sum</span>(p * mylog(p)) / np.log(n)       <span class="hljs-comment"># 根据熵的定义计算第i个指标的信息熵e</span><br>    D[i] = <span class="hljs-number">1</span> - e        <span class="hljs-comment"># 根据信息效用值的定义计算D[i]</span><br><br><span class="hljs-comment"># 根据信息效用值计算各指标的权重</span><br>W = D / np.<span class="hljs-built_in">sum</span>(D)       <span class="hljs-comment"># 将信息效用值D归一化，得到各指标的权重W</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;权重W=&quot;</span>)<br><span class="hljs-built_in">print</span>(W)<br><br></code></pre></td></tr></table></figure>
+
+<p>​    权重W&#x3D;<br>​    [-0.28664984  0.12885848  0.45522308  0.70256829]<br>​    </p>
+<h2 id="模糊综合评价"><a href="#模糊综合评价" class="headerlink" title="模糊综合评价"></a>模糊综合评价</h2><p>对于性别、身高、体重可以很容易的得到答案，这些是<strong>确定性概念</strong>。</p>
+<p>但对于胖瘦美丑这些就不好确定了，多胖算胖，怎么样算好看，这些就是<strong>模糊性概念</strong></p>
+<h3 id="模糊集合和隶属函数"><a href="#模糊集合和隶属函数" class="headerlink" title="模糊集合和隶属函数"></a>模糊集合和隶属函数</h3><ul>
+<li><p>模糊集合：</p>
+<p>用来描述模糊性概念的集合（美丑高低胖瘦）</p>
+</li>
+<li><p>隶属函数：</p>
+<p>模糊集合用隶属函数来刻画，确定X上的一个模糊集合A，u<del>A</del>叫做A的隶属函数，u<del>A</del>(x)叫做x对模糊集A的隶属度</p>
+</li>
+</ul>
+<p>举个例子，模糊集合A&#x3D;“年轻”，X&#x3D;（0，150）表示年龄的集合</p>
+<p>定义隶属函数<br>$$<br>\mu_A\left(x\right)&#x3D;\begin{cases}1,0&lt;x&lt;20\\frac{40-x}{20},20\leq x\leq40\0,40&lt;x&lt;150\end{cases}<br>$$<br>意思是：小于20岁必定属于年轻；处于20到40之间的，随着年龄加大，与模糊集合A的隶属度越来越低，其中30岁为50%最为模糊；大于40则一定不属于年轻</p>
+<ul>
+<li><p>模糊集合的表示方式：</p>
+<ol>
+<li><p>zadeh表示法<br>$$<br>A&#x3D;\sum_{i&#x3D;1}^n\frac{\mu_A\left(i\right)}{x_i}&#x3D;\frac{\mu_A\left(x_1\right)}{x_1}+\frac{\mu_A\left(x_2\right)}{x_2}+\cdots+\frac{\mu_A\left(x_n\right)}{x_n}\<br>\text{注:“}\Sigma\text{”和“}+\text{”不是求和的意思,只是概括集合的记号}\\frac{\mu_A(i)}{x_i}\text{也不是分数,它表示点}x_i\text{对模糊集A的隶属度是}\mu_A(x)<br>$$</p>
+</li>
+<li><p>序偶表示法<br>$$<br>A&#x3D;{(x_1,\mu_A(x_1)),(x_2,\mu_A(x_2)),…,(x_n,\mu_A(x_n))}<br>$$</p>
+</li>
+<li><p>向量表示法<br>$$<br>A&#x3D;\begin{pmatrix}\mu_A(x_1),\mu_A(x_2),…,\mu_A(x_n)\end{pmatrix}<br>$$</p>
+</li>
+<li><p>当X为无限集时，X上的模糊集A可以写成<br>$$<br>A&#x3D;\int\limits_{x\in X}\frac{\mu_A(x)}x\quad {注:“ \int ”不是积分的意思,}\frac{\mu_A(x_i)}x{也不是分数}<br>$$</p>
+</li>
+</ol>
+</li>
+<li><p>隶属函数的确定：</p>
+<ol>
+<li><p>模糊统计法：</p>
+<p>找多个人对同一个模糊概念进行描述，用<strong>隶属频率</strong>去定义隶属度。</p>
+<p>例如：30岁相对于年轻的隶属度，询问n个人，其中m个人认为30岁属于年轻，则隶属度为m&#x2F;n</p>
+</li>
+<li><p>借助已有的客观尺度：</p>
+<p>某些模糊概念，可以用<strong>已有的指标</strong>去衡量隶属度。</p>
+<p>例如：小康家庭，可以用“恩格尔系数（食品支出&#x2F;总支出）”去衡量，所以“1-恩格尔系数”看成隶属度</p>
+</li>
+<li><p>指派法：</p>
+<p>主观性较强，在确定模糊集合的所属分类后，给它指派一个隶属函数，指派的隶属函数可以在常用的模糊分布中找</p>
+<p><img src="https://img-blog.csdnimg.cn/20190506222358274.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI5ODMxMTYz,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="评价问题"><a href="#评价问题" class="headerlink" title="评价问题"></a>评价问题</h3><p>在模糊综合评价中，引入三个集合：</p>
+<ol>
+<li>因素集（评价指标集）U</li>
+<li>评语集（评价的结果）V</li>
+<li>权重集（指标的权重）A</li>
+</ol>
+<p>例如：评价一名学生的表现</p>
+<p>U&#x3D;{专业排名，课外实践，志愿服务，竞赛成绩}</p>
+<p>V&#x3D;{优，良，差}</p>
+<p>A&#x3D;{0.4，0.2，0.1，0.3}</p>
+<h3 id="一级模糊综合评价"><a href="#一级模糊综合评价" class="headerlink" title="一级模糊综合评价"></a>一级模糊综合评价</h3><ol>
+<li><p>确定因素集U</p>
+</li>
+<li><p>确定评语集V</p>
+</li>
+<li><p>确定各因素权重A</p>
+</li>
+<li><p>确定模糊综合判断矩阵R</p>
+<p>矩阵R每一行代表一个因素，行内的各个元素表示该因素对各个评语的隶属度</p>
+<p>比如：</p>
+<p>员工的综合评分，因素可以是政治表现，工作态度，评语是优良差，那么：</p>
+<p>第一行【0.1 0.5 0.4】表示则政治表现对于优的隶属度为0.1，良的隶属度是0.5，差的隶属度是0.4</p>
+<p>第二行【…】表示工作态度对于……</p>
+</li>
+<li><p>进行矩阵合成运算<br>$$<br>B&#x3D;A*R<br>$$<br>得到一个行向量，这个行向量就是该员工对于评语集的隶属度，最大隶属度对应的评语就是该员工的评价。</p>
+</li>
+</ol>
+<h3 id="多层次模糊综合评价"><a href="#多层次模糊综合评价" class="headerlink" title="多层次模糊综合评价"></a>多层次模糊综合评价</h3><ol>
+<li><p>给出被评价的对象集合X</p>
+</li>
+<li><p>确定因素（指标）集U，如果有较多因素，可以将因素按<strong>某些属性</strong>分为s个子集，U<del>i</del>表示第i个子集，u^(i)^<del>1</del>表示第i个子集中的第1个元素，这些子集满足以下条件：</p>
+<ol>
+<li>子集个数为s</li>
+<li>所有子集取并集，为因素集U</li>
+<li>任意两个子集取交集，为空集</li>
+</ol>
+</li>
+<li><p>确定评语集V</p>
+</li>
+<li><p>由子集U<del>i</del>与评语集V获得评价矩阵R<del>i</del></p>
+</li>
+<li><p>对每一个U<del>i</del>，分别做出综合决策：</p>
+<p>设U<del>i</del>中的各个因素权重分配为A<del>i</del>，可得到一级评价向量：<br>$$<br>B_{i}&#x3D;A_{i}\times R_{i}<br>$$</p>
+</li>
+<li><p>U的单元素判断矩阵为：<br>$$<br>R&#x3D;\begin{bmatrix}B_1\B_2\\vdots\B_s\end{bmatrix}&#x3D;\begin{bmatrix}b_{11}&amp;b_{12}&amp;\cdots&amp;b_{1m}\\vdots&amp;\vdots&amp;\vdots&amp;\vdots\\vdots&amp;\vdots&amp;\vdots&amp;\vdots\b_{s1}&amp;b_{s2}&amp;\cdots&amp;b_{sm}\end{bmatrix}<br>$$<br>每个U<del>i</del>作为U的一部分，反映了U的某种属性，可以按重要性给出权重分配A</p>
+<p>接着得到二级模糊综合评价<br>$$<br>B&#x3D;A \times R<br>$$<br>若U<del>i</del>仍有较多因素，可以进行在划分，得到更高级的模型，计算方式与二级一致，从最低级算起</p>
+</li>
+</ol>
+<h3 id="模糊综合评价PYTHON实现"><a href="#模糊综合评价PYTHON实现" class="headerlink" title="模糊综合评价PYTHON实现"></a>模糊综合评价PYTHON实现</h3><h4 id="一级模糊综合评价-1"><a href="#一级模糊综合评价-1" class="headerlink" title="一级模糊综合评价"></a>一级模糊综合评价</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># 一级模糊综合评价</span><br><span class="hljs-comment"># 各因素的单元素评价矩阵</span><br>R23 = np.array(<br>    [<br>        [<span class="hljs-number">0.18</span>, <span class="hljs-number">0.14</span>, <span class="hljs-number">0.18</span>, <span class="hljs-number">0.14</span>, <span class="hljs-number">0.13</span>, <span class="hljs-number">0.23</span>],<br>        [<span class="hljs-number">0.15</span>, <span class="hljs-number">0.20</span>, <span class="hljs-number">0.15</span>, <span class="hljs-number">0.25</span>, <span class="hljs-number">0.10</span>, <span class="hljs-number">0.15</span>],<br>        [<span class="hljs-number">0.25</span>, <span class="hljs-number">0.12</span>, <span class="hljs-number">0.13</span>, <span class="hljs-number">0.12</span>, <span class="hljs-number">0.18</span>, <span class="hljs-number">0.20</span>],<br>        [<span class="hljs-number">0.16</span>, <span class="hljs-number">0.15</span>, <span class="hljs-number">0.21</span>, <span class="hljs-number">0.11</span>, <span class="hljs-number">0.20</span>, <span class="hljs-number">0.17</span>],<br>        [<span class="hljs-number">0.23</span>, <span class="hljs-number">0.18</span>, <span class="hljs-number">0.17</span>, <span class="hljs-number">0.16</span>, <span class="hljs-number">0.15</span>, <span class="hljs-number">0.11</span>],<br>        [<span class="hljs-number">0.19</span>, <span class="hljs-number">0.13</span>, <span class="hljs-number">0.12</span>, <span class="hljs-number">0.12</span>, <span class="hljs-number">0.11</span>, <span class="hljs-number">0.33</span>],<br>        [<span class="hljs-number">0.17</span>, <span class="hljs-number">0.16</span>, <span class="hljs-number">0.15</span>, <span class="hljs-number">0.08</span>, <span class="hljs-number">0.25</span>, <span class="hljs-number">0.19</span>],<br>    ]<br>)<br><br><span class="hljs-comment"># 权重分配为</span><br>A23 = np.array([<span class="hljs-number">0.20</span>, <span class="hljs-number">0.15</span>, <span class="hljs-number">0.10</span>, <span class="hljs-number">0.10</span>, <span class="hljs-number">0.20</span>, <span class="hljs-number">0.15</span>, <span class="hljs-number">0.10</span>])<br><span class="hljs-comment"># 评价结果</span><br><span class="hljs-comment"># np.dot 函数用于计算两个数组的点积，对于一维数组，计算的是两个数组的内积</span><br><span class="hljs-comment"># 对于二维数组，计算的是矩阵乘法</span><br>B23 = np.dot(A23, R23)<br><br><span class="hljs-built_in">print</span>(B23)<br></code></pre></td></tr></table></figure>
+
+<p>  [0.191  0.1565 0.1595 0.1465 0.1505 0.196 ]</p>
+<h4 id="多级模糊评价"><a href="#多级模糊评价" class="headerlink" title="多级模糊评价"></a>多级模糊评价</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 产品情况的二级评判如下</span><br>R1 = np.array(<br>    [<br>        [<span class="hljs-number">0.12</span>, <span class="hljs-number">0.18</span>, <span class="hljs-number">0.17</span>, <span class="hljs-number">0.23</span>, <span class="hljs-number">0.13</span>, <span class="hljs-number">0.17</span>],<br>        [<span class="hljs-number">0.15</span>, <span class="hljs-number">0.13</span>, <span class="hljs-number">0.18</span>, <span class="hljs-number">0.25</span>, <span class="hljs-number">0.12</span>, <span class="hljs-number">0.17</span>],<br>        [<span class="hljs-number">0.14</span>, <span class="hljs-number">0.13</span>, <span class="hljs-number">0.16</span>, <span class="hljs-number">0.18</span>, <span class="hljs-number">0.20</span>, <span class="hljs-number">0.19</span>],<br>        [<span class="hljs-number">0.12</span>, <span class="hljs-number">0.14</span>, <span class="hljs-number">0.15</span>, <span class="hljs-number">0.17</span>, <span class="hljs-number">0.19</span>, <span class="hljs-number">0.23</span>],<br>        [<span class="hljs-number">0.16</span>, <span class="hljs-number">0.12</span>, <span class="hljs-number">0.13</span>, <span class="hljs-number">0.25</span>, <span class="hljs-number">0.18</span>, <span class="hljs-number">0.16</span>],<br>    ]<br>)<br>A1 = np.array([<span class="hljs-number">0.15</span>, <span class="hljs-number">0.40</span>, <span class="hljs-number">0.25</span>, <span class="hljs-number">0.10</span>, <span class="hljs-number">0.10</span>])<br>B1 = np.dot(A1, R1)<br><br><span class="hljs-comment"># 销售能里二级评价如下</span><br>R2 = np.array(<br>    [<br>        [<span class="hljs-number">0.13</span>, <span class="hljs-number">0.15</span>, <span class="hljs-number">0.14</span>, <span class="hljs-number">0.18</span>, <span class="hljs-number">0.16</span>, <span class="hljs-number">0.25</span>],<br>        [<span class="hljs-number">0.12</span>, <span class="hljs-number">0.16</span>, <span class="hljs-number">0.13</span>, <span class="hljs-number">0.17</span>, <span class="hljs-number">0.19</span>, <span class="hljs-number">0.23</span>],<br>        B23,<br>        [<span class="hljs-number">0.14</span>, <span class="hljs-number">0.13</span>, <span class="hljs-number">0.15</span>, <span class="hljs-number">0.16</span>, <span class="hljs-number">0.18</span>, <span class="hljs-number">0.24</span>],<br>        [<span class="hljs-number">0.16</span>, <span class="hljs-number">0.15</span>, <span class="hljs-number">0.15</span>, <span class="hljs-number">0.17</span>, <span class="hljs-number">0.18</span>, <span class="hljs-number">0.19</span>],<br>    ]<br>)<br>A2 = np.array([<span class="hljs-number">0.2</span>, <span class="hljs-number">0.15</span>, <span class="hljs-number">0.25</span>, <span class="hljs-number">0.25</span>, <span class="hljs-number">0.15</span>])<br>B2 = np.dot(A2, R2)<br><br><span class="hljs-comment"># 市场需求的二级评价</span><br>R3 = np.array(<br>    [[<span class="hljs-number">0.15</span>, <span class="hljs-number">0.14</span>, <span class="hljs-number">0.13</span>, <span class="hljs-number">0.18</span>, <span class="hljs-number">0.14</span>, <span class="hljs-number">0.26</span>], [<span class="hljs-number">0.16</span>, <span class="hljs-number">0.15</span>, <span class="hljs-number">0.18</span>, <span class="hljs-number">0.14</span>, <span class="hljs-number">0.16</span>, <span class="hljs-number">0.21</span>]]<br>)<br>A3 = np.array([<span class="hljs-number">0.55</span>, <span class="hljs-number">0.45</span>])<br>B3 = np.dot(A3, R3)<br><br><br><span class="hljs-comment"># 三级模糊综合评判</span><br>R = np.array([B1, B2, B3])<br>A = np.array([<span class="hljs-number">0.4</span>, <span class="hljs-number">0.3</span>, <span class="hljs-number">0.3</span>])<br>B = np.dot(A, R)<br><br><span class="hljs-built_in">print</span>(B)<br><br></code></pre></td></tr></table></figure>
+
+<p>  [0.147975  0.1427875 0.1561625 0.1862875 0.1575375 0.20985  ]</p>
+<h1 id="控制预测类"><a href="#控制预测类" class="headerlink" title="控制预测类"></a>控制预测类</h1><h2 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h2><p><strong>线性回归</strong>指的是确定<strong>两种或两种以上变量间互相依赖的定量关系</strong>。根据涉及变量的多少，分为<strong>一元回归</strong>和<strong>多元回归</strong>；按照因变量的多少，可分为<strong>简单回归</strong>和<strong>多重回归分析</strong>;按照自变量和因变量之间的关系类型，可以分为<strong>线性回归</strong>和<strong>非线性回归</strong>。所以回归分析一般包括四个方向：<strong>一元线性回归分析、多元线性回归分析、一元非线性回归分析、多元非线性回归分析</strong></p>
+<p>回归分析的一般步骤为：</p>
+<ul>
+<li>确定回归方程中的解释变量和被解释变量（自变量因变量）</li>
+<li>确定回归模型、建立回归方程</li>
+<li>对回归方程进行检验</li>
+<li>利用回归方程进行预测</li>
+</ul>
+<p>回归模型基本概念：</p>
+<ul>
+<li>自变量：预测或解释因变量和一个或多个变量，用x表示</li>
+<li>因变量：被预测或解释的变量，用y表示</li>
+<li>描述y如何依赖于x和误差项€的方程称为回归模型</li>
+</ul>
+<p>以一元线性回归分析为例：<br>$$<br>\begin{aligned}<br>&amp;\bullet\text{ 对于只涉及一个自变量的一元线性回归模型可表示为} \<br>&amp;y&#x3D;\beta_0+\beta_1x+\epsilon \<br>&amp;在这个模型里: \<br>&amp;&amp;\text{一} \<br>&amp;\begin{aligned}&amp;\checkmark\quad x\text{叫做自变量或解释变量}\&amp;\checkmark\quad\beta_0\text{表示截距}\&amp;\checkmark\quad\beta_1\text{表示斜率}\end{aligned} \</p>
+<p>&amp;{\epsilon\text{表示误差项,反映除}x\text{和}y\text{之间的线性关系之外的随机因素对}y}\text{的影响,是不可避免的}<br>\end{aligned}<br>$$</p>
+<h3 id="回归方程"><a href="#回归方程" class="headerlink" title="回归方程"></a>回归方程</h3><p>描述因变量的<strong>期望值</strong>如何依赖于自变量的方程称为回归方程，对一元线性回归模型假设，可得到他的回归方程为：<br>$$<br>E(y)&#x3D;\beta_0+\beta_1x<br>$$<br>如果回归方程中的参数已知，对于给定的x，利用回归方程就能计算出y的期望值</p>
+<p>用样本统计量代替回归方程中的未知参数，就能得到估计的回归方程，即回归直线</p>
+<p>参数可以用<strong>最小二乘法</strong>估计，它是使观察值y与估计值之间的离差平方和<strong>达到最小</strong>来求解的：<br>$$<br>Q&#x3D;\sum(y-\hat{y})^2&#x3D;\sum(y-\hat{\beta}_0-\hat{\beta}_1x)^2&#x3D;\<br>\sum y^2+n\hat{\beta}_0^2+\hat{\beta}_1^2\Sigma x^2+2\hat{\beta}_0\hat{\beta}_1\Sigma x-2\hat{\beta}_0\sum y-2\hat{\beta}_1\Sigma xy<br>$$</p>
+<p>可得：<br>$$<br>\begin{cases}\hat{\beta}_1&#x3D;\frac{n\sum xy-\sum x\sum y}{n\sum x^2-(\sum x)^2}\\hat{\beta}_0&#x3D;\bar{y}-\hat{\beta}_1\bar{x}\end{cases}<br>$$</p>
+<p>利用回归直线就可以对数据进行预测，预测分为<strong>点估计和区间估计</strong></p>
+<p>计算<strong>估计标准差</strong>：</p>
+<p>为了度量回归方程的可靠性，通常计算<strong>估计标准差</strong>，它度量观察值回绕着回归直线的变化程度或离散程度<br>$$<br>S_e&#x3D;\sqrt{\frac{\sum(y-\hat{y})^2}{n-2}}<br>$$<br>估计标准差<strong>越大</strong>，则数据点围绕回归直线的离散程度就<strong>越大</strong>，回归方程的代表性就<strong>越小</strong></p>
+<p>估计标准差<strong>越小</strong>，则数据点围绕回归直线的离散程度就<strong>越小</strong>，回归方程的代表性就<strong>越大</strong>，越<strong>可靠</strong></p>
+<p><strong>置信区间和预测区间</strong>的计算：<br>$$<br>\text{ 置信区间: } \widehat{y}<em>0\pm t</em>{\frac{\alpha}{2}}s_e\sqrt{\frac{1}{n}+\frac{(x_0-\bar{x})^2}{\sum(x-\bar{x})^2}}\<br>t_{\frac{\alpha}{2}}是通过查t分布表(或者t分布工具计算，自由度为残差自由度即样本个数-自变量个数-1)获得，{\alpha}表示显著性水平，一般默认0.05,1-{\alpha}表示置信水平<br>$$</p>
+<p>$$<br>\text{预测区间:}\widehat{y}<em>0\pm t</em>{\frac\alpha2}s_e\sqrt{1+\frac1n+\frac{(x_0-\bar{x})^2}{\sum(x-\bar{x})^2}}<br>$$</p>
+<p><strong>回归模型</strong>的验证：</p>
+<p>回归直线与各观测点的接近程度称为<strong>回归直线对数据的拟合优度</strong>：</p>
+<ul>
+<li><p>总平方和（TSS）:反映因变量的n个观察值与其均值的总离差<br>$$<br>TSS&#x3D;\sum y_i^2&#x3D;\sum({y_i}-{\bar{y_i}})^2<br>$$</p>
+</li>
+<li><p>回归平方和（ESS&#x2F;SSR）：反映y的总变差中，由于x与y之间的线性关系引起的y的变化部分<br>$$<br>ESS&#x3D;\sum\hat{y}_i^2&#x3D;\sum(\hat{y}_i-\bar{y}_i)^2<br>$$</p>
+</li>
+<li><p>残差平方和（RSS&#x2F;SSE）：反映了除了x对y的线性影响之外的其他因素对y变差的作用，是不能由回归直线来解释的y的变差部分<br>$$<br>RSS&#x3D;\sum e_i^2&#x3D;\sum(y_i-\hat{y}_i)^2<br>$$<br>三者存在关系：<br>$$<br>TSS&#x3D;ESS+RSS<br>$$</p>
+</li>
+</ul>
+<p><strong>判定系数R^2^</strong>:</p>
+<p>R^2^表示<strong>回归平方和与总平方和的比例</strong>，其值在0-1之间：<br>$$<br>R^{2}&#x3D;\frac{\mathrm{ESS}}{TSS}&#x3D;1-\frac{\mathrm{RSS}}{TSS}&#x3D;\frac{\sum(\hat{y}<em>{i}-\bar{y}</em>{i})^{2}}{\sum(y_{i}-\bar{y}<em>{i})^{2}}&#x3D;1-\frac{\sum(y</em>{i}-\hat{y}<em>{i})^{2}}{\sum(y</em>{i}-\bar{y}_{i})^{2}}<br>$$<br>为0：说明y的变化与x无关，x完全无助于解释y的变差</p>
+<p>为1：说明残差平方和为0，拟合是完全的，y的变化只与x有关</p>
+<p><strong>显著性检验：</strong></p>
+<ul>
+<li><p>线性关系检验：</p>
+<p>用来<strong>检验自变量x和因变量y之间的线性关系是否显著</strong></p>
+<p>将<strong>均方回归（MSR）同均方残差（MSE）加以比较</strong>，应用F检验来分析二者之间的差别是否显著</p>
+<ul>
+<li>均方回归（MSR）：回归平方和（ESS）除以相应的回归自由度（自变量个数k）</li>
+<li>均方残差（MSE）：残差平方和（RSS）除以相应的残差自由度（n-k-1）</li>
+</ul>
+<p><strong>H<del>0</del>（原假设）：</strong>β<del>1</del>&#x3D;0，回归系数与0无显著差异，y与x的线性关系不显著</p>
+<p>**H<del>1</del>**：β<del>1</del>≠0，回归显著，认为y与x存在线性关系，所求的线性回归方程有意义</p>
+<p>通过计算<strong>检验统计量F</strong>可以判断哪种成立：<br>$$<br>H_0\text{成立时,}F&#x3D;\frac{ESS&#x2F;1}{RSS&#x2F;(n-2)}&#x3D;\frac{MSR}{MSE}{\sim}F(k,n-k-1)\<br>\text{若}F&gt;F_{1-\alpha}(k,n-k-1)\text{,拒绝}H_0\text{否则接受}H_0\<br>\text{F分布可以通过查表或计算工具得出,}\alpha\text{为显著性水平}<br>$$</p>
+</li>
+<li><p>回归系数检验：<br>$$<br>{\hat{\beta}_1\text{是根据最小二乘法求出的样本统计量,服从正态分布}}\<br>{\hat{\beta}_1\text{的分布具有如下性质}:} \<br>\text{数学期望:}E(\hat{\beta}<em>1)&#x3D;\beta_1 \<br>\text{标准差:}\sigma</em>{\widehat{\beta}<em>1}&#x3D;\frac\sigma{\sqrt{\sum x_i^2-\frac1n(\sum x_i)^2}} \<br>\text{,由于}\sigma\text{未知,需用其估计量}S</em>{\mathrm{e}}\text{来代替得到}\hat{\beta}<em>1\text{的估计标准差} \<br>S</em>{\widehat{\beta}_1}&#x3D;\frac{S_e}{\sqrt{\sum x_i^2-\frac1n(\sum x_i)^2}}\quad\text{, }S_e&#x3D;\sqrt{\frac{\sum(y_i-\hat{y}_i)^2}{n-k-1}}&#x3D;\sqrt{MSE} \<br>\quad t\text{检验的统计量:}\quad t&#x3D;\frac{\widehat{\beta}<em>1-\beta_1}{s</em>{\widehat{\beta}_1}}\thicksim{(n-k-1)}<br>\text{如果服从则接受原假设}\beta&#x3D;0\text{,否则拒绝，说明有显著的线性关系}<br>$$</p>
+</li>
+</ul>
+<h3 id="多元线性回归分析"><a href="#多元线性回归分析" class="headerlink" title="多元线性回归分析"></a>多元线性回归分析</h3><p>$$<br>\begin{gathered}<br>\bullet\text{ 一般称由}y&#x3D;\beta_0+\beta_1x_1+\cdotp\cdotp\cdotp+\beta_kx_k\text{确定的模型}: \<br>\begin{cases}Y&#x3D;X\beta+\epsilon\E(\epsilon)&#x3D;0,COV(\epsilon,\epsilon)&#x3D;\sigma^2I_n\end{cases} \<br>\text{为}k\text{元线性回归模型,并简记为}(Y,X\beta,\sigma^2I_n) \<br>\bullet Y&#x3D;\begin{bmatrix}y_1\y_2\…\y_n\end{bmatrix} ,X&#x3D;\begin{bmatrix}1&amp;x_{11}&amp;x_{12}&amp;…&amp;x_{1k}\1&amp;x_{21}&amp;x_{22}&amp;…&amp;x_{2k}\…&amp;…&amp;…&amp;…&amp;…\1&amp;x_{n1}&amp;x_{n2}&amp;…&amp;x_{nk}\end{bmatrix} ,\beta&#x3D;\begin{bmatrix}\beta_0\\beta_1\…\\beta_k\end{bmatrix} ,\epsilon&#x3D;\begin{bmatrix}\epsilon_1\\epsilon_2\…\\epsilon_n\end{bmatrix} \<br>\bullet{y&#x3D;\beta_0+\beta_1x_1+\cdots+\beta_kx_k}\text{称为回归平面方程}<br>\end{gathered}<br>$$</p>
+<p>用<strong>最小二乘法</strong>求β：离差平方和最小：<br>$$<br>Q&#x3D;\sum_{i&#x3D;1}^n(y_i-\beta_0-\beta_1x_{i1}-\cdots-\beta_kx_{ik})^2<br>$$</p>
+<p>$$<br>\hat{\beta}&#x3D;(X^{T}X)^{-1}(X^{T}Y)<br>$$<br><strong>多元回归模型和回归系数的检验：</strong></p>
+<ul>
+<li><p>F检验法：<br>$$<br>\text{当}H_0\text{成立时;}F&#x3D;\frac{U&#x2F;k}{Q_e&#x2F;(n-k-1)}{\sim}F(k,n-k-1) \<br>\bullet\text{ 如果}F&gt;F_{1-\alpha}(k,n-k-1),\text{ 则拒绝}H_0,\text{ 认为}y\text{与}x_1,\cdotp\cdotp\cdotp,x_k\text{之间显著地有线性关系};\text{ 否则就接受}H_0, \<br>\text{认为}y\text{与}x_1,\cdotp\cdotp\cdotp,x_k\text{之间线性关系不显著。} \<br>\bullet\text{ 其中}U&#x3D;\sum_{i&#x3D;1}^n(\hat{y}<em>i-\bar{y})^2(\text{回归平方和}) \<br>\text{n为样本个数，k为变量个数}\<br>Q</em>{e}&#x3D;\sum_{i&#x3D;1}^{n}(y_{i}-\hat{y}_{i})^{2} (\text{残差平方和})<br>$$<br>F分布可以通过查表或者计算工具获得</p>
+</li>
+<li><p>r检验法：<br>$$<br>R&#x3D;\sqrt{\frac U{L_{yy}}}&#x3D;\sqrt{\frac U{U+Q_e}}<br>$$</p>
+</li>
+</ul>
+<p>R越接近1，说明线性关系越好、</p>
+<p>R和F是等效的，用其中一个进行检验即可</p>
+<p><strong>多元线性回归模型的预测：</strong></p>
+<ul>
+<li><p>点预测：<br>$$<br>\begin{aligned}&amp;\bullet\text{ 求出回归方程}\hat{y}&#x3D;\hat{\beta}_0+\hat{\beta}_1x_1+\cdots+\hat{\beta}_kx_k,\text{ 对于给定自变量的值}x_1^*,\cdots,x_k^<em>\text{,用}\hat{y}^</em>&#x3D;\hat{\beta}_0+\hat{\beta}_1x_1^*+\cdots+\&amp;\hat{\beta}_kx_k^<em>\text{来预测}y^</em>&#x3D;\beta_0+\beta_1x_1^*+\cdots+\beta_kx_k^*+\epsilon,\text{ 称}\hat{y}^<em>\text{为}y^</em>\text{的点预测}\end{aligned}<br>$$</p>
+</li>
+<li><p>区间预测：<br>$$<br>\bullet\text{ y的}1-\alpha\text{的预测区间(置信)区间为}(\hat{y}<em>1,\hat{y}<em>2),\text{ 其中}\\begin{cases}\widehat{y}<em>1&#x3D;\widehat{y}-\widehat{\sigma}<em>e\sqrt{1+\sum</em>{i&#x3D;0}^k\sum</em>{j&#x3D;0}^kc</em>{ij}x_ix_jt</em>{1-\frac\alpha2}(n-k-1)}\\hat{y}<em>2&#x3D;\widehat{y}+\widehat{\sigma}<em>e\sqrt{1+\sum</em>{i&#x3D;0}^k\sum</em>{j&#x3D;0}^kc_{ij}x_ix_jt_{1-\frac\alpha2}(n-k-1)}\end{cases}\<br>\bullet\quad C&#x3D;L^{-1}&#x3D;\left(c_{ij}\right),L&#x3D;X^{\prime}X<br>$$</p>
+</li>
+</ul>
+<p><strong>多元线性回归的逐步回归</strong>：</p>
+<p>“最优”的回归方程就是包含所有对Y有影响的变量，而不包含对Y影响不显著的变量回归方程</p>
+<p>思路：</p>
+<ul>
+<li>从一个自变量开始，根据自变量对Y作用的显著程度（F的大小），从大到小的依次逐个引入回归方程</li>
+<li>当引入的自变量由于后引入的自变量而变得不显著时，要将其剔除掉</li>
+<li>引入或剔除一个自变量为逐步回归的一步</li>
+<li>对于每一步都要进行Y值检验，以确保每次引入新的显著性变量前回归方程中只包含对Y的作用显著的变量</li>
+<li>反复进行，直到满足“最优”</li>
+</ul>
+<h2 id="非线性回归"><a href="#非线性回归" class="headerlink" title="非线性回归"></a>非线性回归</h2><p>对于非线性的关系，需要先<strong>画出散点图</strong>，然后根据散点图<strong>选配曲线</strong>，常见的曲线有：</p>
+<ul>
+<li><p>双曲函数曲线<br>$$<br>\begin{aligned}<br>&amp;\bullet\text{公式：}\<br>&amp;\begin{cases}\widehat{y}&#x3D;\frac{x}{a+bx}\\widehat{y}&#x3D;\frac{a+bx}{x}\\widehat{y}&#x3D;\frac{1}{a+bx}\end{cases}\<br>&amp;\bullet\text{ 变换方式:}\&amp;\hat{y}&#x3D;\frac x{a+bx},\text{ 两边取倒数后,令}y^{\prime}&#x3D;\frac x{\hat{y}},\text{得}y^{\prime}&#x3D;a\underline{x}+b\&amp;\hat{y}&#x3D;\frac{a+bx}x,\text{令}y^{\prime}&#x3D;\hat{y}x\&amp;\text{得}y^{\prime}&#x3D;ax+b\text{ ; }\hat{y}&#x3D;\frac1{a+bx},\text{两边取倒数后}\text{令}y^{\prime}&#x3D;\frac1y,\text{得}y^{\prime}&#x3D;ax+b\end{aligned}<br>$$</p>
+</li>
+<li><p>幂函数曲线<br>$$<br>\widehat{y}&#x3D;ax^b\<br>\text{当 }a&gt;0\text{、}b&gt;1\text{时,}y\text{随}x\text{的增大而增大(增长),是凹曲线}; \<br>\text{当 }a&gt;0\text{、}0&lt;b&lt;1\text{时,}y\text{随}x\text{的增大而增大(增长),但变化缓慢,是凸曲线;} \<br>\text{当 }a&gt;0\text{、}b&lt;0\text{时,}y\text{随}x\text{的增大而减小,且以}x,y\text{轴为渐近线,是凹曲线。}\<br>\bullet\text{ 变换方式: 两边取对数,令}y^{\prime}&#x3D;ln\hat{y},x^{\prime}&#x3D;lnx,a^{\prime}&#x3D;lna,\text{得}y^{\prime}&#x3D;a^{\prime}+bx^{\prime}<br>$$</p>
+</li>
+<li><p>指数函数曲线<br>$$<br>\begin{aligned}<br>&amp;\begin{cases}\hat{y}&#x3D;ae^{bx}\\hat{y}&#x3D;ab^x\end{cases}\<br>&amp;\hat{y}&#x3D;ae^{bx} \<br>&amp;\text{参数b一般用来描述增长或衰减的速度。} \<br>&amp;\text{当 }a&gt;0\mathrm{、}b&gt;0\text{时,}y\text{随}x\text{的增大而增大(增长),是凹曲线}; \<br>&amp;\text{当 }a&gt;0\mathrm{、}b&lt;0\text{时,}y\text{随}x\text{的增大而减小(衰减),是凹曲线。} \<br>\end{aligned}<br>$$</p>
+</li>
+<li><p>倒指数曲线<br>$$<br>\widehat{y}&#x3D;ae^{\frac bx},\text{其中}a&gt;0\<br>\begin{aligned}<br>&amp;\text{当 }a&gt;0\text{、}b&gt;0\text{时,}y\text{随}x\text{的增大而减小(衰减),是凹曲线}; \<br>&amp;当a&gt;0、b&lt;0时,y随x的增大而增大(增长),是先凹后凸曲线。<br>\end{aligned}\<br>\bullet\text{ 变换方式:两边取对数,令}y^{\prime}&#x3D;ln\widehat{y},a^{\prime}&#x3D;lna,x^{\prime}&#x3D;\frac1x\text{ ,得}y^{\prime}&#x3D;a^{\prime}+bx^{\prime}<br>$$</p>
+</li>
+<li><p>对数函数曲线<br>$$<br>\widehat{y}&#x3D;a+blnx(x&gt;0)\<br>\begin{aligned}&amp;\bullet\text{ 对数函数表示: }x\text{变数的较大变化可引起}y\text{变数的较小变化。}\&amp;b&gt;0\text{时,}y\text{随}x\text{的增大而增大,是凸曲线;}\&amp;b&lt;0\text{时,}y\text{随}x\text{的增大而减小,是凹曲线。}\end{aligned}\<br>\bullet\text{ 变换方式:令}x^{\prime}&#x3D;lnx,\text{得}\hat{y}&#x3D;a+bx^{\prime}.<br>$$</p>
+</li>
+<li><p>S型曲线</p>
+<p>又称<strong>生长曲线</strong>，可以描述植物的生长过程，传染病的发展趋势等。</p>
+<p>特点是<strong>先缓慢增长，而在以后的某一范围内迅速增长，达到一定限制后又缓慢下来</strong><br>$$<br>\widehat{y}&#x3D;\frac k{1+ae^{-bx}}(a\text{、}b\text{、}k\text{均大于}0)\x&#x3D;0 ,\widehat{y}&#x3D;\frac k{1+a} ; x\to\infty ,\widehat{y}&#x3D;k\<br>\bullet\text{ 变换方式:两边取倒数再取对数后,}y^{\prime}&#x3D;ln(\frac{k-\hat{y}}{\hat{y}}),a^{\prime}&#x3D;lna,\text{得}y^{\prime}&#x3D;a^{\prime}+bx<br>$$</p>
+</li>
+</ul>
+<p><strong>当六类曲线都配对不上时，，可以使用以下方法：</strong></p>
+<ul>
+<li>回归多项式：<br>$$<br>\begin{aligned}<br>&amp;\text{设变量x、Y的回归模型为} \<br>&amp;Y&#x3D;\beta_0+\beta_1x+\beta_2x^2+\cdots+\beta_px^p+\epsilon \<br>&amp;\text{,} \text{其中}p\text{是已知的,}\beta_i(i&#x3D;1,2,\cdotp\cdotp\cdotp,p)\text{是未知参数,}\epsilon\text{服从正态分布}N(0,\sigma) \<br>&amp;Y&#x3D;\beta_0+\beta_1x+\beta_2x^2+\cdots+\beta_px^p \<br>&amp;\text{称为回归多项式,上面的回归模型称为多项式回归。}<br>\end{aligned}<br>$$</li>
+</ul>
+<h2 id="灰色预测模型"><a href="#灰色预测模型" class="headerlink" title="灰色预测模型"></a>灰色预测模型</h2><p>灰色系统用<strong>颜色深浅反映信息量的多少</strong>，一个系统是黑色的，就是这个系统是黑洞洞的，信息量太少；一个系统是白色的，就是这个系统的清楚的，信息量充足的。处于黑白之间的系统，就是信息不完全的系统，称为灰色系统或灰系统。</p>
+<p>灰色预测适用情况：</p>
+<ul>
+<li><strong>适合以年份度量的非负数据</strong>（月份或季度适合时间序列模型）</li>
+<li>数据能经过指数规律校验（除了前两期外，后面至少90%的期数的光滑比要低于0.5）</li>
+<li>数据的<strong>期数较短</strong>且<strong>和其他数据之间的关联性不强</strong>，期数小于等于10，太短也不行，如果期数较长一般用传统的时间序列模型</li>
+</ul>
+<h3 id="GM-1-1-模型"><a href="#GM-1-1-模型" class="headerlink" title="GM(1,1)模型"></a>GM(1,1)模型</h3><p>GM表示Greay Model灰色模型，（1，1）表示只含有一个变量的一阶微分方程模型</p>
+<h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><ul>
+<li><p>根据原始的离散非负数据列，通过累加等方式削弱随机性，获得有规律的<strong>离散数据列</strong><br>$$<br>设x^(0)&#x3D;(x^{(0)}(1),x^{(0)}(2),…,x^{(0)}(n))是最初的非负数据列，我们可以对其累加，得到新的数\<br>据列$\chi^{(1)}$\<br>\chi^{(1)}&#x3D;\left(\chi^{(1)}(1),\chi^{(1)}(2),…,\chi^{(1)}(n)\right)\<br>其中：x^{(1)}(m)&#x3D;\sum_{\mathrm{i}&#x3D;1}^{\mathrm{m}}x^{(0)}(i),m&#x3D;1,2,…,n<br>$$</p>
+</li>
+<li><p>建立相应的<strong>微分方程模型</strong>，得到离散点处的解</p>
+</li>
+<li><p>再通过累减求得的<strong>原始数据的估计值</strong>，从而对原始数据预测</p>
+</li>
+</ul>
+<h2 id="时间序列模型"><a href="#时间序列模型" class="headerlink" title="时间序列模型"></a>时间序列模型</h2><p>时间序列也称动态序列，时间分析大致可分三大部分：描述过去、分析规律、预测未来，时间序列常用<strong>ARIMA模型</strong></p>
+<p>时间序列根据时间和数值性质的不同，可以分为<strong>时期时间序列</strong>和<strong>时点时间序列</strong></p>
+<h4 id="ARIMA模型"><a href="#ARIMA模型" class="headerlink" title="ARIMA模型"></a>ARIMA模型</h4><p>ARIMA(p,d,q)模型指：</p>
+<ul>
+<li><p>ARMA(p,q)模型：</p>
+<ul>
+<li><p>AR(p)：</p>
+<p>描述当前值和历史值之间的关系，用变量自身的历史数据对自身进行预测，其必须要满足平衡性要求<br>$$<br>\bullet\quad p\text{阶自回归过程的公式定义:}\quad y_t&#x3D;\mu+\sum_{i&#x3D;1}^p\gamma_iy_{t-i}+\epsilon_t\text{,}p\text{表示用几期的历史值来预测}\\bullet\quad y_t\text{是当前值}\quad\mu\text{是常数项}\quad p\text{是阶数}\quad\gamma_i\text{是自相关系数}<br>$$</p>
+</li>
+</ul>
+</li>
+<li><p>MA(q):</p>
+<p>该模型关注的是自回归模型中误差项的累计<br>  $$<br>  q\text{阶自回归过程的公式定义:} y_{t}&#x3D;\mu+\epsilon_{t}+\sum_{i&#x3D;1}^{q}\theta_{i}\epsilon_{t-i}\<br>  即时间序列当前值与历史值没有关系，而只依赖于历史白噪声的线性组合\<br>  能有效消除预测中的随机波动<br>  $$</p>
+<p>  将两个模型结合得到ARMA(p,q)模型<br>  $$<br>  \bullet\text{ 公式定义: }y_t&#x3D;\mu+\sum_{i&#x3D;1}^p\gamma_iy_{t-i}+\epsilon_t+\sum_{i&#x3D;1}^q\theta_i\epsilon_{t-i}<br>  $$</p>
+</li>
+<li><p>I(d)模型</p>
+</li>
+</ul>
+<p>p是自回归项，q为移动平均项数，d为时间序列成为平稳时所做的差分次数</p>
+<ul>
+<li><p>步骤：</p>
+<ul>
+<li>对序列绘图，进行平稳性校验，对非平稳时间序列要先进行d阶差分转化为平稳时间序列</li>
+<li>对平稳时间序列分别求得其自相关系数（ACF）和偏自系数（PACF），通过对自相关图和偏自相关图的分析，得到阶数p，q</li>
+<li>由上得到d、p、q，建立ARIMA模型，然后开始对得到的模型进行模型检验</li>
+</ul>
+</li>
+<li><p>平稳性：</p>
+<p>平稳性就是要求经由样本时间序列得到的拟合曲线在未来的一段时间内仍然能够按照现有的形态延续下去</p>
+<p>平稳性要求序列的<strong>均值</strong>和<strong>方差</strong>不发生明显变化</p>
+<ul>
+<li>严平稳：序列所有统计性质（期望、方差）都不会随着时间而发生改变</li>
+<li>宽平稳：期望与相关系数（依赖性）不变，就是说t时刻的值X依赖于过去的信息</li>
+</ul>
+<p>如果一个时间序列不是平稳的，通常通过<strong>差分</strong>进行转换</p>
+</li>
+<li><p>差分法：</p>
+<p>时间序列在t和t-1时刻的差值。将非平稳序列变平稳。<br>$$<br>\Delta yx&#x3D;y(x+1)-y(x),(x&#x3D;0,1,2,…)\<br>比如一组数列[0,1,2,3,4,5,6,7]\<br>进行差分后就会得到新数列[1,1,1,1,1,1]<br>$$</p>
+</li>
+<li><p>自相关系数（ACF）<br>$$<br>公式：$ACF( k) &#x3D; \rho <em>{\mathrm{k} }&#x3D; \frac {\mathrm{Cov}( \mathrm{y_t, y</em>{t- k}}) }{Var( y_t) }$ 取值范围为[-1,1]<br>$$</p>
+</li>
+<li><p>偏自相关系数（PACF）<br>$$<br>公式：$PACF(k)&#x3D;\frac{COV[(Z_{t}-\bar{Z}<em>{t}),(Z</em>{t-k}-\bar{Z}<em>{t-k})]}{\sqrt{var(Z</em>{t}-\bar{Z}<em>{t})}\sqrt{var(Z</em>{t-k}-\bar{Z}_{t-k})}}$<br>$$</p>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
+      
+        <a href="/tags/python/">#python</a>
+      
+        <a href="/tags/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/">#数学建模</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/14/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" title="线性代数">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">线性代数</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/07/git%E5%AD%A6%E4%B9%A0/" title="git学习">
+                        <span class="hidden-mobile">git学习</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a><p>
+
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>

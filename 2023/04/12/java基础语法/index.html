@@ -1,0 +1,1382 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/BMlogo3.jpg">
+  <link rel="icon" href="/img/BMlogo3.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="BM-BoomMouse">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="挖坑不断，学习不停 编译与运行编译：java文件通过cmd命令javac生成class节字码文件 运行：通过cmd命令java+节字码（不加class后缀）运行 第一个程序-Hello World12345class HelloWorld&amp;#123;    public static void main(String[] args)&amp;#123;        System.out.println(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java基础语法">
+<meta property="og:url" content="http://example.com/2023/04/12/java%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:site_name" content="BM的小窝">
+<meta property="og:description" content="挖坑不断，学习不停 编译与运行编译：java文件通过cmd命令javac生成class节字码文件 运行：通过cmd命令java+节字码（不加class后缀）运行 第一个程序-Hello World12345class HelloWorld&amp;#123;    public static void main(String[] args)&amp;#123;        System.out.println(">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/java/%E7%BD%91%E9%A1%B5%E6%96%87%E4%BB%B6.png">
+<meta property="og:image" content="http://example.com/img/java/%E7%BD%91%E9%A1%B5%E6%96%87%E4%BB%B62.png">
+<meta property="article:published_time" content="2023-04-12T07:26:13.000Z">
+<meta property="article:modified_time" content="2023-05-16T15:48:32.635Z">
+<meta property="article:author" content="BM-BoomMouse">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/java/%E7%BD%91%E9%A1%B5%E6%96%87%E4%BB%B6.png">
+  
+  
+  
+  <title>java基础语法 - BM的小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>BM的个人空间</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>类别</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/%E5%B0%8F%E7%8E%A9%E6%84%8F">
+                <i class="iconfont icon-pen"></i>
+                <span>小玩意</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/banner2.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="java基础语法"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-12 15:26" pubdate>
+          April 12, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.1k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          60 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">java基础语法</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    Last updated on 2 years ago
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>挖坑不断，学习不停</p>
+<h1 id="编译与运行"><a href="#编译与运行" class="headerlink" title="编译与运行"></a>编译与运行</h1><p>编译：java文件通过cmd命令javac生成class节字码文件</p>
+<p>运行：通过cmd命令java+节字码（不加class后缀）运行</p>
+<h1 id="第一个程序-Hello-World"><a href="#第一个程序-Hello-World" class="headerlink" title="第一个程序-Hello World"></a>第一个程序-Hello World</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloWorld</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;Hello World&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>关键字：</p>
+<ul>
+<li>class：类，一个java文件中可以有多个class类，在编译时会产生多个相对应的class文件</li>
+<li>public class：一个java文件中，最多只能有一个public class，且类名必须与java文件名相同</li>
+<li>main()方法：固定格式 public static void main(String[] args){}或…（String args[])</li>
+</ul>
+<p>输出：</p>
+<ul>
+<li>System.out.println：打印后换行</li>
+<li>System.out.print：打印后不换行</li>
+</ul>
+<p>注意：每一句执行语句都必须以”;”结束，且java严格区分大小写</p>
+<h1 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//单行注释</span><br><br><span class="hljs-comment">/*多行</span><br><span class="hljs-comment">注释*/</span><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">文档注释(java特有)</span><br><span class="hljs-comment"><span class="hljs-doctag">@author</span>:BoomMouse</span><br><span class="hljs-comment"><span class="hljs-doctag">@version</span>:1.8</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="文档注释"><a href="#文档注释" class="headerlink" title="文档注释"></a>文档注释</h2><p>是Java特有的注释</p>
+<p>文档注释可以被jkd提供的工具javadoc所解析，生成一套以网页文件形式体现的该程序的说明文档</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">javadoc  -d 文件夹名字 -author -<span class="hljs-built_in">version</span> 文件名.java<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<hr>
+<p>文件<div  align=left><img src="/img/java/%E7%BD%91%E9%A1%B5%E6%96%87%E4%BB%B6.png" srcset="/img/loading.gif" lazyload alt="网页文件"></p>
+<p>网页<div slign=left><img src="/img/java/%E7%BD%91%E9%A1%B5%E6%96%87%E4%BB%B62.png" srcset="/img/loading.gif" lazyload alt="说明文档"></p>
+<hr>
+</blockquote>
+<h1 id="api文档"><a href="#api文档" class="headerlink" title="api文档"></a>api文档</h1><p>官方文档:<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/17/docs/api/index.html">Overview (Java SE 17 &amp; JDK 17) (oracle.com)</a></p>
+<p>文档下载:<a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/javase-jdk17-doc-downloads.html">Java 开发工具包 17 文档 (oracle.com)</a></p>
+<h1 id="Java优缺点和JVM"><a href="#Java优缺点和JVM" class="headerlink" title="Java优缺点和JVM"></a>Java优缺点和JVM</h1><p>Java继承了C和C++很多内容，可以看成类C的产物</p>
+<p>优点：</p>
+<ul>
+<li><p>跨平台性:Java一开始最注重了移植和跨平台性，比如Java的int永远是32位，不想C++可能是16、32</p>
+</li>
+<li><ul>
+<li>原理：只需要在运行的操作系统上安装Java虚拟机(JVM Java visual machine)<ul>
+<li>如果有m种语言，n种操作系统，若没有虚拟机，则需要m*n种编译器，若有虚拟机在中间为操系统解释，则需要m+n种编译器</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>面向对象性:非常适合大型软件的开发和设计。</p>
+</li>
+<li><p>健壮性:吸收了C&#x2F;C++的优点，去除了影响程序健壮性的部分(如指针、内存的申请与释放)</p>
+</li>
+<li><p>安全性高:Java使用于分布式&#x2F;网络环境</p>
+</li>
+<li><p>简单性:Java就是C++语法的简化版，可以称为“C++--”</p>
+</li>
+<li><p>高性能:最初确实有低性能的诟病；客观上高级语言运行效率总是低于低级语言。Java本身发展中通过虚拟机优化提升了效率，如通过JIT（just in time)即时编译技术提高运行效率。</p>
+</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li><p>语法复杂:语法过于严谨复杂，于python、php等相比入门难度较大</p>
+<ul>
+<li>一般适用于大型网站开发:整个框架较重，维护成本高</li>
+</ul>
+</li>
+<li><p>并不适用所有领域:比如objective C，swift在ios的地位，JavaScript在浏览器中的处理，windows程序多用C或C++、C#。Java在服务器端编程和跨平台客户端应用领域很有优势</p>
+</li>
+</ul>
+<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><p>jvm是一个虚拟计算机，是Java的运行环境，且具有指令集，负责执行指令、管理数据</p>
+<h1 id="标识符命名规则"><a href="#标识符命名规则" class="headerlink" title="标识符命名规则"></a>标识符命名规则</h1><p>没什么说的和C等基本一致，但有业内规则需要注意，也为了可读性，以下不影响程序运行</p>
+<ol>
+<li><strong>包名</strong>：多单词组成时所有字母小写:helloworld</li>
+<li><strong>类名、接口名</strong>:多单词组成时所有单词首字母大写:HelloWorld</li>
+<li><strong>变量名、方法名</strong>:多单词组成时第一个单词首字母小写，第二个单词开始，所有单词首字母大写:helloWorldWorld</li>
+<li><strong>常量名</strong>:所有字母大写。多个单词时用下划线连接HELLO_WORLD</li>
+</ol>
+<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><h2 id="变量的声明"><a href="#变量的声明" class="headerlink" title="变量的声明"></a>变量的声明</h2><p>数据类型  变量名 &#x3D;变量值+后缀</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> age=<span class="hljs-number">10</span>;<br><span class="hljs-type">long</span> l=<span class="hljs-number">10l</span><br></code></pre></td></tr></table></figure>
+
+<p>其余类型见下表：</p>
+<h2 id="基本（内置）数据类型"><a href="#基本（内置）数据类型" class="headerlink" title="基本（内置）数据类型"></a>基本（内置）数据类型</h2><ul>
+<li><strong>整型</strong>:byte &#x2F; short &#x2F; int &#x2F; long</li>
+<li><strong>浮点型</strong>:float &#x2F; double</li>
+<li><strong>字符型</strong>:char</li>
+<li><strong>布尔类型</strong>:boolean</li>
+</ul>
+<blockquote>
+<hr>
+<p><em>基本类型范围、长度和默认值</em></p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>位数&#x2F;字节</th>
+<th>默认值</th>
+<th>取值范围</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte</td>
+<td>8&#x2F;1字节</td>
+<td>0</td>
+<td>-2^7- 2^7-1     -128~127(256对半分)</td>
+<td>byte b&#x3D;10</td>
+</tr>
+<tr>
+<td>short</td>
+<td>16&#x2F;2字节</td>
+<td>0</td>
+<td>-2^15- 2^15-1</td>
+<td>short s&#x3D;10</td>
+</tr>
+<tr>
+<td>int(整数默认类型)</td>
+<td>32&#x2F;4字节</td>
+<td>0</td>
+<td>-2^31 - 2^31-1(约21亿)</td>
+<td>int i&#x3D;10</td>
+</tr>
+<tr>
+<td>long</td>
+<td>64&#x2F;8字节</td>
+<td>0</td>
+<td>-2^63 - 2^63-1</td>
+<td>long l&#x3D;10L</td>
+</tr>
+<tr>
+<td>float</td>
+<td>32&#x2F;4字节</td>
+<td>0.0</td>
+<td>-2^32 - 2^32-1</td>
+<td>float f&#x3D;10.0F</td>
+</tr>
+<tr>
+<td>double(小数默认类型)</td>
+<td>64&#x2F;8字节</td>
+<td>0.0</td>
+<td>-2^64 - 2^63-1</td>
+<td>double d&#x3D;10.0d</td>
+</tr>
+<tr>
+<td>char</td>
+<td>16&#x2F;2字节</td>
+<td>空</td>
+<td>0 - 2^16-1</td>
+<td>char c&#x3D;’c’</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>8&#x2F;1字节</td>
+<td>false</td>
+<td>true,false</td>
+<td>boolean b&#x3D;true</td>
+</tr>
+</tbody></table>
+<p><em>1byte字节&#x3D;8bit位</em></p>
+<hr>
+</blockquote>
+<h2 id="引用数据类型"><a href="#引用数据类型" class="headerlink" title="引用数据类型"></a>引用数据类型</h2><ul>
+<li><strong>类</strong>:class</li>
+<li><strong>数组</strong>:array</li>
+<li><strong>接口</strong>:interface</li>
+<li><br></li>
+<li><strong>枚举</strong>:enum</li>
+<li><strong>注解</strong>:annotation</li>
+<li><strong>纪录</strong>:record</li>
+</ul>
+<h2 id="字符类型char"><a href="#字符类型char" class="headerlink" title="字符类型char"></a>字符类型char</h2><p><strong>四种表示形式</strong></p>
+<ul>
+<li>用单引号括起来的单个字符：char c1&#x3D;’a’</li>
+<li>直接用Unicode表示字符型常量：\u0023表示 ‘#’</li>
+<li>使用转义字符：char c2&#x3D;’\n’</li>
+<li>使用ASCII码：char c3&#x3D;97;表示c3&#x3D;’a’;</li>
+</ul>
+<h2 id="布尔类型boolean"><a href="#布尔类型boolean" class="headerlink" title="布尔类型boolean"></a>布尔类型boolean</h2><p>布尔类型只有2个值<strong>true</strong>和<strong>false</strong>，常用于判断、循环语句</p>
+<p><strong>需要注意的是Java不同于C语言，它并不等于1&#x2F;0，也就是if(1)是错误的写法</strong></p>
+<p>会提示：</p>
+<blockquote>
+<p>错误: 不兼容的类型: int无法转换为boolean</p>
+</blockquote>
+<p><strong>关于布尔类型占用的内存</strong></p>
+<p>有说1字节的，有说和int类型一样8字节的。一般不讨论布尔的内存。</p>
+<blockquote>
+<p>引用<a target="_blank" rel="noopener" href="https://amoschen.blog.csdn.net/"><br>Amos-Chen</a>的结论</p>
+<p><strong>结论</strong></p>
+<ol>
+<li>boolean类型被编译为int类型，等于是说JVM里占用字节和int完全一样，int是4个字节，于是boolean也是<strong>4字节</strong></li>
+<li>boolean数组在Oracle的JVM中，编码为byte数组，每个boolean元素占用8位&#x3D;<strong>1字节</strong></li>
+<li>（待考证）boolean数组在非Oracle JVM里面，占用字节数也许不是1字节<br> ————————————————<br> 版权声明：本文为CSDN博主「Amos-Chen」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br> 原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/amoscn/article/details/97377833">https://blog.csdn.net/amoscn/article/details/97377833</a></li>
+</ol>
+</blockquote>
+<h2 id="自动类型提升"><a href="#自动类型提升" class="headerlink" title="自动类型提升"></a>自动类型提升</h2><blockquote>
+<p>提升的顺序</p>
+<p><strong>byte</strong>、<strong>short</strong>、<strong>char</strong> –&gt; <strong>int</strong> –&gt; <strong>long</strong> –&gt; <strong>float</strong> –&gt; <strong>double</strong>，Boolean不能被转换</p>
+</blockquote>
+<p><strong>byte、short、char 之间的运算 与 和自身的运算 都会被提升到int型</strong>因为三者的范围很小，在计算时非常容易溢出。</p>
+<blockquote>
+<hr>
+<p>小小练习：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-type">long</span> <span class="hljs-variable">l1</span> <span class="hljs-operator">=</span> <span class="hljs-number">10</span>;<span class="hljs-comment">//整数10默认为int型，在赋值时自动提升到long</span><br><span class="hljs-type">long</span> <span class="hljs-variable">l2</span> <span class="hljs-operator">=</span> <span class="hljs-number">10L</span>;<span class="hljs-comment">//10L为long型</span><br><span class="hljs-type">float</span> <span class="hljs-variable">f1</span> <span class="hljs-operator">=</span> <span class="hljs-number">0.1</span>;<span class="hljs-comment">//小数默认double型，范围比float型大，报错</span><br><span class="hljs-type">float</span> <span class="hljs-variable">f2</span> <span class="hljs-operator">=</span> <span class="hljs-number">0.1F</span>;<span class="hljs-comment">//0.1F为float型</span><br></code></pre></td></tr></table></figure>
+
+<br>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">long</span> <span class="hljs-variable">l1</span> <span class="hljs-operator">=</span> <span class="hljs-number">123123123123</span>;<span class="hljs-comment">//报错，123...默认int可以自动提升到long，但123...范围已经超出了int的范围</span><br><span class="hljs-type">long</span> <span class="hljs-variable">l2</span> <span class="hljs-operator">=</span> <span class="hljs-number">123123123123L</span>;<span class="hljs-comment">//正确</span><br></code></pre></td></tr></table></figure>
+
+<br>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">char</span> <span class="hljs-variable">c1</span> <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;a&#x27;</span>;<span class="hljs-comment">//正确</span><br><span class="hljs-type">char</span> <span class="hljs-variable">c2</span> <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;a&#x27;</span> + <span class="hljs-number">1</span>;<span class="hljs-comment">//正确</span><br><span class="hljs-type">char</span> <span class="hljs-variable">c3</span> <span class="hljs-operator">=</span> c1 + c2;<span class="hljs-comment">//报错，char类型间的运算自动提升到int</span><br><span class="hljs-type">int</span> <span class="hljs-variable">c4</span> <span class="hljs-operator">=</span> c1 + c2;<span class="hljs-comment">//正确</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+</blockquote>
+<h2 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h2><p>强制类型转换也称为显式类型转换，指的是两种数据类型之间的转换需要进行显式的声明。</p>
+<p>当两种类型彼此不兼容，或者目标类型取值范围小于源类型时，自动提升无法进行，就需要进行强制类型转换</p>
+<p>强制类型转换的格式:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">目标类型 变量名 = （目标类型） 值；<br></code></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Example01</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span>&#123;<br>		<span class="hljs-type">int</span> <span class="hljs-variable">num</span> <span class="hljs-operator">=</span> <span class="hljs-number">4</span>;<br>    	<span class="hljs-type">byte</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> num;<br>    	System.out.println(b);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>运行以上代码时会报错：<strong>cannot convert from int to byte</strong></p>
+<p>byte类型1个字节，int类型4字节，byte无法容纳4字节，造成数值溢出</p>
+<p>此时就需要使用强制类型转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">byte</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> (<span class="hljs-type">byte</span>) num;<br></code></pre></td></tr></table></figure>
+
+<hr>
+</blockquote>
+<p><strong>注意！</strong>：强制类型转换可能会造成精度丢失</p>
+<blockquote>
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">byte</span> a;<br><span class="hljs-type">int</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> <span class="hljs-number">298</span>;<br>a = (<span class="hljs-type">byte</span>) b;<br>System.out.println(<span class="hljs-string">&quot;b=&quot;</span> +b);<br>System.out.println(<span class="hljs-string">&quot;a=&quot;</span> +a);<br></code></pre></td></tr></table></figure>
+
+<p>运行结果为:</p>
+<blockquote>
+<p>b&#x3D;298</p>
+<p>a&#x3D;42</p>
+</blockquote>
+<p>原因是298在int的二进制为:00000000 00000000 00000001 00101010</p>
+<p>而byte只有一个字节,所以只取最后8位一字节 所以是42</p>
+<hr>
+</blockquote>
+<h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><h2 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h2><table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>运算</th>
+<th>示范</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+</td>
+<td>正号</td>
+<td>+1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>-</td>
+<td>负号</td>
+<td>b &#x3D; 1;-b</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>+</td>
+<td>加</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>-</td>
+<td>减</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;</td>
+<td>除</td>
+<td>16&#x2F;5;</td>
+<td>3</td>
+</tr>
+<tr>
+<td>%</td>
+<td>取余</td>
+<td>7%5</td>
+<td>2</td>
+</tr>
+<tr>
+<td>++</td>
+<td>自增(前)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>–</td>
+<td>自增(前)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>++</td>
+<td>自增(后)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>–</td>
+<td>自减(后)</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h2><p>&#x3D; +&#x3D; -&#x3D; *&#x3D; %&#x3D; &#x2F;&#x3D;</p>
+<p><strong>Java可同时对多个变量赋值</strong></p>
+<p><del>好叶</del></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> x,y,z;<br>x = y = z = <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+
+<p><strong>但是以下写法是错误的</strong></p>
+<p><del>坏欸</del></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> y = z = <span class="hljs-number">5</span>;<br></code></pre></td></tr></table></figure>
+
+<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><table border="0">
+    <th>运算符</th>
+    <th>运算</th>
+    <th>示例</th>
+    <th>结果</th>
+    <tr>
+        <td rowspan="4">&</td>
+        <td rowspan="4">与</td>
+        <td>true & true</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>true & false</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>false & false</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>false & true</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td rowspan="4">|</td>
+        <td rowspan="4">或</td>
+        <td>true | true</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>true | false</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>false | false</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>false | true</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td rowspan="4">^</td>
+        <td rowspan="4">异或</td>
+        <td>true ^ true</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>true ^ false</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>false ^ false</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>false ^ true</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td rowspan="2">!</td>
+        <td rowspan="2">非</td>
+        <td>!true</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>!false</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td rowspan="4">&&</td>
+        <td rowspan="4">短路与</td>
+        <td>true && true</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>true && false</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>false && false</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>false && true</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td rowspan="4">||</td>
+        <td rowspan="4">短路或</td>
+        <td>true || true</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>true || false</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>false || false</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>false || true</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<h2 id="运算符优先级"><a href="#运算符优先级" class="headerlink" title="运算符优先级"></a>运算符优先级</h2><table border="0">
+    <caption>
+        运算符的优先级</caption>
+    <tbody>
+        <tr>
+            <th>
+                优先级</th>
+            <th>
+                运算符</th>
+            <th>
+                结合性</th>
+        </tr>
+        <tr>
+            <th>
+                1</th>
+            <td>
+                ()、[]、{}</td>
+            <td>
+                从左向右</td>
+        </tr>
+        <tr>
+            <th>
+                2</th>
+            <td>
+                !、+、-、~、++、--</td>
+            <td>
+                从右向左</td>
+        </tr>
+        <tr>
+            <th>
+                3</th>
+            <td>
+                *、/、%</td>
+            <td>
+                从左向右</td>
+        </tr>
+        <tr>
+            <th>
+                4</th>
+            <td>
+                +、-</td>
+            <td>
+                从左向右</td>
+        </tr>
+        <tr>
+            <th>
+                5</th>
+            <td>
+                «、»、&gt;&gt;&gt;</td>
+            <td>
+                从左向右</td>
+        </tr>
+        <tr>
+            <th>
+                6</th>
+            <td>
+                &lt;、&lt;=、&gt;、&gt;=、instanceof</td>
+            <td>
+                从左向右</td>
+        </tr>
+        <tr>
+            <th>
+                7</th>
+            <td>
+                <sub>==、!=</sub>
+            </td>
+            <td>
+                从左向右</td>
+        </tr>
+        <tr>
+            <th>
+                8</th>
+            <td>
+                &amp;</td>
+            <td>
+                从左向右</td>
+        </tr>
+        <tr>
+            <th>
+                9</th>
+            <td>
+                ^</td>
+            <td>
+                从左向右</td>
+        </tr>
+        <tr>
+            <th>
+                10</th>
+            <td>
+                |</td>
+            <td>
+                从左向右</td>
+        </tr>
+        <tr>
+            <th>
+                11</th>
+            <td>
+                &amp;&amp;</td>
+            <td>
+                从左向右</td>
+        </tr>
+        <tr>
+            <th>
+                12</th>
+            <td>
+                ||</td>
+            <td>
+                从左向右</td>
+        </tr>
+        <tr>
+            <th>
+                13</th>
+            <td>
+                ?:</td>
+            <td>
+                从右向左</td>
+        </tr>
+        <tr>
+            <th>
+                14</th>
+            <td>
+                =、+=、-=、*=、/=、&amp;=、|=、^=、~=、«=、»=、&gt;&gt;&gt;=</td>
+            <td>
+                从右向左</td>
+        </tr>
+    </tbody>
+</table>
+# 常量
+
+<p>Java中使用<strong>final</strong>关键字来修饰常量，声明方式和变量类似：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> <span class="hljs-type">double</span> PI=<span class="hljs-number">3.1415</span><br></code></pre></td></tr></table></figure>
+
+<p>常量名虽然可以小写，但为了方便识别，通常用大写字母表示。</p>
+<h1 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h1><p>字面量就是赋值的“值”</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> a=<span class="hljs-number">1</span>;<br><span class="hljs-type">char</span> c=<span class="hljs-string">&#x27;c&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>1和c都是字面量</p>
+<p><em><em>数字</em>&#x2F;字符串</em></p>
+<p>byte,int,long,short都可以用8，16进制表示</p>
+<p>前缀0表示8进制，0x表示16进制</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> a=<span class="hljs-number">100</span>;<br><span class="hljs-type">int</span> b=<span class="hljs-number">0144</span>;<br><span class="hljs-type">int</span> c=<span class="hljs-number">0x64</span>;<br></code></pre></td></tr></table></figure>
+
+<p><strong>Unicode字符</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">char</span> a=<span class="hljs-string">&#x27;\u0001&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>转义字符</strong></p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\n</td>
+<td>换行</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>回车</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>换页符</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>退格</td>
+</tr>
+<tr>
+<td>\0</td>
+<td>空字符</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>空格。</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>制表格</td>
+</tr>
+<tr>
+<td>\\</td>
+<td>反斜杠</td>
+</tr>
+<tr>
+<td>\ddd</td>
+<td>八进制字符</td>
+</tr>
+<tr>
+<td>\uxxxx</td>
+<td>16进制Unicode字符</td>
+</tr>
+<tr>
+<td>\xxxx</td>
+<td>ASCII字符</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><a target="_blank" rel="noopener" href="https://www.rapidtables.org/zh-CN/code/text/unicode-characters.html"><strong>Unicode编码表&#x2F;查询</strong></a></p>
+<p><a target="_blank" rel="noopener" href="https://www.qqxiuzi.cn/bianma/ascii.htm"><strong>ASCII编码表&#x2F;查询</strong></a></p>
+<h1 id="结构选择语句"><a href="#结构选择语句" class="headerlink" title="结构选择语句"></a>结构选择语句</h1><h2 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (条件语句)&#123;<br>	执行语句<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="if…else语句"><a href="#if…else语句" class="headerlink" title="if…else语句"></a>if…else语句</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (条件语句)&#123;<br>	执行语句<span class="hljs-number">1</span><br>&#125;<span class="hljs-keyword">else</span>&#123;<br>    执行语句<span class="hljs-number">2</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="三元运算"><a href="#三元运算" class="headerlink" title="三元运算"></a>三元运算</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java">判断条件 ? 表达式<span class="hljs-number">1</span> : 表达式<span class="hljs-number">2</span><br><br>    <br>----------示例----------<br><span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>,y = <span class="hljs-number">1</span>,max;<br><span class="hljs-type">int</span> <span class="hljs-variable">max</span> <span class="hljs-operator">=</span> x &gt; y ? x ; y;<br></code></pre></td></tr></table></figure>
+
+<h2 id="if-…-else-if-…-else-语句"><a href="#if-…-else-if-…-else-语句" class="headerlink" title="if … else if … else 语句"></a>if … else if … else 语句</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (判断<span class="hljs-number">1</span>)&#123;<br>    执行<span class="hljs-number">1</span>;<br>&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (判断<span class="hljs-number">2</span>)&#123;<br>    执行<span class="hljs-number">2</span>；<br>&#125;<br>...<br><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (判断n) &#123;<br>    执行n；<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>    执行n+<span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="switch语句"><a href="#switch语句" class="headerlink" title="switch语句"></a>switch语句</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">switch</span> (表达式)&#123;<br>    <span class="hljs-keyword">case</span> 值<span class="hljs-number">1</span> :<br>		执行<span class="hljs-number">1</span>;<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">case</span> 值<span class="hljs-number">2</span>;<br>		执行<span class="hljs-number">2</span>;<br>		<span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">default</span>:<br>        执行<span class="hljs-number">3</span>;<br>        <span class="hljs-keyword">break</span>;<br>&#125;        <br></code></pre></td></tr></table></figure>
+
+<h1 id="循环结构语句"><a href="#循环结构语句" class="headerlink" title="循环结构语句"></a>循环结构语句</h1><h2 id="while循环语句"><a href="#while循环语句" class="headerlink" title="while循环语句"></a>while循环语句</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">while</span>(条件)&#123;<br>    执行语句;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="do…while语句"><a href="#do…while语句" class="headerlink" title="do…while语句"></a>do…while语句</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">do</span> &#123;<br>    执行语句;<br>&#125; <span class="hljs-keyword">while</span>(条件)<br></code></pre></td></tr></table></figure>
+
+<h2 id="for循环语句"><a href="#for循环语句" class="headerlink" title="for循环语句"></a>for循环语句</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">for</span>(初始化表达式;循环条件;操作表达式)&#123;<br>    执行语句；<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="跳转语句"><a href="#跳转语句" class="headerlink" title="跳转语句"></a>跳转语句</h1><p><strong>break</strong>、<strong>continue</strong></p>
+<h1 id="方法-x2F-函数"><a href="#方法-x2F-函数" class="headerlink" title="方法&#x2F;函数"></a>方法&#x2F;函数</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java">修饰符 返回值类型 方法名(参数类型 参数名<span class="hljs-number">1</span>，参数类型 参数名<span class="hljs-number">2</span>)&#123;<br>    语句;<br>    <span class="hljs-keyword">return</span> 返回值;<br>&#125;<br><br>----------示例----------<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">max</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span>&#123;<br>    <span class="hljs-keyword">if</span> (x &gt; y) <span class="hljs-keyword">return</span> x;<br>    esle <span class="hljs-keyword">return</span> y;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>修饰符：有对访问权限限定的、有静态修饰符static、有最终修饰符final等，后面介绍</li>
+<li>参数类型：限定调用方法时传入的数据</li>
+<li>return关键字：用于结束方法以及返回方法指定类型的值</li>
+</ul>
+<h2 id="方法的重载"><a href="#方法的重载" class="headerlink" title="方法的重载"></a>方法的重载</h2><p><strong>Java允许定义多个同名方法，但参数的类型或个数必须不同，且返回值类型无关</strong></p>
+<p><del>我去牛蛙牛蛙</del></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//方法add求2数和</span><br><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">add</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span>&#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> x + y;<br>    <span class="hljs-keyword">return</span> sum;<br>&#125;<br><br><span class="hljs-comment">//方法add求3数和</span><br><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">add</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y,<span class="hljs-type">int</span> z)</span>&#123;<br>	<span class="hljs-type">int</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> x + y + z;<br>    <span class="hljs-keyword">return</span> sum;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h2 id="数组的定义"><a href="#数组的定义" class="headerlink" title="数组的定义"></a>数组的定义</h2><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-type">int</span>[] x = <span class="hljs-keyword">new</span> <span class="hljs-type">int</span>[<span class="hljs-number">100</span>]<br><br><span class="hljs-type">int</span>[] x;	<span class="hljs-comment">//声明一个int[]类型的变量</span><br>x = <span class="hljs-keyword">new</span> <span class="hljs-type">int</span>[<span class="hljs-number">100</span>];<span class="hljs-comment">//新建一个长度为100的数组</span><br></code></pre></td></tr></table></figure>
+
+<p>int[] x声明了一个类型为int[]的变量x，即一个int类型的数组。变量x会占用一块内存单元，它没有被分配初始值。</p>
+<p>x &#x3D; int[100]创建了一个数组，将数组的地址赋值给变量x。</p>
+<p>数组的最小索引值为0，最大为长度-1，为了方便获取长度，提供了一个<strong>length</strong>属性，可通过**”数组名.length”**获取，即元素的个数</p>
+<p>数组元素默认值为0，<strong>不同元素默认值也不同</strong></p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>默认初始值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte、short、int、long</td>
+<td>0</td>
+</tr>
+<tr>
+<td>float、double</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>char</td>
+<td>一个空字符，即’\u000’</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>false</td>
+</tr>
+<tr>
+<td>引用数据类型</td>
+<td>null,表示变量不引用任何对象</td>
+</tr>
+</tbody></table>
+<h2 id="数组的初始化"><a href="#数组的初始化" class="headerlink" title="数组的初始化"></a>数组的初始化</h2><p>数组的初始化分为<strong>动态初始化</strong>和<strong>静态初始化</strong>，动态初始化就是在定义数组时只定义数组的长度，系统自动为元素赋初值的方式；静态初始化就是在定义时就同时为数组的每个元素赋值。</p>
+<p>数组的静态初始化有2种方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">1</span>，类型[] 数组名 = <span class="hljs-keyword">new</span> 类型[] &#123;元素,元素...&#125;;<br><span class="hljs-number">2</span>，类型[] 数组名 = &#123;元素,元素...&#125;;<span class="hljs-comment">//为了简便，建议使用这种</span><br></code></pre></td></tr></table></figure>
+
+<br>
+
+<p><strong>注意！！！</strong>：若使用第一种进行静态初始化，则不能写作int[] a &#x3D; new int[3] {1,2,3};这种形式，即不能带有长度，否则会报错，原因时编译器认为数组限定的元素[3]可能与实际储存的元素[1,2,3]个数不一致，存在一定的安全隐患。</p>
+<h2 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h2><p>以二维数组为例，二维数组的定义有以下3种方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">1.</span><span class="hljs-type">int</span>[][] arr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span> [<span class="hljs-number">3</span>][<span class="hljs-number">4</span>];<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">x[0] -&gt;</th>
+<th>x[0][0]</th>
+<th>x[0][1]</th>
+<th>x[0][2]</th>
+<th>x[0][3]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">x[1] -&gt;</td>
+<td>x[1][0]</td>
+<td>x[1][1]</td>
+<td>x[1][2]</td>
+<td>x[1][3]</td>
+</tr>
+<tr>
+<td align="center">x[3] -&gt;</td>
+<td>x[3][0]</td>
+<td>x[3][1]</td>
+<td>x[3][2]</td>
+<td>x[3][3]</td>
+</tr>
+</tbody></table>
+<p>定义了一个3*4的数组</p>
+<br>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">2.</span><span class="hljs-type">int</span>[][] arr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[<span class="hljs-number">3</span>][];<br></code></pre></td></tr></table></figure>
+
+<table>
+    <tr><td>x[0]</td>
+        <td>x[0][0]</td>	
+    </tr>
+    <tr>
+        <td>x[1]</td>
+        <td>x[1][0]</td>
+        <td>x[1][1]</td>
+    </tr>
+    <tr>
+        <td>x[2]</td>
+        <td>x[2][0]</td>
+    </tr>
+</table>
+
+<p>定义了一个3行的数组，数组中的每个元素的长度不一定，且每个元素长度可以不同</p>
+<br>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">3.</span><span class="hljs-type">int</span>[][] arr = &#123;&#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>&#125;,&#123;<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>&#125;,&#123;<span class="hljs-number">7</span>,<span class="hljs-number">8</span>&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<br>
+
+<p class="note note-success">完结撒花，前方右转<b>java-面向对象</b></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">#学习笔记</a>
+      
+        <a href="/tags/java/">#java</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a><p>
+
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>
